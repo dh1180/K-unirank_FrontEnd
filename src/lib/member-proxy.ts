@@ -6,6 +6,7 @@ const permitted = new Set([
   "/api/v1/member/logout",
   "/api/v1/member/me",
   "/api/v1/member/favorites/universities",
+  "/api/v1/member/favorites/units",
 ]);
 
 function error(detail: string, status: number) {
@@ -18,7 +19,8 @@ export async function proxyMember(request: NextRequest, destination: string,
     return error("회원 기능은 아직 이전 검증 중입니다.", 503);
   }
   const isFavoriteId = /^\/api\/v1\/member\/favorites\/universities\/[1-9]\d*$/.test(destination);
-  if (!permitted.has(destination) && !isFavoriteId) return error("지원하지 않는 요청입니다.", 404);
+  const isFavoriteUnitId = /^\/api\/v1\/member\/favorites\/units\/[1-9]\d*$/.test(destination);
+  if (!permitted.has(destination) && !isFavoriteId && !isFavoriteUnitId) return error("지원하지 않는 요청입니다.", 404);
   if (method !== "GET") {
     const origin = request.headers.get("origin");
     if (!origin || origin !== request.nextUrl.origin
