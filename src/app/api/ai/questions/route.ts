@@ -22,7 +22,8 @@ export async function POST(request: NextRequest) {
   }
   try {
     const payload: unknown = await request.json();
-    const question = (payload as { question?: unknown })?.question;
+    const question = payload && typeof payload === "object"
+      ? (payload as { question?: unknown }).question : undefined;
     if (typeof question !== "string" || question.trim().length < 8 || question.length > 500) {
       return NextResponse.json({ detail: "8~500자로 질문을 입력해 줘." }, { status: 422 });
     }

@@ -1,40 +1,50 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type FormEvent } from "react";
+import { type FormEvent, useState } from "react";
 import type { GradeComparison } from "@/lib/types";
 
-type Reply = {
-  filters: { grade: number; year: number | null; major: string | null; region: string | null };
+type Parsed = {
+  grade: number;
+  year: number | null;
+  track: "student" | "holistic";
+  region: string | null;
+  major: string | null;
+};
+type AiReply = {
+  filters: Parsed;
   admissions: GradeComparison;
   evidencePolicy: string;
 };
 
-export default function AiPage() {
+export default function AiAdmissionsPage() {
   const [question, setQuestion] = useState("");
-  const [result, setResult] = useState<Reply | null>(null);
-  const [error, setError] = useState("");
+  const [response, setResponse] = useState<AiReply | null>(null);
   const [pending, setPending] = useState(false);
+  const [error, setError] = useState("");
 
-  async function submit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  async function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     if (pending) return;
     setPending(true);
-    setResult(null);
     setError("");
+    setResponse(null);
     try {
-      const response = await fetch("/api/ai/questions", {
-        method: "POST", credentials: "same-origin",
+      const result = await fetch("/api/ai/questions", {
+        method: "POST",
+        credentials: "same-origin",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question }),
+        body: JSON.stringify({ question: question.trim() }),
       });
-      const payload = await response.json();
-      if (!response.ok) {
-        throw new Error(typeof payload?.detail === "string" ? payload.detail : "AI 조회에 실패했어.");
+      const data: unknown = await result.json().catch(() => ({}));
+      if (!result.ok) {
+        const detail = data && typeof data === "object" && "detail" in data
+          ? (data as { detail?: unknown }).detail : undefined;
+        throw new Error(typeof detail === "string" ? detail : "입결 검색이 실패했어.");
       }
-      setResult(payload as Reply);
+      setResponse(data as AiReply);
     } catch (ex) {
-      setError(ex instanceof Error ? ex.message : "서버에 연결할 수 없어.");
+      setError(ex instanceof Error ? ex.message : "질문을 처리하지 못했어.");
     } finally {
       setPending(false);
     }
@@ -44,41 +54,42 @@ export default function AiPage() {
     <>
       <section className="page-header">
         <h1>AI 입결 검색</h1>
-        <p>질문을 자연어로 입력해 줘. AI는 검색 조건만 분석하고 실제 입결은 공식 데이터에서 찾아.</p>
+        <p>자연어로 질문해 줘. AI는 조건만 해석하고 실제 입결 수치는 Spring Boot에서 조회해.</p>
       </section>
       <section className="panel">
-        <form onSubmit={submit} className="ai-form">
+        <form className="ai-form" onSubmit={submit}>
           <label htmlFor="ai-question">입결 질문</label>
           <textarea id="ai-question" required minLength={8} maxLength={500}
-                    value={question} onChange={e => setQuestion(e.target.value)}
-                    placeholder="예: 내신 2.8인데 서울 컴퓨터공학과 학생부교과 2026학년도 결과 알려줘" />
-          <button className="button primary" type="submit" disabled={pending || question.trim().length < 8}>
+            value={question} onChange={event => setQuestion(event.target.value)}
+            placeholder="예: 내신 2.8인데 2026학년도 서울 컴퓨터공학과 학생부교과 전형 알려줘" />
+          <button type="submit" className="button primary"
+            disabled={pending || question.trim().length < 8}>
             {pending ? "검색 중..." : "입결 찾아보기"}
           </button>
         </form>
         {error && <p role="alert" className="notice">{error}</p>}
       </section>
-      {result && (
+      {response && (
         <section className="panel results">
-          <h2>검색 결과</h2>
-          <p>내신 {result.filters.grade}등급 · {result.admissions.selectedYear ?? "학년도 미확인"}학년도 ·
-             검색 결과 {result.admissions.totalCount.toLocaleString("ko-KR")}건</p>
-          {result.admissions.items.length ? (
-            <ul className="item-list">
-              {result.admissions.items.map(row => (
-                <li className="list-item" key={row.resultId}>
-                  <div>
-                    <strong>{row.universityName} · {row.recruitmentUnitName}</strong>
-                    <p className="muted">{row.selectionCategory} / {row.selectionName} · {row.sourceName}</p>
-                    <p>{row.referenceBasis}: {row.referenceCut}등급</p>
-                    <Link href={`/admissions/unit/${row.recruitmentUnitId}/`}>공개 입결 확인</Link>
-                  </div>
+          <h2>입결 검색 결과</h2>
+          <p>내신 {response.filters.grade}등급 · {response.admissions.selectedYear ?? "학년도 미확인"}학년도 ·
+            검색 결과 {response.admissions.totalCount.toLocaleString("ko-KR")}건</p>
+          {!response.admissions.items.length ? (
+            <p>해당 조건의 공개 입결이 없어. <Link href="/admissions/compare/">일반 검색</Link>을 이용해 줘.</p>
+          ) : (
+            <ul className="ai-evidence">
+              {response.admissions.items.map(row => (
+                <li key={row.resultId}>
+                  <strong>{row.universityName} · {row.recruitmentUnitName}</strong>
+                  <p className="muted">{row.selectionCategory} · {row.selectionName} · {row.sourceName}</p>
+                  <p>{row.referenceBasis} <b>{row.referenceCut}등급</b></p>
+                  <Link href={`/admissions/unit/${row.recruitmentUnitId}/`}>입결 근거 확인</Link>
                 </li>
               ))}
             </ul>
-          ) : <p>공개된 입결이 없어. <Link href="/admissions/compare/">조건 검색</Link>을 이용해 줘.</p>}
-          <p className="help">{result.evidencePolicy}</p>
-          <p className="help">과거 컷은 합격 확률이나 지원 자격을 보장하지 않아.</p>
+          )}
+          <p className="help">{response.evidencePolicy}</p>
+          <p className="help">과거 컷과 내 등급만으로 합격이나 지원 자격을 확정할 수 없어.</p>
         </section>
       )}
     </>
