@@ -81,3 +81,11 @@ input, select { padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 9p
 @media (max-width: 680px) {
   .rank-rating { font-size: 15px; }
 }
+
+.vs-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin: 20px 0; }
+.vs-choice { min-height: 210px; border: 2px solid #cbd5e1; background: #fff; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 18px; }
+.vs-choice:hover:not(:disabled) { border-color: #3157e5; background: #eef2ff; }
+.vs-choice:disabled { opacity: .55; cursor: wait; }
+.vs-choice strong { font-size: 20px; line-height: 1.4; text-align: center; }
+.vs-select { color: #3157e5; font-weight: 700; }
+@media (max-width: 680px) { .vs-grid { grid-template-columns: 1fr; } .vs-choice { min-height: 160px; } }
