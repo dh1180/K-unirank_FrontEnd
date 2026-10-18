@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 
 type Member = { id: number; username: string };
 type Favorite = { id: number; name: string; region: string | null };
+type FavoriteUnit = { id: number; name: string; collegeName: string;
+                      universityId: number; universityName: string };
 
 async function fetchJson<T>(url: string): Promise<T> {
   const response = await fetch(url, { credentials: "same-origin", cache: "no-store" });
@@ -18,18 +20,21 @@ export default function FavoritesPage() {
   const router = useRouter();
   const [profile, setProfile] = useState<Member | null>(null);
   const [items, setItems] = useState<Favorite[]>([]);
+  const [units, setUnits] = useState<FavoriteUnit[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   const reload = useCallback(async () => {
     setLoading(true);
     try {
-      const [member, favorites] = await Promise.all([
+      const [member, favorites, favoriteUnits] = await Promise.all([
         fetchJson<Member>("/api/member/me"),
         fetchJson<Favorite[]>("/api/member/favorites/universities"),
+        fetchJson<FavoriteUnit[]>("/api/member/favorites/units"),
       ]);
       setProfile(member);
       setItems(favorites);
+      setUnits(favoriteUnits);
       setError("");
     } catch (e) {
       setError(e instanceof Error ? e.message : "회원 정보를 불러오지 못했어.");
@@ -48,6 +53,16 @@ export default function FavoritesPage() {
       if (!response.ok) throw new Error("관심 대학 삭제에 실패했어.");
       setItems(previous => previous.filter(item => item.id !== id));
     } catch (e) { setError(e instanceof Error ? e.message : "삭제에 실패했어."); }
+  }
+
+  async function removeUnit(id: number) {
+    try {
+      const response = await fetch(`/api/member/favorites/units/${id}`, {
+        method: "DELETE", credentials: "same-origin",
+      });
+      if (!response.ok) throw new Error("관심 학과 해제에 실패했어.");
+      setUnits(previous => previous.filter(item => item.id !== id));
+    } catch (e) { setError(e instanceof Error ? e.message : "해제에 실패했어."); }
   }
 
   async function logout() {
@@ -70,6 +85,7 @@ export default function FavoritesPage() {
             <div className="actions"><p><b>{profile.username}</b>님의 관심 대학</p>
               <button className="button" type="button" onClick={() => void logout()}>로그아웃</button>
             </div>
+            <h2>관심 대학</h2>
             {items.length === 0 ? <p>관심 대학이 없어. <Link href="/universities/">대학 찾기</Link></p>
               : <ul className="item-list">
                 {items.map(item => (
@@ -80,6 +96,23 @@ export default function FavoritesPage() {
                   </li>
                 ))}
               </ul>}
+            <h2>관심 학과·모집단위</h2>
+            {units.length === 0 ? (
+              <p>관심 학과가 없어. <Link href="/universities/">학과 찾기</Link></p>
+            ) : (
+              <ul className="item-list">
+                {units.map(unit => (
+                  <li className="list-item" key={unit.id}>
+                    <div>
+                      <strong><Link href={`/admissions/unit/${unit.id}/`}>{unit.name}</Link></strong>
+                      <p>{unit.universityName} · {unit.collegeName || "단과대 미등록"}</p>
+                    </div>
+                    <button className="button" type="button"
+                      onClick={() => void removeUnit(unit.id)}>해제</button>
+                  </li>
+                ))}
+              </ul>
+            )}
           </>
         )}
       </section>
