@@ -20,6 +20,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               <Link href="/admissions/compare/">내 점수</Link>
               <Link href="/universities/">대학</Link>
               <Link href="/ranking/">순위</Link>
+              <Link href="/vs/">VS</Link>
             </nav>
           </div>
         </header>
