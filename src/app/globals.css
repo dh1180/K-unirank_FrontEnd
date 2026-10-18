@@ -89,3 +89,10 @@ input, select { padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 9p
 .vs-choice strong { font-size: 20px; line-height: 1.4; text-align: center; }
 .vs-select { color: #3157e5; font-weight: 700; }
 @media (max-width: 680px) { .vs-grid { grid-template-columns: 1fr; } .vs-choice { min-height: 160px; } }
+
+.ai-form { display: flex; flex-direction: column; gap: 12px; }
+.ai-form textarea { width: 100%; min-height: 120px; padding: 14px; font: inherit; border-radius: 10px; border: 1px solid #cbd5e1; resize: vertical; }
+.ai-form .button { align-self: flex-start; }
+.ai-evidence { margin-top: 18px; padding-left: 0; list-style: none; }
+.ai-evidence li { padding: 14px 0; border-bottom: 1px solid #e2e8f0; }
+.ai-evidence strong { display: block; margin-bottom: 5px; }
