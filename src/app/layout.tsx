@@ -22,6 +22,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               <Link href="/ranking/">순위</Link>
               <Link href="/vs/">VS</Link>
               <Link href="/ai/">AI 입결</Link>
+              <Link href="/favorites/">관심 대학</Link>
+              <Link href="/login/">로그인</Link>
             </nav>
           </div>
         </header>

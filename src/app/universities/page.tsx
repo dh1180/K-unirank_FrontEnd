@@ -4,6 +4,7 @@ import { listUniversities } from "@/lib/api";
 import { positivePage, toQuery } from "@/lib/query.mjs";
 import { Notice } from "@/components/Notice";
 import { Pagination } from "@/components/Pagination";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 export const metadata: Metadata = { title: "대학 목록" };
 
@@ -42,6 +43,7 @@ export default async function UniversitiesPage({
                   <div>
                     <strong><Link href={`/universities/${item.id}/`}>{item.name}</Link></strong>
                     <p className="muted">{item.region ?? "지역 미상"} · 대학 ID {item.id}</p>
+                    <FavoriteButton universityId={item.id} />
                   </div>
                 </li>
               ))}
