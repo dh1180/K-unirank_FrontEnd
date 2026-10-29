@@ -7,12 +7,19 @@ import { Notice } from "@/components/Notice";
 import { Pagination } from "@/components/Pagination";
 import { AdmissionsTable } from "@/components/AdmissionsTable";
 import { UniversityLogo } from "@/components/UniversityLogo";
-import { MetricToggle } from "@/components/MetricToggle";
+import { UniversityAdmissionFilters } from "@/components/UniversityAdmissionFilters";
 
 export const metadata: Metadata = { title: "대학별 입시결과" };
 type Props = {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ page?: string; year?: string; metrics?: string }>;
+  searchParams: Promise<{
+    page?: string;
+    year?: string;
+    metrics?: string;
+    q?: string;
+    phase?: string;
+    track?: string;
+  }>;
 };
 export default async function UniversityAdmissionsPage({
   params,
@@ -25,8 +32,18 @@ export default async function UniversityAdmissionsPage({
   const year =
     query.year && /^\d{4}$/.test(query.year) ? Number(query.year) : undefined;
   const metrics = query.metrics === "all" ? "all" : "public";
+  const q = typeof query.q === "string" ? query.q.slice(0, 100) : "";
+  const phase = ["SUSI", "JEONGSI"].includes(query.phase ?? "")
+    ? query.phase!
+    : "";
+  const track = ["student", "holistic", "csat", "essay", "practical"].includes(
+    query.track ?? "",
+  )
+    ? query.track!
+    : "";
+  const filters = { q, phase, track, year, metrics };
   const [data, university] = await Promise.all([
-    universityAdmissions(Number(id), page, year, metrics),
+    universityAdmissions(Number(id), page, year, metrics, { q, phase, track }),
     getUniversity(Number(id)),
   ]);
   const title = university?.name ?? data?.items[0]?.universityName ?? "대학";
@@ -57,29 +74,7 @@ export default async function UniversityAdmissionsPage({
           대학 정보 보기 →
         </Link>
       </section>
-      <div className="admission-controls">
-        <MetricToggle
-          href={`/admissions/university/${id}/`}
-          params={{ year }}
-          publicOnly={metrics !== "all"}
-        />
-        <form method="get">
-          <input type="hidden" name="metrics" value={metrics} />
-          <label>
-            입결 학년도
-            <input
-              type="number"
-              name="year"
-              min="2000"
-              max="2100"
-              placeholder="전체"
-              aria-label="입결 학년도"
-              defaultValue={year ?? ""}
-            />
-          </label>
-          <button className="button">적용</button>
-        </form>
-      </div>
+      <UniversityAdmissionFilters id={id} {...filters} />
       {!data ? (
         <Notice>
           입시결과를 불러오지 못했어요. 잠시 후 다시 시도해 주세요.
@@ -99,15 +94,15 @@ export default async function UniversityAdmissionsPage({
             <AdmissionsTable items={data.items} detailed />
           ) : (
             <Notice>
-              조건에 맞는 결과가 없어요. 지표 필터를 해제하거나 학년도를 변경해
-              보세요.
+              조건에 맞는 결과가 없어요. 검색어·전형·학년도 조건을 변경하거나
+              입결 지표 필터를 해제해 보세요.
             </Notice>
           )}
           <Pagination
             href={`/admissions/university/${id}/`}
             page={page}
             hasNext={data.hasNext}
-            params={{ year, metrics }}
+            params={filters}
           />
         </>
       )}
