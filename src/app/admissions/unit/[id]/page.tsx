@@ -87,7 +87,7 @@ export default async function AdmissionUnitPage({
         <Notice>입시결과를 불러오지 못했어요.</Notice>
       ) : (
         <>
-          <div className="result-toolbar">
+          <div className="result-toolbar" id="results">
             <p>
               <b>{data.totalCount.toLocaleString("ko-KR")}</b>건{" "}
               <span>

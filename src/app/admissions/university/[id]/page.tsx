@@ -81,7 +81,7 @@ export default async function UniversityAdmissionsPage({
         </Notice>
       ) : (
         <>
-          <div className="result-toolbar">
+          <div className="result-toolbar" id="results">
             <p>
               <b>{data.totalCount.toLocaleString("ko-KR")}</b>건{" "}
               <span>

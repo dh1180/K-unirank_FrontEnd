@@ -290,6 +290,7 @@ export default async function GradeComparisonPage({
               </ol>
             )}
             <Pagination
+              anchor="comparison-results"
               href="/admissions/compare/"
               page={page}
               hasNext={data.hasNext}

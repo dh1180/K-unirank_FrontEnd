@@ -80,7 +80,7 @@ export default async function UniversitiesPage({
         </Notice>
       ) : (
         <>
-          <div className="result-toolbar">
+          <div className="result-toolbar" id="results">
             <p>
               총 <b>{data.totalCount.toLocaleString("ko-KR")}</b>개 대학{" "}
               {q && <span>· “{q}” 검색 결과</span>}
