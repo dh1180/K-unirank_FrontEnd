@@ -10,6 +10,8 @@ import { FavoriteButton } from "@/components/FavoriteButton";
 import { AdmissionsTable } from "@/components/AdmissionsTable";
 import { UniversityLogo } from "@/components/UniversityLogo";
 import { MetricToggle } from "@/components/MetricToggle";
+import { StructuredData } from "@/components/StructuredData";
+import { SITE_ORIGIN } from "@/lib/site-policy.mjs";
 
 export async function generateMetadata({
   params,
@@ -50,6 +52,28 @@ export default async function AdmissionUnitPage({
     (await unitAdmissions(Number(id), 0, undefined, "all"))?.items[0];
   return (
     <>
+      {row && (
+        <StructuredData
+          data={{
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { name: "대학 입결 찾기", item: `${SITE_ORIGIN}/` },
+              {
+                name: row.universityName,
+                item: `${SITE_ORIGIN}/universities/${row.universityId}/`,
+              },
+              {
+                name: row.recruitmentUnitName,
+                item: `${SITE_ORIGIN}/admissions/unit/${id}/`,
+              },
+            ].map((item, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              ...item,
+            })),
+          }}
+        />
+      )}
       <p className="breadcrumb">
         <Link href="/">입결 찾기</Link>
         <span>/</span>

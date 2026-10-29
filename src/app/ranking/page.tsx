@@ -5,12 +5,35 @@ import { ranking } from "@/lib/api";
 import { Notice } from "@/components/Notice";
 import { UniversityLogo } from "@/components/UniversityLogo";
 import { Icon } from "@/components/Icon";
+import { StructuredData } from "@/components/StructuredData";
+import { SITE_ORIGIN } from "@/lib/site-policy.mjs";
 
 export const metadata: Metadata = { title: "대학 선호도 순위" };
 export default async function RankingPage() {
   const data = await ranking("overall", 100);
   return (
     <>
+      {data && (
+        <StructuredData
+          data={{
+            "@type": "CollectionPage",
+            name: "대학 선호도 순위",
+            url: `${SITE_ORIGIN}/ranking/`,
+            mainEntity: {
+              "@type": "ItemList",
+              itemListElement: data.ranking.map((row, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                item: {
+                  "@type": "CollegeOrUniversity",
+                  name: row.name,
+                  url: `${SITE_ORIGIN}/universities/${row.university_id}/`,
+                },
+              })),
+            },
+          }}
+        />
+      )}
       <section
         className="directory-heading"
         data-ga-view="ranking_view"

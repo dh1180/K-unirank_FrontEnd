@@ -1,4 +1,6 @@
 import { DisplayAd } from "@/components/DisplayAd";
+import { StructuredData } from "@/components/StructuredData";
+import { SITE_ORIGIN } from "@/lib/site-policy.mjs";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { listUniversities } from "@/lib/api";
@@ -36,6 +38,27 @@ export default async function UniversitiesPage({
   const data = await listUniversities(q, page, region);
   return (
     <>
+      {data && (
+        <StructuredData
+          data={{
+            "@type": "CollectionPage",
+            name: "전국 대학 찾기",
+            url: `${SITE_ORIGIN}/universities/`,
+            mainEntity: {
+              "@type": "ItemList",
+              itemListElement: data.items.map((row, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                item: {
+                  "@type": "CollegeOrUniversity",
+                  name: row.name,
+                  url: `${SITE_ORIGIN}/universities/${row.id}/`,
+                },
+              })),
+            },
+          }}
+        />
+      )}
       <section
         className="directory-heading"
         data-ga-view="university_list_view"

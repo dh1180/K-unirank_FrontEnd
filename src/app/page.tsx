@@ -67,6 +67,13 @@ export default async function HomePage({
     <>
       <StructuredData
         data={{
+          "@type": "CollectionPage",
+          name: "대학·학과 입결 찾기",
+          url: SITE_ORIGIN,
+        }}
+      />
+      <StructuredData
+        data={{
           "@type": "WebSite",
           name: "K-unirank",
           url: SITE_ORIGIN,
