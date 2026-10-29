@@ -43,7 +43,7 @@ export default async function UniversitiesPage({
                   <div>
                     <strong><Link href={`/universities/${item.id}/`}>{item.name}</Link></strong>
                     <p className="muted">{item.region ?? "지역 미상"} · 대학 ID {item.id}</p>
-                    <FavoriteButton universityId={item.id} />
+                    {process.env.MEMBER_FRONTEND_ENABLED === "true" && <FavoriteButton universityId={item.id} />}
                   </div>
                 </li>
               ))}

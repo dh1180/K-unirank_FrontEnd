@@ -10,11 +10,11 @@ K-unirank의 **Next.js + React + TypeScript** 프런트엔드 전용 저장소�
 
 ## 개발
 
-Node.js 22 이상이 필요합니다. 먼저 별도 개발 PostgreSQL 복제본을 사용해 Spring Boot API를 실행하세요.
+Node.js 22 이상이 필요합니다. 로컬에서는 별도 개발 DB를 사용하는 Spring Boot API를 실행하세요. Railway 미리보기는 배포된 읽기 전용 Spring API를 사용합니다.
 
 ```bash
 cp .env.example .env.local
-npm install
+npm ci
 npm run dev
 ```
 
@@ -26,13 +26,17 @@ npm run typecheck
 npm run build
 ```
 
-## Railway 배포 계획
+## Railway 미리보기 배포
 
-- 프런트엔드 자체를 Railway의 별도 `web` 서비스로 배포
+- 기존 Django `web`과 별도인 `frontend` 서비스로 배포
 - Next.js는 **리포지터리 루트를 빌드 컨텍스트**로 사용
-- `API_INTERNAL_URL`은 백엔드 연결을 검증한 테스트 환경에서만 구성
+- `API_INTERNAL_URL=http://api.railway.internal:8080`으로 Spring API 연결
+- `PORT=3000`; `/api/health/`가 Spring health까지 확인하며 정상일 때 HTTP 200, 연결 실패 시 503 반환
+- Docker는 lockfile 기반 `npm ci` 빌드, Next.js standalone 결과물 및 비루트 사용자로 실행
+- `VS_FRONTEND_ENABLED=false`, `MEMBER_FRONTEND_ENABLED=false`, `AI_FRONTEND_ENABLED=false` 유지. 준비 중인 메뉴와 관심 등록 버튼은 숨기며 BFF도 비활성 상태 유지
+- Railway 미리보기 도메인을 사용. 기존 실서비스 도메인과 Django 배포는 유지
 - `/admissions/`, 대학·학과 URL, 구조화 데이터, 로그인, VS 기능, 광고, sitemap 등 기존 서비스와 동등성 검증 후 운영 도메인 전환
-- `robots.ts`와 `layout.tsx`에 **noindex**가 있으므로 운영 전환 전 반드시 별도 PR에서 해제·검증
+- `robots.ts`, `layout.tsx`, HTTP `X-Robots-Tag`에 **noindex**가 있으므로 운영 전환 전 별도 변경으로 해제·검증
 
 ## Git 컨벤션
 

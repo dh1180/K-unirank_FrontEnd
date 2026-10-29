@@ -31,7 +31,7 @@ export default async function AdmissionUnitPage({
         <section className="panel">
           <h2>{data.items[0]?.universityName ?? "모집단위"} {data.items[0]?.recruitmentUnitName ?? ""}</h2>
           <p className="muted">공개 입결 {data.totalCount.toLocaleString("ko-KR")}건</p>
-          <FavoriteButton unitId={Number(id)} />
+          {process.env.MEMBER_FRONTEND_ENABLED === "true" && <FavoriteButton unitId={Number(id)} />}
           <ul className="item-list">
             {data.items.map(row => (
               <li className="list-item" key={row.id}>
