@@ -3455,8 +3455,11 @@ input::placeholder {
 }
 .university-profile .unit-grid {
   gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .university-profile .unit-grid .list-item {
+  min-width: 0;
+  overflow-wrap: anywhere;
   padding: 18px;
   background: #fff;
 }
@@ -3524,5 +3527,8 @@ input::placeholder {
   }
   .university-profile .unit-grid a {
     font-size: 14px;
+  }
+  .university-profile .unit-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
