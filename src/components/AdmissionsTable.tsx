@@ -26,6 +26,29 @@ const metricLabels: Record<string, string> = {
 export function metricLabel(code: string) {
   return metricLabels[code] ?? code.replaceAll("_", " ");
 }
+
+function summaryMetrics(row: AdmissionResult) {
+  const preferred =
+    row.phase === "JEONGSI"
+      ? [
+          "CSAT_PERCENTILE_MEAN_70_CUT",
+          "CSAT_CONVERTED_SCORE_70_CUT",
+          "CSAT_GRADE_70_CUT",
+          "COLLEGE_CSAT_AVERAGE",
+          "COLLEGE_CSAT_MINIMUM",
+        ]
+      : [
+          "STUDENT_GRADE_70_CUT",
+          "CONVERTED_SCORE_70_CUT",
+          "COLLEGE_STUDENT_AVERAGE",
+          "COLLEGE_STUDENT_MINIMUM",
+          "ESSAY_SCORE_70_CUT",
+        ];
+  const selected = preferred.flatMap((code) =>
+    row.metrics.filter((metric) => metric.code === code),
+  );
+  return (selected.length ? selected : row.metrics).slice(0, 2);
+}
 export function AdmissionsTable({ items }: { items: AdmissionResult[] }) {
   return (
     <div className="table-scroll">
@@ -88,7 +111,7 @@ export function AdmissionsTable({ items }: { items: AdmissionResult[] }) {
                 <small>: 1</small>
               </td>
               <td>
-                {row.metrics.slice(0, 2).map((metric) => (
+                {summaryMetrics(row).map((metric) => (
                   <div className="table-metric" key={metric.code}>
                     <small>{metricLabel(metric.code)}</small>
                     <b>{metric.value.toFixed(2)}</b>
