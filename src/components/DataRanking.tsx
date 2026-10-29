@@ -137,7 +137,7 @@ export async function DataRanking({
               </Link>
             ))}
           </div>
-          <div className="result-toolbar">
+          <div className="result-toolbar" id="results">
             <p>
               <b>{data.totalCount.toLocaleString("ko-KR")}</b>개 대학
             </p>

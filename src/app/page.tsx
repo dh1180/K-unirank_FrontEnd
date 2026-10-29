@@ -222,7 +222,7 @@ export default async function HomePage({
           />
           <Link href="/#explore">조건 초기화 ↻</Link>
         </div>
-        <div className="result-toolbar">
+        <div className="result-toolbar" id="results">
           <p>
             <b>{data?.totalCount.toLocaleString("ko-KR") ?? "—"}</b>건{" "}
             <span>

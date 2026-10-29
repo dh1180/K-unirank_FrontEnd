@@ -2936,8 +2936,9 @@ input::placeholder {
   font-size: 12px;
   padding: 11px;
 }
+#results,
 .comparison-results {
-  scroll-margin-top: 110px;
+  scroll-margin-top: 16px;
 }
 .comparison-result-heading {
   display: flex;

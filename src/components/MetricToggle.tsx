@@ -28,6 +28,7 @@ export function MetricToggle({
           startTransition(() =>
             router.push(
               `${href}?${toQuery({ ...params, metrics: next ? "public" : "all", page: 0 })}`,
+              { scroll: false },
             ),
           );
         }}
