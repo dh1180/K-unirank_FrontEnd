@@ -1,16 +1,44 @@
+import { DisplayAd } from "@/components/DisplayAd";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ranking } from "@/lib/api";
 import { Notice } from "@/components/Notice";
 import { UniversityLogo } from "@/components/UniversityLogo";
 import { Icon } from "@/components/Icon";
+import { StructuredData } from "@/components/StructuredData";
+import { SITE_ORIGIN } from "@/lib/site-policy.mjs";
 
 export const metadata: Metadata = { title: "대학 선호도 순위" };
 export default async function RankingPage() {
   const data = await ranking("overall", 100);
   return (
     <>
-      <section className="directory-heading">
+      {data && (
+        <StructuredData
+          data={{
+            "@type": "CollectionPage",
+            name: "대학 선호도 순위",
+            url: `${SITE_ORIGIN}/ranking/`,
+            mainEntity: {
+              "@type": "ItemList",
+              itemListElement: data.ranking.map((row, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                item: {
+                  "@type": "CollegeOrUniversity",
+                  name: row.name,
+                  url: `${SITE_ORIGIN}/universities/${row.university_id}/`,
+                },
+              })),
+            },
+          }}
+        />
+      )}
+      <section
+        className="directory-heading"
+        data-ga-view="ranking_view"
+        data-ga-param-board="overall"
+      >
         <div>
           <p className="eyebrow">COMMUNITY RANKING</p>
           <h1>대학 선호도 순위</h1>
@@ -21,6 +49,7 @@ export default async function RankingPage() {
           <span>함께 만드는 순위</span>
         </span>
       </section>
+      <DisplayAd />
       <div className="ranking-notice">
         <span className="status-dot" />
         사용자 VS 투표 기반 선호도입니다. 공식 대학평가나 입결 순위와는
@@ -36,6 +65,10 @@ export default async function RankingPage() {
             {data.ranking.slice(0, 3).map((item) => (
               <Link
                 className={`podium-card podium-${item.rank}`}
+                data-ga-event="ranking_university_open"
+                data-ga-param-board="overall"
+                data-ga-param-rank={item.rank}
+                data-ga-param-university={item.name}
                 href={`/universities/${item.university_id}/`}
                 key={item.university_id}
               >
@@ -78,7 +111,13 @@ export default async function RankingPage() {
                   </span>
                   <UniversityLogo id={item.university_id} name={item.name} />
                   <div>
-                    <Link href={`/universities/${item.university_id}/`}>
+                    <Link
+                      data-ga-event="ranking_university_open"
+                      data-ga-param-board="overall"
+                      data-ga-param-rank={item.rank}
+                      data-ga-param-university={item.name}
+                      href={`/universities/${item.university_id}/`}
+                    >
                       {item.name}
                     </Link>
                     <small>
@@ -95,6 +134,7 @@ export default async function RankingPage() {
               ))}
             </ol>
           </section>
+          {data.ranking.length >= 12 && <DisplayAd />}
         </>
       )}
     </>

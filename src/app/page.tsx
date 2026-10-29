@@ -1,3 +1,4 @@
+import { DisplayAd } from "@/components/DisplayAd";
 import Link from "next/link";
 import { searchAdmissions, listUniversities } from "@/lib/api";
 import { positivePage, toQuery } from "@/lib/query.mjs";
@@ -6,6 +7,8 @@ import { AdmissionsTable } from "@/components/AdmissionsTable";
 import { Pagination } from "@/components/Pagination";
 import { UniversityLogo } from "@/components/UniversityLogo";
 import { MetricToggle } from "@/components/MetricToggle";
+import { StructuredData } from "@/components/StructuredData";
+import { SITE_ORIGIN } from "@/lib/site-policy.mjs";
 
 type Search = {
   q?: string;
@@ -62,6 +65,28 @@ export default async function HomePage({
   }
   return (
     <>
+      <StructuredData
+        data={{
+          "@type": "CollectionPage",
+          name: "대학·학과 입결 찾기",
+          url: SITE_ORIGIN,
+        }}
+      />
+      <StructuredData
+        data={{
+          "@type": "WebSite",
+          name: "K-unirank",
+          url: SITE_ORIGIN,
+          potentialAction: {
+            "@type": "SearchAction",
+            target: {
+              "@type": "EntryPoint",
+              urlTemplate: `${SITE_ORIGIN}/?q={search_term_string}`,
+            },
+            "query-input": "required name=search_term_string",
+          },
+        }}
+      />
       <div className="section-tabs">
         <Link className="active" href="/">
           입결 찾기
@@ -85,7 +110,13 @@ export default async function HomePage({
             <br />
             공개된 입시 결과와 원문 출처를 한곳에 모았어요.
           </p>
-          <form className="hero-search" action="/#explore" method="get">
+          <form
+            data-ga-submit="home_admission_search"
+            data-ga-search-field="q"
+            className="hero-search"
+            action="/#explore"
+            method="get"
+          >
             <input type="hidden" name="metrics" value={metrics} />
             <Icon name="search" />
             <input
@@ -121,7 +152,11 @@ export default async function HomePage({
             학과를 찾아볼까요?
           </h2>
           <p>내신과 공개된 등급컷을 비교해요.</p>
-          <form action="/admissions/compare/" method="get">
+          <form
+            data-ga-submit="home_grade_compare"
+            action="/admissions/compare/"
+            method="get"
+          >
             <div className="grade-inputs">
               <label>
                 내 평균등급
@@ -166,7 +201,13 @@ export default async function HomePage({
         </span>
         <small>어디가 · 전문대학포털 · 대학 입학처</small>
       </div>
-      <section className="explorer" id="explore">
+      <DisplayAd />
+      <section
+        className="explorer"
+        id="explore"
+        data-ga-view="admission_overview_view"
+        data-ga-param-year={data?.selectedYear ?? ""}
+      >
         <div className="section-heading">
           <div>
             <p className="eyebrow">01 / EXPLORE</p>
@@ -178,7 +219,12 @@ export default async function HomePage({
           </Link>
         </div>
         <div className="explorer-panel">
-          <form className="explorer-search" action="/#explore">
+          <form
+            data-ga-submit="home_admission_search"
+            data-ga-search-field="q"
+            className="explorer-search"
+            action="/#explore"
+          >
             <Icon name="search" />
             <input
               name="q"

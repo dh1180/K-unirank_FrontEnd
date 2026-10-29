@@ -1,9 +1,12 @@
+import { DisplayAd } from "@/components/DisplayAd";
 import Link from "next/link";
 import { dataRanking, type RankSearch } from "@/lib/rankings";
 import { positivePage, toQuery } from "@/lib/query.mjs";
 import { Pagination } from "@/components/Pagination";
 import { UniversityLogo } from "@/components/UniversityLogo";
 import { Notice } from "@/components/Notice";
+import { StructuredData } from "@/components/StructuredData";
+import { SITE_ORIGIN } from "@/lib/site-policy.mjs";
 
 function displayValue(value: number, kind: string): [string, string] {
   if (kind === "money")
@@ -44,12 +47,46 @@ export async function DataRanking({
   const data = await dataRanking(slug, { ...params, page, size: 40 });
   return (
     <>
+      {data && (
+        <StructuredData
+          data={{
+            "@type": "CollectionPage",
+            name: admissions
+              ? "대학 입결 순위"
+              : `${data.metric.label} 대학 순위`,
+            url: SITE_ORIGIN + path,
+            mainEntity: {
+              "@type": "ItemList",
+              itemListElement: data.items.map((row, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                item: {
+                  "@type": "CollegeOrUniversity",
+                  name: row.name,
+                  url: `${SITE_ORIGIN}/universities/${row.universityId}/`,
+                },
+              })),
+            },
+          }}
+        />
+      )}
       <p className="breadcrumb">
         <Link href="/rankings/">대학 순위</Link>
         <span>/</span>
         {admissions ? "입결 순위" : (data?.metric.label ?? "공시 지표")}
       </p>
-      <section className="directory-heading">
+      <section
+        className="directory-heading"
+        data-ga-view={
+          admissions
+            ? "admission_ranking_view"
+            : "official_indicator_ranking_view"
+        }
+        data-ga-param-year={data?.selectedYear ?? ""}
+        data-ga-param-kind={admissions ? kind : ""}
+        data-ga-param-phase={admissions ? phase : ""}
+        data-ga-param-indicator={data?.metric.code ?? ""}
+      >
         <div>
           <p className="eyebrow">
             {admissions ? "ADMISSION RANKING" : "OFFICIAL DATA"}
@@ -137,6 +174,7 @@ export async function DataRanking({
               </Link>
             ))}
           </div>
+          <DisplayAd />
           <div className="result-toolbar" id="results">
             <p>
               <b>{data.totalCount.toLocaleString("ko-KR")}</b>개 대학
@@ -206,6 +244,7 @@ export async function DataRanking({
             hasNext={data.hasNext}
             params={params}
           />
+          {data.items.length >= 12 && <DisplayAd />}
           <div className="method-note">
             <strong>이 순위의 기준</strong>
             <p>

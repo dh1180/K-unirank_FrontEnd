@@ -1,3 +1,6 @@
+import { DisplayAd } from "@/components/DisplayAd";
+import { StructuredData } from "@/components/StructuredData";
+import { SITE_ORIGIN } from "@/lib/site-policy.mjs";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { listUniversities } from "@/lib/api";
@@ -35,7 +38,33 @@ export default async function UniversitiesPage({
   const data = await listUniversities(q, page, region);
   return (
     <>
-      <section className="directory-heading">
+      {data && (
+        <StructuredData
+          data={{
+            "@type": "CollectionPage",
+            name: "전국 대학 찾기",
+            url: `${SITE_ORIGIN}/universities/`,
+            mainEntity: {
+              "@type": "ItemList",
+              itemListElement: data.items.map((row, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                item: {
+                  "@type": "CollegeOrUniversity",
+                  name: row.name,
+                  url: `${SITE_ORIGIN}/universities/${row.id}/`,
+                },
+              })),
+            },
+          }}
+        />
+      )}
+      <section
+        className="directory-heading"
+        data-ga-view="university_list_view"
+        data-ga-param-query={q}
+        data-ga-param-region={region}
+      >
         <div>
           <p className="eyebrow">UNIVERSITIES</p>
           <h1>전국 대학 찾기</h1>
@@ -46,7 +75,13 @@ export default async function UniversitiesPage({
           <span>나의 다음 캠퍼스</span>
         </div>
       </section>
-      <form action="/universities/" className="directory-search" method="get">
+      <form
+        action="/universities/"
+        data-ga-submit="university_search"
+        data-ga-search-field="q"
+        className="directory-search"
+        method="get"
+      >
         <Icon name="search" size={22} />
         <input
           id="university-q"
@@ -74,6 +109,7 @@ export default async function UniversitiesPage({
           </Link>
         ))}
       </div>
+      <DisplayAd />
       {data === null ? (
         <Notice>
           대학 정보를 불러오지 못했어요. 잠시 후 다시 시도해 주세요.
@@ -101,6 +137,9 @@ export default async function UniversitiesPage({
               {data.items.map((item) => (
                 <Link
                   className="school-card"
+                  data-ga-event="university_open"
+                  data-ga-param-university={item.name}
+                  data-ga-param-region={item.region ?? ""}
                   key={item.id}
                   href={`/universities/${item.id}/`}
                 >

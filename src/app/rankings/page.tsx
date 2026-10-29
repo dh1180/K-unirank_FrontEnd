@@ -7,7 +7,7 @@ export default async function RankingsHub() {
   const cards = await rankingCatalog();
   return (
     <>
-      <section className="directory-heading">
+      <section className="directory-heading" data-ga-view="ranking_hub_view">
         <div>
           <p className="eyebrow">RANKINGS</p>
           <h1>대학 순위</h1>
@@ -25,7 +25,12 @@ export default async function RankingsHub() {
         </div>
       </div>
       <div className="ranking-hub-primary">
-        <Link href="/admissions/ranking/" className="hub-main-card">
+        <Link
+          href="/admissions/ranking/"
+          className="hub-main-card"
+          data-ga-event="ranking_hub_open"
+          data-ga-param-ranking="admissions"
+        >
           <span className="hub-icon">
             <Icon name="book" size={26} />
           </span>
@@ -36,7 +41,12 @@ export default async function RankingsHub() {
           </div>
           <Icon name="arrow" />
         </Link>
-        <Link href="/ranking/" className="hub-main-card">
+        <Link
+          href="/ranking/"
+          className="hub-main-card"
+          data-ga-event="ranking_hub_open"
+          data-ga-param-ranking="preference"
+        >
           <span className="hub-icon navy">
             <Icon name="chart" size={26} />
           </span>
@@ -72,6 +82,8 @@ export default async function RankingsHub() {
             <Link
               key={metric.code}
               className="indicator-card"
+              data-ga-event="ranking_hub_open"
+              data-ga-param-ranking={metric.code}
               href={`/universities/indicators/${metric.slug}/${year ? `?year=${year}` : ""}`}
             >
               <div>

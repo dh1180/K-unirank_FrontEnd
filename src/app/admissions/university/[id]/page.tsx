@@ -1,3 +1,4 @@
+import { DisplayAd } from "@/components/DisplayAd";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -9,7 +10,18 @@ import { AdmissionsTable } from "@/components/AdmissionsTable";
 import { UniversityLogo } from "@/components/UniversityLogo";
 import { UniversityAdmissionFilters } from "@/components/UniversityAdmissionFilters";
 
-export const metadata: Metadata = { title: "대학별 입시결과" };
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+  if (!/^[1-9]\d*$/.test(id)) return { title: "대학별 입시결과" };
+  const university = await getUniversity(Number(id));
+  return {
+    title: university ? `${university.name} 입시결과` : "대학별 입시결과",
+    description: university
+      ? `${university.name}의 학과·전형별 수시·정시 입결, 모집인원과 경쟁률을 원문 출처와 함께 확인하세요.`
+      : undefined,
+    alternates: { canonical: `/admissions/university/${id}/` },
+  };
+}
 type Props = {
   params: Promise<{ id: string }>;
   searchParams: Promise<{
@@ -55,7 +67,14 @@ export default async function UniversityAdmissionsPage({
         <Link href={`/universities/${id}/`}>{title}</Link>
         <span>/</span>입시결과
       </p>
-      <section className="university-detail-hero admissions-detail-heading">
+      <section
+        className="university-detail-hero admissions-detail-heading"
+        data-ga-view="admission_view"
+        data-ga-param-university={title}
+        data-ga-param-year={year ?? "all"}
+        data-ga-param-phase={phase || "ALL"}
+        data-ga-param-result-count={data?.totalCount ?? 0}
+      >
         <UniversityLogo
           id={Number(id)}
           name={title}
@@ -74,6 +93,7 @@ export default async function UniversityAdmissionsPage({
           대학 정보 보기 →
         </Link>
       </section>
+      <DisplayAd />
       <UniversityAdmissionFilters id={id} {...filters} />
       {!data ? (
         <Notice>
