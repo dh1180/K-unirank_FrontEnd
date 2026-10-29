@@ -48,6 +48,15 @@ export default async function RankingsHub() {
           <Icon name="arrow" />
         </Link>
       </div>
+      <div className="voting-entry-banner">
+        <div>
+          <strong>내 선택으로 만드는 대학 선호도</strong>
+          <p>두 대학 중 더 선호하는 대학을 골라보세요.</p>
+        </div>
+        <Link className="button primary" href="/vs/">
+          대학 투표 참여하기 →
+        </Link>
+      </div>
       <div className="section-heading">
         <div>
           <p className="eyebrow">OFFICIAL DATA</p>

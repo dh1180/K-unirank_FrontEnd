@@ -3795,3 +3795,283 @@ input::placeholder {
     font-size: 11px;
   }
 }
+
+/* Grade comparison: readable type, paired scores, and clear source details. */
+.comparison-result-heading h2 {
+  font-size: 24px;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+}
+.comparison-result-heading p,
+.comparison-result-heading > span {
+  font-size: 13px;
+  color: #6e7789;
+}
+.comparison-disclaimer {
+  font-size: 12px;
+  color: #7a8091;
+  line-height: 1.65;
+}
+.compare-result-list {
+  display: grid;
+  gap: 12px;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+.compare-result-row {
+  grid-template-columns: 44px minmax(0, 1fr) 220px;
+  padding: 20px 22px;
+  gap: 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+}
+.compare-result-row:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.compare-result-row > .university-logo {
+  width: 42px;
+  height: 42px;
+  flex-basis: 42px;
+}
+.compare-university-name {
+  color: #697386;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  line-height: 1.45;
+}
+.compare-major-name {
+  color: #293247;
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  line-height: 1.45;
+}
+.compare-result-copy > p {
+  color: #747e90;
+  font-size: 12px;
+  line-height: 1.55;
+}
+.compare-result-score {
+  gap: 9px;
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  background: #f8f8fd;
+  border: 1px solid #efeff6;
+  border-radius: 10px;
+  padding: 13px 14px;
+  align-items: stretch;
+}
+.compare-score-values {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.compare-score-values > div {
+  min-width: 0;
+}
+.compare-score-values > div > span {
+  display: block;
+  color: #6e7789;
+  font-size: 11px;
+  margin-bottom: 7px;
+}
+.compare-result-score strong {
+  display: block;
+  font-size: 24px;
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.compare-result-score strong.my-grade {
+  color: #4c566e;
+}
+.compare-result-score strong small {
+  font-size: 10px;
+  color: #7a8091;
+  margin-left: 3px;
+}
+.compare-position {
+  align-self: flex-end;
+  font-size: 11px;
+  font-weight: 500;
+}
+.compare-row-details {
+  font-size: 13px;
+  grid-column: 2;
+  grid-row: 2;
+  color: #596478;
+}
+.compare-row-details[open] {
+  grid-column: 2/-1;
+  grid-row: 3;
+}
+.compare-row-details summary {
+  font-size: 12px;
+  font-weight: 500;
+  color: #68618f;
+  padding: 5px 0;
+}
+.compare-row-details > div {
+  background: #fafaff;
+  border: 1px solid #e9e7f3;
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-top: 8px;
+}
+.compare-row-details p {
+  font-size: 13px;
+  color: #596478;
+  margin: 0 0 17px;
+  line-height: 1.7;
+}
+.compare-row-details dl {
+  display: grid;
+  grid-template-columns: 130px 130px minmax(0, 1fr);
+  gap: 16px;
+  margin: 0 0 17px;
+}
+.compare-row-details dt {
+  font-size: 12px;
+  color: #7a8091;
+}
+.compare-row-details dd {
+  font-size: 16px;
+  font-weight: 500;
+  color: #39445a;
+  line-height: 1.6;
+  margin-top: 5px;
+}
+.compare-row-details .compare-source-link {
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 500;
+  border-bottom: 1px solid #d8d4f6;
+  padding-bottom: 3px;
+}
+.voting-entry-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 26px;
+  margin: 0 0 30px;
+  border: 1px solid #e2def8;
+  border-radius: 14px;
+  background: #f1effc;
+}
+.voting-entry-banner strong {
+  font-size: 17px;
+  font-weight: 650;
+}
+.voting-entry-banner p {
+  color: #747e90;
+  font-size: 13px;
+  margin: 7px 0 0;
+}
+@media (max-width: 760px) {
+  .comparison-result-heading h2 {
+    font-size: 20px;
+  }
+  .comparison-result-heading p,
+  .comparison-result-heading > span {
+    font-size: 11px;
+  }
+  .comparison-disclaimer {
+    font-size: 10px;
+  }
+  .compare-result-list {
+    gap: 9px;
+  }
+  .compare-result-row {
+    grid-template-columns: 27px minmax(0, 1fr) 108px;
+    padding: 12px;
+    gap: 5px 8px;
+  }
+  .compare-result-row > .university-logo {
+    width: 27px;
+    height: 27px;
+    flex-basis: 27px;
+    padding: 3px;
+  }
+  .compare-university-name {
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+  .compare-major-name {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .compare-result-copy > p {
+    font-size: 10px;
+  }
+  .compare-result-score {
+    padding: 9px 7px;
+    gap: 7px;
+    border-radius: 8px;
+  }
+  .compare-score-values {
+    gap: 5px;
+  }
+  .compare-score-values > div > span {
+    font-size: 9px;
+    margin-bottom: 5px;
+  }
+  .compare-result-score strong {
+    font-size: 17px;
+  }
+  .compare-result-score strong small {
+    display: block;
+    font-size: 8px;
+    margin: 3px 0 0;
+  }
+  .compare-position {
+    font-size: 9px;
+    padding: 2px 5px;
+  }
+  .compare-row-details {
+    grid-column: 1/3;
+  }
+  .compare-row-details[open] {
+    grid-column: 1/-1;
+  }
+  .compare-row-details summary {
+    font-size: 11px;
+    padding: 5px 0;
+  }
+  .compare-row-details > div {
+    padding: 14px;
+  }
+  .compare-row-details p {
+    font-size: 12px;
+    margin-bottom: 13px;
+  }
+  .compare-row-details dl {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+  }
+  .compare-row-details dl > div:last-child {
+    grid-column: 1/-1;
+  }
+  .compare-row-details dt {
+    font-size: 11px;
+  }
+  .compare-row-details dd {
+    font-size: 14px;
+  }
+  .compare-row-details .compare-source-link {
+    font-size: 11px;
+  }
+  .voting-entry-banner {
+    align-items: stretch;
+    flex-direction: column;
+    padding: 20px;
+    gap: 15px;
+  }
+  .voting-entry-banner strong {
+    font-size: 16px;
+  }
+}
