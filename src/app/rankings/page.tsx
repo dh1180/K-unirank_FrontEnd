@@ -7,7 +7,7 @@ export default async function RankingsHub() {
   const cards = await rankingCatalog();
   return (
     <>
-      <section className="directory-heading">
+      <section className="directory-heading" data-ga-view="ranking_hub_view">
         <div>
           <p className="eyebrow">RANKINGS</p>
           <h1>대학 순위</h1>

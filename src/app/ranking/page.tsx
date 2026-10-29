@@ -1,3 +1,4 @@
+import { DisplayAd } from "@/components/DisplayAd";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ranking } from "@/lib/api";
@@ -10,7 +11,11 @@ export default async function RankingPage() {
   const data = await ranking("overall", 100);
   return (
     <>
-      <section className="directory-heading">
+      <section
+        className="directory-heading"
+        data-ga-view="ranking_view"
+        data-ga-param-board="overall"
+      >
         <div>
           <p className="eyebrow">COMMUNITY RANKING</p>
           <h1>대학 선호도 순위</h1>
@@ -21,6 +26,7 @@ export default async function RankingPage() {
           <span>함께 만드는 순위</span>
         </span>
       </section>
+      <DisplayAd />
       <div className="ranking-notice">
         <span className="status-dot" />
         사용자 VS 투표 기반 선호도입니다. 공식 대학평가나 입결 순위와는
@@ -95,6 +101,7 @@ export default async function RankingPage() {
               ))}
             </ol>
           </section>
+          {data.ranking.length >= 12 && <DisplayAd />}
         </>
       )}
     </>

@@ -1,3 +1,4 @@
+import { DisplayAd } from "@/components/DisplayAd";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -6,6 +7,8 @@ import { UniversityOverview } from "@/components/UniversityOverview";
 import { Notice } from "@/components/Notice";
 import { UniversityLogo } from "@/components/UniversityLogo";
 import { Icon } from "@/components/Icon";
+import { StructuredData } from "@/components/StructuredData";
+import { SITE_ORIGIN } from "@/lib/site-policy.mjs";
 
 type Props = { params: Promise<{ id: string }> };
 function parseId(id: string) {
@@ -36,7 +39,24 @@ export default async function UniversityDetailPage({ params }: Props) {
       <Notice>대학 정보를 불러올 수 없거나 존재하지 않는 대학이야.</Notice>
     );
   return (
-    <div className="university-profile">
+    <div
+      className="university-profile"
+      data-ga-view="university_view"
+      data-ga-param-university={data.name}
+      data-ga-param-region={data.region ?? ""}
+    >
+      <StructuredData
+        data={{
+          "@type": "CollegeOrUniversity",
+          "@id": `${SITE_ORIGIN}/universities/${id}/#university`,
+          name: data.name,
+          url: `${SITE_ORIGIN}/universities/${id}/`,
+          address: data.address || undefined,
+          ...(data.homepageUrl?.startsWith("http")
+            ? { sameAs: [data.homepageUrl] }
+            : {}),
+        }}
+      />
       <p className="breadcrumb">
         <Link href="/universities/">대학 찾기</Link>
         <span>/</span>
@@ -79,6 +99,8 @@ export default async function UniversityDetailPage({ params }: Props) {
           data.homepageUrl?.startsWith("http://") ? (
             <a
               className="button"
+              data-ga-event="official_site_click"
+              data-ga-param-university={data.name}
               href={data.homepageUrl}
               target="_blank"
               rel="noopener noreferrer"
@@ -86,11 +108,17 @@ export default async function UniversityDetailPage({ params }: Props) {
               대학 공식 홈페이지 ↗
             </a>
           ) : null}
-          <Link className="button" href={`/admissions/university/${id}/`}>
+          <Link
+            className="button"
+            data-ga-event="admission_open_from_university"
+            data-ga-param-university={data.name}
+            href={`/admissions/university/${id}/`}
+          >
             이 대학 입시결과 보기 →
           </Link>
         </div>
       </section>
+      <DisplayAd />
       <UniversityOverview id={id} data={overview} />
     </div>
   );

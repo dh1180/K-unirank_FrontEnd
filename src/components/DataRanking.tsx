@@ -1,3 +1,4 @@
+import { DisplayAd } from "@/components/DisplayAd";
 import Link from "next/link";
 import { dataRanking, type RankSearch } from "@/lib/rankings";
 import { positivePage, toQuery } from "@/lib/query.mjs";
@@ -49,7 +50,18 @@ export async function DataRanking({
         <span>/</span>
         {admissions ? "입결 순위" : (data?.metric.label ?? "공시 지표")}
       </p>
-      <section className="directory-heading">
+      <section
+        className="directory-heading"
+        data-ga-view={
+          admissions
+            ? "admission_ranking_view"
+            : "official_indicator_ranking_view"
+        }
+        data-ga-param-year={data?.selectedYear ?? ""}
+        data-ga-param-kind={admissions ? kind : ""}
+        data-ga-param-phase={admissions ? phase : ""}
+        data-ga-param-indicator={data?.metric.code ?? ""}
+      >
         <div>
           <p className="eyebrow">
             {admissions ? "ADMISSION RANKING" : "OFFICIAL DATA"}
@@ -137,6 +149,7 @@ export async function DataRanking({
               </Link>
             ))}
           </div>
+          <DisplayAd />
           <div className="result-toolbar" id="results">
             <p>
               <b>{data.totalCount.toLocaleString("ko-KR")}</b>개 대학
@@ -206,6 +219,7 @@ export async function DataRanking({
             hasNext={data.hasNext}
             params={params}
           />
+          {data.items.length >= 12 && <DisplayAd />}
           <div className="method-note">
             <strong>이 순위의 기준</strong>
             <p>

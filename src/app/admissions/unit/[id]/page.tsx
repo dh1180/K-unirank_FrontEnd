@@ -1,3 +1,4 @@
+import { DisplayAd } from "@/components/DisplayAd";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -10,7 +11,25 @@ import { AdmissionsTable } from "@/components/AdmissionsTable";
 import { UniversityLogo } from "@/components/UniversityLogo";
 import { MetricToggle } from "@/components/MetricToggle";
 
-export const metadata: Metadata = { title: "학과별 입시결과" };
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  if (!/^[1-9]\d*$/.test(id)) return { title: "학과별 입시결과" };
+  const row = (await unitAdmissions(Number(id), 0, undefined, "all"))?.items[0];
+  return {
+    title: row
+      ? `${row.universityName} ${row.recruitmentUnitName} 입결`
+      : "학과별 입시결과",
+    description: row
+      ? `${row.universityName} ${row.recruitmentUnitName}의 전형별 모집인원, 경쟁률, 공개 입결과 원문 출처를 확인하세요.`
+      : undefined,
+    alternates: { canonical: `/admissions/unit/${id}/` },
+    ...(!row ? { robots: { index: false, follow: true } } : {}),
+  };
+}
 export default async function AdmissionUnitPage({
   params,
   searchParams,
@@ -41,7 +60,12 @@ export default async function AdmissionUnitPage({
         )}
         <span>/</span>학과 입시결과
       </p>
-      <section className="university-detail-hero admissions-detail-heading">
+      <section
+        className="university-detail-hero admissions-detail-heading"
+        data-ga-view="admission_view"
+        data-ga-param-university={row?.universityName ?? ""}
+        data-ga-param-year={year ?? "all"}
+      >
         {row && (
           <UniversityLogo
             id={row.universityId}
@@ -57,6 +81,7 @@ export default async function AdmissionUnitPage({
           </p>
         </div>
       </section>
+      <DisplayAd />
       <div className="admission-controls">
         <MetricToggle
           href={`/admissions/unit/${id}/`}

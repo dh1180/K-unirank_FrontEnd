@@ -1,3 +1,4 @@
+import { DisplayAd } from "@/components/DisplayAd";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { compareGrades } from "@/lib/api";
@@ -71,7 +72,11 @@ export default async function GradeComparisonPage({
       : null;
   return (
     <div className="comparison-page">
-      <section className="comparison-intro">
+      <section
+        data-ga-view="admission_compare_view"
+        data-ga-param-year={data?.selectedYear ?? ""}
+        className="comparison-intro"
+      >
         <div>
           <p className="eyebrow">FIND YOUR FIT</p>
           <h1>내 점수로 학과 찾기</h1>
@@ -94,6 +99,8 @@ export default async function GradeComparisonPage({
       <form
         method="get"
         action="/admissions/compare/#comparison-results"
+        data-ga-submit="admission_compare_search"
+        data-ga-search-field="q"
         className="comparison-builder"
       >
         <div className="compare-main-fields">
@@ -180,6 +187,7 @@ export default async function GradeComparisonPage({
           </div>
         </details>
       </form>
+      <DisplayAd />
       {!attempted && (
         <Notice>
           평균등급을 입력하면 비슷한 입결의 학과를 확인할 수 있어요.

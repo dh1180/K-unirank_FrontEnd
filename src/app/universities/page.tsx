@@ -1,3 +1,4 @@
+import { DisplayAd } from "@/components/DisplayAd";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { listUniversities } from "@/lib/api";
@@ -35,7 +36,12 @@ export default async function UniversitiesPage({
   const data = await listUniversities(q, page, region);
   return (
     <>
-      <section className="directory-heading">
+      <section
+        className="directory-heading"
+        data-ga-view="university_list_view"
+        data-ga-param-query={q}
+        data-ga-param-region={region}
+      >
         <div>
           <p className="eyebrow">UNIVERSITIES</p>
           <h1>전국 대학 찾기</h1>
@@ -46,7 +52,13 @@ export default async function UniversitiesPage({
           <span>나의 다음 캠퍼스</span>
         </div>
       </section>
-      <form action="/universities/" className="directory-search" method="get">
+      <form
+        action="/universities/"
+        data-ga-submit="university_search"
+        data-ga-search-field="q"
+        className="directory-search"
+        method="get"
+      >
         <Icon name="search" size={22} />
         <input
           id="university-q"
@@ -74,6 +86,7 @@ export default async function UniversitiesPage({
           </Link>
         ))}
       </div>
+      <DisplayAd />
       {data === null ? (
         <Notice>
           대학 정보를 불러오지 못했어요. 잠시 후 다시 시도해 주세요.

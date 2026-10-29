@@ -109,6 +109,10 @@ export function AdmissionsTable({
               <td className="university-cell" data-label="대학">
                 <Link
                   className="table-university"
+                  data-ga-event="admission_university_open"
+                  data-ga-param-university={row.universityName}
+                  data-ga-param-phase={row.phase}
+                  data-ga-param-year={row.admissionYear}
                   href={`/admissions/university/${row.universityId}/`}
                 >
                   <UniversityLogo
@@ -134,6 +138,9 @@ export function AdmissionsTable({
               <td className="major-cell" data-label="모집단위 · 전형">
                 <Link
                   className="major-link"
+                  data-ga-event="admission_unit_open"
+                  data-ga-param-university={row.universityName}
+                  data-ga-param-unit={row.recruitmentUnitName}
                   href={`/admissions/unit/${row.recruitmentUnitId}/`}
                 >
                   {row.recruitmentUnitName}
@@ -212,6 +219,9 @@ export function AdmissionsTable({
                 {/^https?:\/\//.test(row.sourceUrl) ? (
                   <a
                     className="source-link"
+                    data-ga-event="admission_source_click"
+                    data-ga-param-university={row.universityName}
+                    data-ga-param-source={row.sourceType}
                     href={row.sourceUrl}
                     target="_blank"
                     rel="noopener noreferrer"

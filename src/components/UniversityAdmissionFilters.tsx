@@ -51,6 +51,8 @@ export function UniversityAdmissionFilters({
     >
       <div className="explorer-panel">
         <form
+          data-ga-submit="admission_detail_search"
+          data-ga-search-field="q"
           className="explorer-search"
           action={`${href}#admission-search`}
           method="get"
