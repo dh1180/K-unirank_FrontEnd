@@ -1,39 +1,101 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { ranking } from "@/lib/api";
 import { Notice } from "@/components/Notice";
+import { UniversityLogo } from "@/components/UniversityLogo";
+import { Icon } from "@/components/Icon";
 
 export const metadata: Metadata = { title: "대학 선호도 순위" };
-
 export default async function RankingPage() {
   const data = await ranking("overall", 100);
-
   return (
     <>
-      <section className="page-header">
-        <h1>대학 선호도 순위</h1>
-        <p>VS 투표 결과에서 산출된 Glicko-2 점수를 그대로 조회해.</p>
+      <section className="directory-heading">
+        <div>
+          <p className="eyebrow">COMMUNITY RANKING</p>
+          <h1>대학 선호도 순위</h1>
+          <p>여러분의 선택으로 만들어지는, 또 하나의 대학 이야기.</p>
+        </div>
+        <span className="heading-stamp">
+          <Icon name="chart" size={32} />
+          <span>함께 만드는 순위</span>
+        </span>
       </section>
-      {data === null ? (
-        <Notice>랭킹 API에 연결할 수 없어. Spring Boot 서버와 API_INTERNAL_URL을 확인해 줘.</Notice>
+      <div className="ranking-notice">
+        <span className="status-dot" />
+        사용자 VS 투표 기반 선호도입니다. 공식 대학평가나 입결 순위와는
+        다릅니다.
+      </div>
+      {!data ? (
+        <Notice>잠시 순위를 불러오지 못했어요.</Notice>
+      ) : !data.ranking.length ? (
+        <Notice>아직 표시할 순위가 없어요.</Notice>
       ) : (
-        <section className="panel">
-          <h2>{data.board.name}</h2>
-          <p className="muted">이 화면은 대학별 기존 점수를 표시하며 투표 기록을 변경하지 않아.</p>
-          {data.ranking.length === 0 ? <Notice>아직 표시할 선호도 순위가 없어.</Notice> : (
+        <>
+          <div className="podium-grid">
+            {data.ranking.slice(0, 3).map((item) => (
+              <Link
+                className={`podium-card podium-${item.rank}`}
+                href={`/universities/${item.university_id}/`}
+                key={item.university_id}
+              >
+                <span className="podium-rank">
+                  0{item.rank}{" "}
+                  <span>{item.rank === 1 ? "TOP CHOICE" : "MOST LOVED"}</span>
+                </span>
+                <UniversityLogo
+                  id={item.university_id}
+                  name={item.name}
+                  size="large"
+                />
+                <h2>{item.name}</h2>
+                <p>
+                  <b>
+                    {item.rating.toLocaleString("ko-KR", {
+                      maximumFractionDigits: 2,
+                    })}
+                  </b>{" "}
+                  <span>점</span>
+                </p>
+                <small>
+                  {item.match_count.toLocaleString("ko-KR")}번의 선택이 모였어요
+                </small>
+              </Link>
+            ))}
+          </div>
+          <section className="ranking-panel">
+            <div className="ranking-table-heading">
+              <h2>전체 선호도 순위</h2>
+              <span>Glicko-2 Rating 기준</span>
+            </div>
             <ol className="ranking-list">
-              {data.ranking.map(item => (
-                <li key={item.university_id} className="list-item ranking-item">
-                  <strong className="rank-number">{item.rank}위</strong>
+              {data.ranking.map((item) => (
+                <li className="ranking-row" key={item.university_id}>
+                  <span
+                    className={`rank-number ${item.rank <= 3 ? "top" : ""}`}
+                  >
+                    {item.rank}
+                  </span>
+                  <UniversityLogo id={item.university_id} name={item.name} />
                   <div>
-                    <strong>{item.name}</strong>
-                    <p className="muted">{item.match_count.toLocaleString("ko-KR")}전 · {item.win_count.toLocaleString("ko-KR")}승 · {item.loss_count.toLocaleString("ko-KR")}패</p>
+                    <Link href={`/universities/${item.university_id}/`}>
+                      {item.name}
+                    </Link>
+                    <small>
+                      {item.match_count.toLocaleString("ko-KR")}전 ·{" "}
+                      {item.win_count.toLocaleString("ko-KR")}승 ·{" "}
+                      {item.loss_count.toLocaleString("ko-KR")}패
+                    </small>
                   </div>
-                  <span className="rank-rating">{item.rating.toFixed(2)}</span>
+                  <span className="rank-rating">
+                    {item.rating.toFixed(2)}
+                    <small>Rating</small>
+                  </span>
                 </li>
               ))}
             </ol>
-          )}
-        </section>
+          </section>
+        </>
       )}
     </>
   );
