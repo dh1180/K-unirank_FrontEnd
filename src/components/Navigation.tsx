@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
 export function Navigation({
   vs,
   ai,
@@ -12,11 +11,24 @@ export function Navigation({
   member: boolean;
 }) {
   const pathname = usePathname();
+  const rankingPath = [
+    "/rankings/",
+    "/ranking/",
+    "/admissions/ranking/",
+    "/universities/indicators/",
+  ].some((prefix) => pathname.startsWith(prefix));
+  function active(href: string) {
+    if (href === "/") return pathname === "/";
+    if (href === "/rankings/") return rankingPath;
+    if (href === "/universities/")
+      return !rankingPath && pathname.startsWith(href);
+    return pathname.startsWith(href);
+  }
   const links = [
     { href: "/", label: "입결 찾기" },
     { href: "/admissions/compare/", label: "내 점수" },
     { href: "/universities/", label: "대학" },
-    { href: "/ranking/", label: "선호도 순위" },
+    { href: "/rankings/", label: "대학 순위" },
     ...(vs ? [{ href: "/vs/", label: "VS" }] : []),
     ...(ai ? [{ href: "/ai/", label: "AI 입결" }] : []),
   ];
@@ -26,24 +38,8 @@ export function Navigation({
         <Link
           key={link.href}
           href={link.href}
-          className={
-            (
-              link.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(link.href)
-            )
-              ? "active"
-              : ""
-          }
-          aria-current={
-            (
-              link.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(link.href)
-            )
-              ? "page"
-              : undefined
-          }
+          className={active(link.href) ? "active" : ""}
+          aria-current={active(link.href) ? "page" : undefined}
         >
           {link.label}
         </Link>

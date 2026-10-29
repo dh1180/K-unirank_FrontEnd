@@ -13,7 +13,7 @@ import { toQuery } from "@/lib/query.mjs";
  * In an unconfigured preview, return null and show an explicit error.
  * We deliberately do NOT point an unconfigured preview at production Django.
  */
-async function apiGet<T>(path: string): Promise<T | null> {
+export async function apiGet<T>(path: string): Promise<T | null> {
   const base = process.env.API_INTERNAL_URL;
   if (!base) return null;
   try {
@@ -61,18 +61,21 @@ export function universityAdmissions(
   id: number,
   page: number,
   year?: number,
+  metrics: string = "public",
 ): Promise<AdmissionPage | null> {
   return apiGet<AdmissionPage>(
-    `/api/v1/admissions/universities/${id}?${toQuery({ page, size: 60, year })}`,
+    `/api/v1/admissions/universities/${id}?${toQuery({ page, size: 20, year, metrics })}`,
   );
 }
 
 export function unitAdmissions(
   id: number,
   page: number,
+  year?: number,
+  metrics: string = "public",
 ): Promise<AdmissionPage | null> {
   return apiGet<AdmissionPage>(
-    `/api/v1/admissions/units/${id}?${toQuery({ page, size: 60 })}`,
+    `/api/v1/admissions/units/${id}?${toQuery({ page, size: 20, year, metrics })}`,
   );
 }
 

@@ -46,7 +46,7 @@ export default function RootLayout({
               <div className="footer-links">
                 <Link href="/">입결 찾기</Link>
                 <Link href="/universities/">대학 정보</Link>
-                <Link href="/ranking/">선호도 순위</Link>
+                <Link href="/rankings/">대학 순위</Link>
               </div>
               <p>
                 입시 데이터는 원문 출처와 함께 제공합니다.
