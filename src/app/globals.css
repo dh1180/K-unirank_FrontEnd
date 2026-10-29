@@ -3856,6 +3856,8 @@ input::placeholder {
 }
 .compare-result-score {
   gap: 9px;
+  grid-column: 3;
+  grid-row: 1 / span 2;
   background: #f8f8fd;
   border: 1px solid #efeff6;
   border-radius: 10px;
@@ -3899,7 +3901,13 @@ input::placeholder {
 }
 .compare-row-details {
   font-size: 13px;
+  grid-column: 2;
+  grid-row: 2;
   color: #596478;
+}
+.compare-row-details[open] {
+  grid-column: 2/-1;
+  grid-row: 3;
 }
 .compare-row-details summary {
   font-size: 12px;
@@ -4025,6 +4033,9 @@ input::placeholder {
     padding: 2px 5px;
   }
   .compare-row-details {
+    grid-column: 1/3;
+  }
+  .compare-row-details[open] {
     grid-column: 1/-1;
   }
   .compare-row-details summary {
