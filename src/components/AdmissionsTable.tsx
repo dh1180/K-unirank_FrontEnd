@@ -186,6 +186,29 @@ export function AdmissionsTable({
                   )}
               </td>
               <td className="source-cell" data-label="출처">
+                <details className="mobile-admission-details">
+                  <summary>상세 보기</summary>
+                  <div>
+                    <p>
+                      {row.admissionYear}학년도 · {row.selectionCategory} ·{" "}
+                      {row.selectionName}
+                    </p>
+                    <dl>
+                      {row.metrics
+                        .filter(
+                          (metric) => !metric.code.includes("REFERENCE_MEAN"),
+                        )
+                        .map((metric) => (
+                          <div key={metric.code}>
+                            <dt>{metricLabel(metric.code)}</dt>
+                            <dd>
+                              {metric.value.toFixed(2)} {metric.unit}
+                            </dd>
+                          </div>
+                        ))}
+                    </dl>
+                  </div>
+                </details>
                 {/^https?:\/\//.test(row.sourceUrl) ? (
                   <a
                     className="source-link"
