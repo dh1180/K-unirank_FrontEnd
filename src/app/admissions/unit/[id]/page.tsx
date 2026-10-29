@@ -26,7 +26,9 @@ export default async function AdmissionUnitPage({
     query.year && /^\d{4}$/.test(query.year) ? Number(query.year) : undefined;
   const metrics = query.metrics === "all" ? "all" : "public";
   const data = await unitAdmissions(Number(id), page, year, metrics);
-  const row = data?.items[0];
+  const row =
+    data?.items[0] ??
+    (await unitAdmissions(Number(id), 0, undefined, "all"))?.items[0];
   return (
     <>
       <p className="breadcrumb">
