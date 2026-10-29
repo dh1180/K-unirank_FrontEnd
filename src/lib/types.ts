@@ -23,6 +23,32 @@ export type UniversityPage = {
   hasNext: boolean;
 };
 
+export type UniversityOverview = {
+  indicators: Array<{
+    slug: string;
+    label: string;
+    kind: string;
+    year: number;
+    value: number;
+    sourceUrl: string | null;
+  }>;
+  admissions: {
+    year: number | null;
+    resultCount: number;
+    susiCount: number;
+    jeongsiCount: number;
+    ranges: Array<{
+      phase: string;
+      category: string;
+      code: string;
+      unit: string;
+      min: number;
+      max: number;
+      sampleCount: number;
+    }>;
+  };
+};
+
 export type GradeComparisonRow = {
   resultId: number;
   universityId: number;
