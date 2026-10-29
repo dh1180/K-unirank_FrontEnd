@@ -62,9 +62,10 @@ export function universityAdmissions(
   page: number,
   year?: number,
   metrics: string = "public",
+  filters: { q?: string; phase?: string; track?: string } = {},
 ): Promise<AdmissionPage | null> {
   return apiGet<AdmissionPage>(
-    `/api/v1/admissions/universities/${id}?${toQuery({ page, size: 20, year, metrics })}`,
+    `/api/v1/admissions/universities/${id}?${toQuery({ ...filters, page, size: 20, year, metrics })}`,
   );
 }
 

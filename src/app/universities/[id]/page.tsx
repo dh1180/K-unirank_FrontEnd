@@ -32,7 +32,7 @@ export default async function UniversityDetailPage({ params }: Props) {
       <Notice>대학 정보를 불러올 수 없거나 존재하지 않는 대학이야.</Notice>
     );
   return (
-    <>
+    <div className="university-profile">
       <p className="breadcrumb">
         <Link href="/universities/">대학 찾기</Link>
         <span>/</span>
@@ -58,7 +58,7 @@ export default async function UniversityDetailPage({ params }: Props) {
           입시결과 보기 <Icon name="arrow" size={18} />
         </Link>
       </section>
-      <section className="panel">
+      <section className="panel university-facts">
         <h2>대학 정보</h2>
         <dl className="metric-grid">
           <div>
@@ -70,23 +70,22 @@ export default async function UniversityDetailPage({ params }: Props) {
             <dd>{data.establishmentType ?? "미등록"}</dd>
           </div>
         </dl>
-        {data.homepageUrl?.startsWith("https://") ||
-        data.homepageUrl?.startsWith("http://") ? (
-          <p>
+        <div className="university-profile-actions">
+          {data.homepageUrl?.startsWith("https://") ||
+          data.homepageUrl?.startsWith("http://") ? (
             <a
+              className="button"
               href={data.homepageUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
-              대학 공식 홈페이지
+              대학 공식 홈페이지 ↗
             </a>
-          </p>
-        ) : null}
-        <p>
-          <Link href={`/admissions/university/${id}/`}>
-            이 대학 입시결과 보기
+          ) : null}
+          <Link className="button" href={`/admissions/university/${id}/`}>
+            이 대학 입시결과 보기 →
           </Link>
-        </p>
+        </div>
       </section>
       <section className="panel results">
         <h2>학과·모집단위 {data.units.length.toLocaleString("ko-KR")}개</h2>
@@ -102,13 +101,15 @@ export default async function UniversityDetailPage({ params }: Props) {
                       {unit.name}
                     </Link>
                   </strong>
-                  <p className="muted">{unit.collegeName || "단과대 미등록"}</p>
+                  {unit.collegeName && (
+                    <p className="muted">{unit.collegeName}</p>
+                  )}
                 </div>
               </li>
             ))}
           </ul>
         )}
       </section>
-    </>
+    </div>
   );
 }
