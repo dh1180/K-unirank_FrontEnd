@@ -22,7 +22,25 @@ const metricLabels: Record<string, string> = {
   COLLEGE_STUDENT_AVERAGE: "학생부 합격자 평균",
   COLLEGE_CSAT_MINIMUM: "수능 합격자 최저",
   COLLEGE_STUDENT_MINIMUM: "학생부 합격자 최저",
+  STUDENT_GRADE_85_CUT: "학생부 85% 컷",
+  STUDENT_GRADE_90_CUT: "학생부 90% 컷",
+  STUDENT_GRADE_STDDEV: "학생부등급 표준편차",
+  ESSAY_SCORE_90_CUT: "논술 90% 컷",
 };
+for (const [subject, label] of Object.entries({
+  KOREAN: "국어 백분위",
+  MATH: "수학 백분위",
+  INQUIRY: "탐구 백분위",
+  INQUIRY1: "탐구1 백분위",
+  INQUIRY2: "탐구2 백분위",
+  ENGLISH: "영어등급",
+  KOREAN_HISTORY: "한국사등급",
+})) {
+  for (const cut of [50, 70])
+    metricLabels[
+      `CSAT_${subject}_${subject === "ENGLISH" || subject === "KOREAN_HISTORY" ? "GRADE" : "PERCENTILE"}_${cut}_CUT`
+    ] = `${label} ${cut}% 컷`;
+}
 export function metricLabel(code: string) {
   return metricLabels[code] ?? code.replaceAll("_", " ");
 }
