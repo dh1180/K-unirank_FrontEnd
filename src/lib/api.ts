@@ -5,6 +5,7 @@ import type {
   RankingResult,
   UniversityPage,
   UniversityDetail,
+  UniversityOverview,
 } from "@/lib/types";
 import { toQuery } from "@/lib/query.mjs";
 
@@ -37,6 +38,12 @@ export function searchAdmissions(
 
 export function getUniversity(id: number): Promise<UniversityDetail | null> {
   return apiGet<UniversityDetail>(`/api/v1/universities/${id}`);
+}
+
+export function universityOverview(
+  id: number,
+): Promise<UniversityOverview | null> {
+  return apiGet<UniversityOverview>(`/api/v1/universities/${id}/overview`);
 }
 
 export function listUniversities(

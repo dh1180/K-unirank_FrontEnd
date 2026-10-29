@@ -3533,3 +3533,265 @@ input::placeholder {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+.overview-section {
+  padding: 28px;
+}
+.overview-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.overview-heading .eyebrow {
+  margin: 0 0 7px;
+  font-size: 10px;
+}
+.university-profile .overview-heading h2 {
+  margin: 0;
+}
+.overview-heading > span {
+  font-size: 12px;
+  color: #7a8091;
+}
+.official-indicator-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.official-indicator-card {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fcfcff;
+  min-width: 0;
+}
+.indicator-card-label {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 8px;
+}
+.indicator-card-label h3 {
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 600;
+  margin: 0;
+}
+.indicator-card-label > span {
+  font-size: 11px;
+  color: #7a8091;
+  white-space: nowrap;
+  padding-top: 3px;
+}
+.indicator-card-value {
+  font-size: 29px;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  color: var(--brand);
+  margin: 20px 0;
+  font-variant-numeric: tabular-nums;
+}
+.indicator-card-value small {
+  font-size: 13px;
+  font-weight: 500;
+  margin-left: 6px;
+  color: #697386;
+}
+.indicator-card-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 11px;
+}
+.indicator-card-links > a:last-child,
+.indicator-card-links > span {
+  color: #7a8091;
+}
+.admission-overview-counts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-radius: 12px;
+  background: #f6f5ff;
+  padding: 22px 0;
+  margin-bottom: 28px;
+}
+.admission-overview-counts > div {
+  padding: 0 24px;
+  border-right: 1px solid #e3e1f4;
+}
+.admission-overview-counts > div:last-child {
+  border: 0;
+}
+.admission-overview-counts span {
+  display: block;
+  font-size: 13px;
+  color: #697386;
+  margin-bottom: 9px;
+}
+.admission-overview-counts strong {
+  font-size: 27px;
+  font-weight: 700;
+}
+.admission-overview-counts small {
+  font-size: 13px;
+  font-weight: 500;
+  margin-left: 5px;
+  color: #7a8091;
+}
+.overview-range-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.overview-range-heading h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+}
+.overview-range-heading > span {
+  font-size: 11px;
+  color: #7a8091;
+}
+.overview-cut-ranges {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.overview-cut-ranges li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 28px;
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+}
+.overview-cut-ranges h4 {
+  display: inline;
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 8px;
+}
+.overview-cut-ranges p {
+  font-size: 12px;
+  color: #7a8091;
+  margin: 8px 0 0;
+}
+.overview-cut-ranges strong {
+  font-size: 22px;
+  font-weight: 650;
+  color: var(--brand);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.overview-cut-ranges small {
+  font-size: 12px;
+  color: #697386;
+  font-weight: 500;
+  margin-left: 5px;
+}
+.overview-cut-ranges li > a {
+  font-size: 12px;
+  white-space: nowrap;
+}
+.overview-footnote {
+  font-size: 12px;
+  color: #7a8091;
+  line-height: 1.7;
+  margin: 17px 0;
+}
+.overview-empty {
+  color: #7a8091;
+  font-size: 14px;
+  line-height: 1.7;
+  padding: 18px 0;
+  margin: 0;
+}
+.overview-admissions-link {
+  margin-top: 8px;
+}
+@media (max-width: 760px) {
+  .overview-section {
+    padding: 20px 16px;
+  }
+  .overview-heading {
+    display: block;
+    margin-bottom: 18px;
+  }
+  .overview-heading > span {
+    display: block;
+    margin-top: 8px;
+    font-size: 11px;
+  }
+  .official-indicator-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .official-indicator-card {
+    padding: 14px 12px;
+  }
+  .indicator-card-label {
+    display: block;
+  }
+  .indicator-card-label h3 {
+    font-size: 12px;
+  }
+  .indicator-card-label > span {
+    display: block;
+    margin-top: 4px;
+    font-size: 10px;
+  }
+  .indicator-card-value {
+    font-size: 24px;
+    margin: 15px 0;
+  }
+  .indicator-card-value small {
+    font-size: 11px;
+    margin-left: 3px;
+  }
+  .indicator-card-links {
+    font-size: 10px;
+    gap: 7px;
+  }
+  .admission-overview-counts {
+    padding: 17px 0;
+  }
+  .admission-overview-counts > div {
+    padding: 0 12px;
+  }
+  .admission-overview-counts span {
+    font-size: 10px;
+  }
+  .admission-overview-counts strong {
+    font-size: 23px;
+  }
+  .overview-cut-ranges li {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12px;
+    padding: 16px 0;
+  }
+  .overview-cut-ranges li > a {
+    grid-column: 1/-1;
+    justify-self: end;
+    font-size: 11px;
+  }
+  .overview-cut-ranges h4 {
+    font-size: 12px;
+  }
+  .overview-cut-ranges strong {
+    font-size: 18px;
+  }
+  .overview-cut-ranges p {
+    font-size: 10px;
+  }
+  .overview-range-heading > span {
+    display: none;
+  }
+  .overview-footnote {
+    font-size: 11px;
+  }
+}

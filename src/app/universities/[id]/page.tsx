@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getUniversity } from "@/lib/api";
+import { getUniversity, universityOverview } from "@/lib/api";
+import { UniversityOverview } from "@/components/UniversityOverview";
 import { Notice } from "@/components/Notice";
 import { UniversityLogo } from "@/components/UniversityLogo";
 import { Icon } from "@/components/Icon";
@@ -19,14 +20,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "대학 상세 | K-unirank", robots: { index: false } };
   return {
     title: `${data.name} | 대학 정보`,
-    description: `${data.name}의 지역·주소·학과(모집단위) 정보를 확인하세요.`,
+    description: `${data.name}의 공식 공시 지표와 공개 입결 요약을 확인하세요.`,
     alternates: { canonical: `/universities/${id}/` },
   };
 }
 
 export default async function UniversityDetailPage({ params }: Props) {
   const id = parseId((await params).id);
-  const data = await getUniversity(id);
+  const [data, overview] = await Promise.all([
+    getUniversity(id),
+    universityOverview(id),
+  ]);
   if (!data)
     return (
       <Notice>대학 정보를 불러올 수 없거나 존재하지 않는 대학이야.</Notice>
@@ -87,29 +91,7 @@ export default async function UniversityDetailPage({ params }: Props) {
           </Link>
         </div>
       </section>
-      <section className="panel results">
-        <h2>학과·모집단위 {data.units.length.toLocaleString("ko-KR")}개</h2>
-        {data.units.length === 0 ? (
-          <Notice>등록된 모집단위 정보가 없어.</Notice>
-        ) : (
-          <ul className="item-list unit-grid">
-            {data.units.map((unit) => (
-              <li className="list-item" key={unit.id}>
-                <div>
-                  <strong>
-                    <Link href={`/admissions/unit/${unit.id}/`}>
-                      {unit.name}
-                    </Link>
-                  </strong>
-                  {unit.collegeName && (
-                    <p className="muted">{unit.collegeName}</p>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
+      <UniversityOverview id={id} data={overview} />
     </div>
   );
 }
