@@ -2,6 +2,10 @@ export const SITE_ORIGIN = "https://k-unirank.com";
 export const GA_ID = "G-5WK14ZDHSP";
 export const AD_CLIENT = "ca-pub-3862816878614020";
 export const AD_SLOT = "8829169633";
+// Django's sitemap renders local calendar dates in TIME_ZONE=Asia/Seoul.
+export function sitemapDate(value) {
+  return new Date(new Date(value).getTime()+9*60*60*1000).toISOString().slice(0,10);
+}
 export function productionHost(host, mode = "auto") {
   return (
     mode !== "preview" &&

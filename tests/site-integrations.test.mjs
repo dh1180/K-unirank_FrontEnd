@@ -9,7 +9,12 @@ import {
   GA_ID,
   AD_CLIENT,
   AD_SLOT,
+  sitemapDate,
 } from "../src/lib/site-policy.mjs";
+test("sitemap dates retain Django's Korean calendar day across UTC midnight",()=>{
+  assert.equal(sitemapDate("2026-08-09T17:46:13.778168Z"),"2026-08-10");
+  assert.equal(sitemapDate("2026-08-08T08:41:03.713213Z"),"2026-08-08");
+});
 import { requestDisplayAd } from "../src/lib/ad-request.mjs";
 test("existing Google identities and ads.txt remain in the same account", () => {
   assert.equal(GA_ID, "G-5WK14ZDHSP");

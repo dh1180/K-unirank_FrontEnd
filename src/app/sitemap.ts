@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { SITE_ORIGIN } from "@/lib/site-policy.mjs";
+import { SITE_ORIGIN, sitemapDate } from "@/lib/site-policy.mjs";
 export const dynamic = "force-dynamic";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = process.env.API_INTERNAL_URL;
@@ -17,7 +17,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }> = await response.json();
   return urls.map((item) => ({
     url: SITE_ORIGIN + item.path,
-    lastModified: item.lastModified || undefined,
+    lastModified: item.lastModified ? sitemapDate(item.lastModified) : undefined,
     changeFrequency: item.changeFrequency,
     priority: item.priority,
   }));

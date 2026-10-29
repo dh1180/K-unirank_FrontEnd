@@ -2,6 +2,7 @@ export const SITE_ORIGIN: string;
 export const GA_ID: string;
 export const AD_CLIENT: string;
 export const AD_SLOT: string;
+export function sitemapDate(value: string): string;
 export function productionHost(host: string | null, mode?: string): boolean;
 export function privatePath(path: string): boolean;
 export function legacyPath(path: string): boolean;
