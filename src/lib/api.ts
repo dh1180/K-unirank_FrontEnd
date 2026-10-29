@@ -1,5 +1,11 @@
 import "server-only";
-import type { AdmissionPage, GradeComparison, RankingResult, UniversityPage, UniversityDetail } from "@/lib/types";
+import type {
+  AdmissionPage,
+  GradeComparison,
+  RankingResult,
+  UniversityPage,
+  UniversityDetail,
+} from "@/lib/types";
 import { toQuery } from "@/lib/query.mjs";
 
 /**
@@ -17,33 +23,65 @@ async function apiGet<T>(path: string): Promise<T | null> {
       headers: { Accept: "application/json" },
       signal: AbortSignal.timeout(10_000),
     });
-    return response.ok ? (await response.json()) as T : null;
+    return response.ok ? ((await response.json()) as T) : null;
   } catch {
     return null;
   }
+}
+
+export function searchAdmissions(
+  params: Record<string, string | number | undefined>,
+): Promise<AdmissionPage | null> {
+  return apiGet<AdmissionPage>(`/api/v1/admissions/results?${toQuery(params)}`);
 }
 
 export function getUniversity(id: number): Promise<UniversityDetail | null> {
   return apiGet<UniversityDetail>(`/api/v1/universities/${id}`);
 }
 
-export function listUniversities(q: string, page: number): Promise<UniversityPage | null> {
-  return apiGet<UniversityPage>(`/api/v1/universities?${toQuery({ q, page, size: 20 })}`);
+export function listUniversities(
+  q: string,
+  page: number,
+  region?: string,
+): Promise<UniversityPage | null> {
+  return apiGet<UniversityPage>(
+    `/api/v1/universities?${toQuery({ q, page, region, size: 20 })}`,
+  );
 }
 
-export function compareGrades(params: Record<string, string | number | undefined>): Promise<GradeComparison | null> {
-  return apiGet<GradeComparison>(`/api/v1/admissions/compare?${toQuery(params)}`);
+export function compareGrades(
+  params: Record<string, string | number | undefined>,
+): Promise<GradeComparison | null> {
+  return apiGet<GradeComparison>(
+    `/api/v1/admissions/compare?${toQuery(params)}`,
+  );
 }
 
-export function universityAdmissions(id: number, page: number, year?: number): Promise<AdmissionPage | null> {
-  return apiGet<AdmissionPage>(`/api/v1/admissions/universities/${id}?${toQuery({ page, size: 60, year })}`);
+export function universityAdmissions(
+  id: number,
+  page: number,
+  year?: number,
+): Promise<AdmissionPage | null> {
+  return apiGet<AdmissionPage>(
+    `/api/v1/admissions/universities/${id}?${toQuery({ page, size: 60, year })}`,
+  );
 }
 
-export function unitAdmissions(id: number, page: number): Promise<AdmissionPage | null> {
-  return apiGet<AdmissionPage>(`/api/v1/admissions/units/${id}?${toQuery({ page, size: 60 })}`);
+export function unitAdmissions(
+  id: number,
+  page: number,
+): Promise<AdmissionPage | null> {
+  return apiGet<AdmissionPage>(
+    `/api/v1/admissions/units/${id}?${toQuery({ page, size: 60 })}`,
+  );
 }
 
-export function ranking(slug: string, limit: number): Promise<RankingResult | null> {
+export function ranking(
+  slug: string,
+  limit: number,
+): Promise<RankingResult | null> {
   const safeSlug = encodeURIComponent(slug);
-  return apiGet<RankingResult>(`/api/v1/boards/${safeSlug}/ranking?limit=${Math.min(200, Math.max(1, limit))}`);
+  return apiGet<RankingResult>(
+    `/api/v1/boards/${safeSlug}/ranking?limit=${Math.min(200, Math.max(1, limit))}`,
+  );
 }

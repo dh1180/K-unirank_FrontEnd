@@ -1,39 +1,64 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
+import { Navigation } from "@/components/Navigation";
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: { default: "K-unirank 개발 미리보기", template: "%s | K-unirank" },
-  description: "K-unirank의 Spring Boot + React 전환 개발 미리보기입니다.",
+  title: {
+    default: "대학 입결 검색 · 입시결과 비교 | K-unirank",
+    template: "%s | K-unirank",
+  },
+  description:
+    "전국 대학과 학과별 입시결과를 검색하고 내 점수와 비교해 보세요.",
   robots: { index: false, follow: false },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="ko">
       <body>
         <header className="site-header">
           <div className="shell header-inner">
-            <Link className="brand" href="/">K-unirank</Link>
-            <nav aria-label="주요 메뉴">
-              <Link href="/">입시</Link>
-              <Link href="/admissions/compare/">내 점수</Link>
-              <Link href="/universities/">대학</Link>
-              <Link href="/ranking/">순위</Link>
-              {process.env.VS_FRONTEND_ENABLED === "true" && <Link href="/vs/">VS</Link>}
-              {process.env.AI_FRONTEND_ENABLED === "true" && <Link href="/ai/">AI 입결</Link>}
-              {process.env.MEMBER_FRONTEND_ENABLED === "true" && <>
-                <Link href="/favorites/">관심 대학</Link>
-                <Link href="/login/">로그인</Link>
-              </>}
-            </nav>
+            <Link className="brand" href="/" aria-label="K-unirank 홈">
+              <span className="brand-mark">K</span>K-unirank
+            </Link>
+            <Navigation
+              vs={process.env.VS_FRONTEND_ENABLED === "true"}
+              ai={process.env.AI_FRONTEND_ENABLED === "true"}
+              member={process.env.MEMBER_FRONTEND_ENABLED === "true"}
+            />
           </div>
         </header>
         <main className="shell main-content">{children}</main>
-        <footer className="footer shell">
-          <p>Spring Boot + Next.js 전환 개발 미리보기 · 기존 Django 운영 서비스와 별개</p>
+        <footer className="footer">
+          <div className="shell footer-inner">
+            <div>
+              <Link className="brand" href="/">
+                <span className="brand-mark small">K</span>K-unirank
+              </Link>
+              <p>더 나은 대학 선택을 위한 데이터 가이드</p>
+            </div>
+            <div>
+              <div className="footer-links">
+                <Link href="/">입결 찾기</Link>
+                <Link href="/universities/">대학 정보</Link>
+                <Link href="/ranking/">선호도 순위</Link>
+              </div>
+              <p>
+                입시 데이터는 원문 출처와 함께 제공합니다.
+                <br />
+                사용자 선호도 순위는 공식 대학평가가 아닙니다.
+              </p>
+            </div>
+          </div>
+          <div className="shell footer-bottom">
+            <span>© K-unirank</span>
+            <span className="preview-label">새로운 K-unirank 미리보기</span>
+          </div>
         </footer>
       </body>
     </html>

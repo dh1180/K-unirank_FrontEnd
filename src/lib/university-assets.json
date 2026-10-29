@@ -1,0 +1,1649 @@
+[
+  { "id": 2, "name": "가야대학교", "logoPath": "university/logos/가야대.svg" },
+  { "id": 3, "name": "가천대학교", "logoPath": "university/logos/가천대.svg" },
+  { "id": 9, "name": "강남대학교", "logoPath": "university/logos/강남대.svg" },
+  { "id": 10, "name": "강동대학교", "logoPath": "university/logos/강동대.svg" },
+  { "id": 12, "name": "강서대학교", "logoPath": "university/logos/강서대.svg" },
+  { "id": 14, "name": "강원대학교", "logoPath": "university/logos/강원대.svg" },
+  { "id": 16, "name": "거제대학교", "logoPath": "university/logos/거제대.svg" },
+  { "id": 17, "name": "건국대학교", "logoPath": "university/logos/건국대.svg" },
+  { "id": 19, "name": "건양대학교", "logoPath": "university/logos/건양대.svg" },
+  { "id": 22, "name": "경기대학교", "logoPath": "university/logos/경기대.svg" },
+  { "id": 23, "name": "경남대학교", "logoPath": "university/logos/경남대.svg" },
+  { "id": 27, "name": "경동대학교", "logoPath": "university/logos/경동대.svg" },
+  { "id": 28, "name": "경민대학교", "logoPath": "university/logos/경민대.svg" },
+  { "id": 29, "name": "경복대학교", "logoPath": "university/logos/경복대.svg" },
+  { "id": 31, "name": "경북대학교", "logoPath": "university/logos/경북대.svg" },
+  { "id": 35, "name": "경성대학교", "logoPath": "university/logos/경성대.svg" },
+  { "id": 36, "name": "경운대학교", "logoPath": "university/logos/경운대.svg" },
+  { "id": 39, "name": "경일대학교", "logoPath": "university/logos/경일대.svg" },
+  { "id": 40, "name": "경주대학교", "logoPath": "university/logos/경주대.svg" },
+  {
+    "id": 41,
+    "name": "경희대학교",
+    "logoPath": "university/logos/경희대_wyMnurE.svg"
+  },
+  { "id": 43, "name": "계명대학교", "logoPath": "university/logos/계명대.svg" },
+  { "id": 47, "name": "고려대학교", "logoPath": "university/logos/고려대.svg" },
+  { "id": 50, "name": "고신대학교", "logoPath": "university/logos/고신대.svg" },
+  { "id": 54, "name": "광신대학교", "logoPath": "university/logos/광신대.svg" },
+  { "id": 56, "name": "광운대학교", "logoPath": "university/logos/광운대.svg" },
+  { "id": 60, "name": "광주대학교", "logoPath": "university/logos/광주대.svg" },
+  { "id": 63, "name": "구미대학교", "logoPath": "university/logos/구미대.svg" },
+  { "id": 65, "name": "국민대학교", "logoPath": "university/logos/국민대.svg" },
+  { "id": 66, "name": "국제대학교", "logoPath": "university/logos/국제대.png" },
+  { "id": 71, "name": "군장대학교", "logoPath": "university/logos/군장대.svg" },
+  { "id": 72, "name": "극동대학교", "logoPath": "university/logos/극동대.svg" },
+  { "id": 74, "name": "금강대학교", "logoPath": "university/logos/금강대.svg" },
+  { "id": 77, "name": "김천대학교", "logoPath": "university/logos/김천대.svg" },
+  { "id": 78, "name": "김포대학교", "logoPath": "university/logos/김포대.svg" },
+  { "id": 79, "name": "김해대학교", "logoPath": "university/logos/김해대.svg" },
+  {
+    "id": 414,
+    "name": "나주대학교",
+    "logoPath": "university/logos/나주대.svg"
+  },
+  { "id": 81, "name": "남부대학교", "logoPath": "university/logos/남부대.svg" },
+  { "id": 83, "name": "농협대학교", "logoPath": "university/logos/농협대.svg" },
+  { "id": 85, "name": "대경대학교", "logoPath": "university/logos/대경대.svg" },
+  { "id": 91, "name": "대구대학교", "logoPath": "university/logos/대구대.svg" },
+  { "id": 96, "name": "대덕대학교", "logoPath": "university/logos/대덕대.svg" },
+  { "id": 97, "name": "대동대학교", "logoPath": "university/logos/대동대.svg" },
+  { "id": 98, "name": "대림대학교", "logoPath": "university/logos/대림대.svg" },
+  { "id": 99, "name": "대신대학교", "logoPath": "university/logos/대신대.svg" },
+  {
+    "id": 100,
+    "name": "대원대학교",
+    "logoPath": "university/logos/대원대.svg"
+  },
+  {
+    "id": 103,
+    "name": "대전대학교",
+    "logoPath": "university/logos/대전대.svg"
+  },
+  {
+    "id": 106,
+    "name": "대진대학교",
+    "logoPath": "university/logos/대진대.svg"
+  },
+  {
+    "id": 108,
+    "name": "동강대학교",
+    "logoPath": "university/logos/동강대.svg"
+  },
+  {
+    "id": 109,
+    "name": "동국대학교",
+    "logoPath": "university/logos/동국대.svg"
+  },
+  {
+    "id": 113,
+    "name": "동명대학교",
+    "logoPath": "university/logos/동명대.svg"
+  },
+  {
+    "id": 114,
+    "name": "동서대학교",
+    "logoPath": "university/logos/동서대.svg"
+  },
+  {
+    "id": 116,
+    "name": "동신대학교",
+    "logoPath": "university/logos/동신대.svg"
+  },
+  {
+    "id": 117,
+    "name": "동아대학교",
+    "logoPath": "university/logos/동아대.svg"
+  },
+  {
+    "id": 120,
+    "name": "동양대학교",
+    "logoPath": "university/logos/동양대.svg"
+  },
+  {
+    "id": 123,
+    "name": "동원대학교",
+    "logoPath": "university/logos/동원대.svg"
+  },
+  {
+    "id": 125,
+    "name": "동의대학교",
+    "logoPath": "university/logos/동의대.svg"
+  },
+  {
+    "id": 128,
+    "name": "루터대학교",
+    "logoPath": "university/logos/루터대.svg"
+  },
+  {
+    "id": 129,
+    "name": "마산대학교",
+    "logoPath": "university/logos/마산대.png"
+  },
+  {
+    "id": 132,
+    "name": "목원대학교",
+    "logoPath": "university/logos/목원대.svg"
+  },
+  {
+    "id": 137,
+    "name": "문경대학교",
+    "logoPath": "university/logos/문경대.svg"
+  },
+  {
+    "id": 138,
+    "name": "배재대학교",
+    "logoPath": "university/logos/배재대.svg"
+  },
+  {
+    "id": 140,
+    "name": "백석대학교",
+    "logoPath": "university/logos/백석대.svg"
+  },
+  {
+    "id": 149,
+    "name": "부산대학교",
+    "logoPath": "university/logos/부산대.svg"
+  },
+  {
+    "id": 156,
+    "name": "부천대학교",
+    "logoPath": "university/logos/부천대.svg"
+  },
+  {
+    "id": 158,
+    "name": "삼육대학교",
+    "logoPath": "university/logos/삼육대.svg"
+  },
+  {
+    "id": 160,
+    "name": "상명대학교",
+    "logoPath": "university/logos/상명대.svg"
+  },
+  {
+    "id": 161,
+    "name": "상지대학교",
+    "logoPath": "university/logos/상지대.svg"
+  },
+  {
+    "id": 162,
+    "name": "서강대학교",
+    "logoPath": "university/logos/서강대.svg"
+  },
+  {
+    "id": 163,
+    "name": "서경대학교",
+    "logoPath": "university/logos/서경대.svg"
+  },
+  {
+    "id": 165,
+    "name": "서영대학교",
+    "logoPath": "university/logos/서영대.svg"
+  },
+  {
+    "id": 169,
+    "name": "서울대학교",
+    "logoPath": "university/logos/서울대.svg"
+  },
+  {
+    "id": 179,
+    "name": "서원대학교",
+    "logoPath": "university/logos/서원대.svg"
+  },
+  {
+    "id": 180,
+    "name": "서일대학교",
+    "logoPath": "university/logos/서일대.svg"
+  },
+  {
+    "id": 181,
+    "name": "서정대학교",
+    "logoPath": "university/logos/서정대.webp"
+  },
+  {
+    "id": 182,
+    "name": "선린대학교",
+    "logoPath": "university/logos/선린대.svg"
+  },
+  {
+    "id": 183,
+    "name": "선문대학교",
+    "logoPath": "university/logos/선문대.svg"
+  },
+  {
+    "id": 184,
+    "name": "성결대학교",
+    "logoPath": "university/logos/성결대.svg"
+  },
+  {
+    "id": 188,
+    "name": "성운대학교",
+    "logoPath": "university/logos/성운대.svg"
+  },
+  {
+    "id": 189,
+    "name": "세경대학교",
+    "logoPath": "university/logos/세경대.svg"
+  },
+  {
+    "id": 191,
+    "name": "세명대학교",
+    "logoPath": "university/logos/세명대.svg"
+  },
+  {
+    "id": 192,
+    "name": "세종대학교",
+    "logoPath": "university/logos/세종대.svg"
+  },
+  {
+    "id": 194,
+    "name": "세한대학교",
+    "logoPath": "university/logos/세한대.svg"
+  },
+  {
+    "id": 195,
+    "name": "송곡대학교",
+    "logoPath": "university/logos/송곡대.svg"
+  },
+  {
+    "id": 196,
+    "name": "송원대학교",
+    "logoPath": "university/logos/송원대.svg"
+  },
+  {
+    "id": 197,
+    "name": "송호대학교",
+    "logoPath": "university/logos/송호대.svg"
+  },
+  {
+    "id": 198,
+    "name": "수성대학교",
+    "logoPath": "university/logos/수성대.svg"
+  },
+  {
+    "id": 201,
+    "name": "수원대학교",
+    "logoPath": "university/logos/수원대.svg"
+  },
+  {
+    "id": 208,
+    "name": "숭실대학교",
+    "logoPath": "university/logos/숭실대.svg"
+  },
+  {
+    "id": 211,
+    "name": "신구대학교",
+    "logoPath": "university/logos/신구대.svg"
+  },
+  {
+    "id": 212,
+    "name": "신라대학교",
+    "logoPath": "university/logos/신라대.svg"
+  },
+  {
+    "id": 213,
+    "name": "신성대학교",
+    "logoPath": "university/logos/신성대.svg"
+  },
+  {
+    "id": 215,
+    "name": "신한대학교",
+    "logoPath": "university/logos/신한대.svg"
+  },
+  {
+    "id": 216,
+    "name": "아신대학교",
+    "logoPath": "university/logos/아신대.svg"
+  },
+  {
+    "id": 217,
+    "name": "아주대학교",
+    "logoPath": "university/logos/아주대.svg"
+  },
+  {
+    "id": 220,
+    "name": "안산대학교",
+    "logoPath": "university/logos/안산대.svg"
+  },
+  {
+    "id": 221,
+    "name": "안양대학교",
+    "logoPath": "university/logos/안양대.svg"
+  },
+  {
+    "id": 222,
+    "name": "여주대학교",
+    "logoPath": "university/logos/여주대.svg"
+  },
+  {
+    "id": 223,
+    "name": "연성대학교",
+    "logoPath": "university/logos/연성대.svg"
+  },
+  {
+    "id": 224,
+    "name": "연세대학교",
+    "logoPath": "university/logos/연세대.svg"
+  },
+  {
+    "id": 227,
+    "name": "연암대학교",
+    "logoPath": "university/logos/연암대.svg"
+  },
+  {
+    "id": 228,
+    "name": "영남대학교",
+    "logoPath": "university/logos/영남대.svg"
+  },
+  {
+    "id": 233,
+    "name": "영산대학교",
+    "logoPath": "university/logos/영산대.svg"
+  },
+  {
+    "id": 237,
+    "name": "예수대학교",
+    "logoPath": "university/logos/예수대.svg"
+  },
+  {
+    "id": 239,
+    "name": "오산대학교",
+    "logoPath": "university/logos/오산대.svg"
+  },
+  {
+    "id": 240,
+    "name": "용인대학교",
+    "logoPath": "university/logos/용인대.svg"
+  },
+  {
+    "id": 242,
+    "name": "우석대학교",
+    "logoPath": "university/logos/우석대.svg"
+  },
+  {
+    "id": 243,
+    "name": "우송대학교",
+    "logoPath": "university/logos/우송대.png"
+  },
+  {
+    "id": 247,
+    "name": "울산대학교",
+    "logoPath": "university/logos/울산대.svg"
+  },
+  {
+    "id": 249,
+    "name": "원광대학교",
+    "logoPath": "university/logos/원광대.svg"
+  },
+  {
+    "id": 252,
+    "name": "위덕대학교",
+    "logoPath": "university/logos/위덕대.svg"
+  },
+  {
+    "id": 253,
+    "name": "유원대학교",
+    "logoPath": "university/logos/유원대.svg"
+  },
+  {
+    "id": 254,
+    "name": "유한대학교",
+    "logoPath": "university/logos/유한대.svg"
+  },
+  {
+    "id": 256,
+    "name": "을지대학교",
+    "logoPath": "university/logos/을지대.svg"
+  },
+  {
+    "id": 258,
+    "name": "인덕대학교",
+    "logoPath": "university/logos/인덕대.svg"
+  },
+  {
+    "id": 259,
+    "name": "인제대학교",
+    "logoPath": "university/logos/인제대.svg"
+  },
+  {
+    "id": 261,
+    "name": "인천대학교",
+    "logoPath": "university/logos/인천대.svg"
+  },
+  {
+    "id": 264,
+    "name": "인하대학교",
+    "logoPath": "university/logos/인하대.svg"
+  },
+  {
+    "id": 266,
+    "name": "장안대학교",
+    "logoPath": "university/logos/장안대.svg"
+  },
+  {
+    "id": 553,
+    "name": "재능대학교",
+    "logoPath": "university/logos/인천재능대.svg"
+  },
+  {
+    "id": 268,
+    "name": "전남대학교",
+    "logoPath": "university/logos/전남대.svg"
+  },
+  {
+    "id": 271,
+    "name": "전북대학교",
+    "logoPath": "university/logos/전북대.svg"
+  },
+  {
+    "id": 274,
+    "name": "전주대학교",
+    "logoPath": "university/logos/전주대.svg"
+  },
+  {
+    "id": 279,
+    "name": "제주대학교",
+    "logoPath": "university/logos/제주대.svg"
+  },
+  {
+    "id": 282,
+    "name": "조선대학교",
+    "logoPath": "university/logos/조선대.svg"
+  },
+  {
+    "id": 284,
+    "name": "중부대학교",
+    "logoPath": "university/logos/중부대.svg"
+  },
+  {
+    "id": 285,
+    "name": "중앙대학교",
+    "logoPath": "university/logos/중앙대.svg"
+  },
+  {
+    "id": 287,
+    "name": "중원대학교",
+    "logoPath": "university/logos/중원대.svg"
+  },
+  {
+    "id": 291,
+    "name": "창신대학교",
+    "logoPath": "university/logos/창신대.svg"
+  },
+  {
+    "id": 295,
+    "name": "청암대학교",
+    "logoPath": "university/logos/청암대.svg"
+  },
+  {
+    "id": 296,
+    "name": "청운대학교",
+    "logoPath": "university/logos/청운대.svg"
+  },
+  {
+    "id": 298,
+    "name": "청주대학교",
+    "logoPath": "university/logos/청주대.svg"
+  },
+  {
+    "id": 299,
+    "name": "초당대학교",
+    "logoPath": "university/logos/초당대.svg"
+  },
+  {
+    "id": 300,
+    "name": "총신대학교",
+    "logoPath": "university/logos/총신대.svg"
+  },
+  {
+    "id": 304,
+    "name": "충남대학교",
+    "logoPath": "university/logos/충남대.svg"
+  },
+  {
+    "id": 306,
+    "name": "충북대학교",
+    "logoPath": "university/logos/충북대.svg"
+  },
+  {
+    "id": 309,
+    "name": "충청대학교",
+    "logoPath": "university/logos/충청대.svg"
+  },
+  {
+    "id": 310,
+    "name": "칼빈대학교",
+    "logoPath": "university/logos/칼빈대.svg"
+  },
+  {
+    "id": 458,
+    "name": "태재대학교",
+    "logoPath": "university/logos/태재대.svg"
+  },
+  {
+    "id": 311,
+    "name": "평택대학교",
+    "logoPath": "university/logos/평택대.svg"
+  },
+  {
+    "id": 313,
+    "name": "포항대학교",
+    "logoPath": "university/logos/포항대.svg"
+  },
+  {
+    "id": 369,
+    "name": "한남대학교",
+    "logoPath": "university/logos/한남대.svg"
+  },
+  {
+    "id": 370,
+    "name": "한동대학교",
+    "logoPath": "university/logos/한동대.svg"
+  },
+  {
+    "id": 371,
+    "name": "한라대학교",
+    "logoPath": "university/logos/한라대.svg"
+  },
+  {
+    "id": 372,
+    "name": "한림대학교",
+    "logoPath": "university/logos/한림대.svg"
+  },
+  {
+    "id": 375,
+    "name": "한서대학교",
+    "logoPath": "university/logos/한서대.svg"
+  },
+  {
+    "id": 376,
+    "name": "한성대학교",
+    "logoPath": "university/logos/한성대.svg"
+  },
+  {
+    "id": 377,
+    "name": "한세대학교",
+    "logoPath": "university/logos/한세대.svg"
+  },
+  {
+    "id": 378,
+    "name": "한신대학교",
+    "logoPath": "university/logos/한신대.svg"
+  },
+  {
+    "id": 379,
+    "name": "한양대학교",
+    "logoPath": "university/logos/한양대.svg"
+  },
+  {
+    "id": 383,
+    "name": "한영대학교",
+    "logoPath": "university/logos/한영대.svg"
+  },
+  {
+    "id": 386,
+    "name": "협성대학교",
+    "logoPath": "university/logos/협성대.svg"
+  },
+  {
+    "id": 387,
+    "name": "혜전대학교",
+    "logoPath": "university/logos/혜전대.svg"
+  },
+  {
+    "id": 388,
+    "name": "호남대학교",
+    "logoPath": "university/logos/호남대.svg"
+  },
+  {
+    "id": 390,
+    "name": "호산대학교",
+    "logoPath": "university/logos/호산대.svg"
+  },
+  {
+    "id": 391,
+    "name": "호서대학교",
+    "logoPath": "university/logos/호서대.svg"
+  },
+  {
+    "id": 392,
+    "name": "호원대학교",
+    "logoPath": "university/logos/호원대.svg"
+  },
+  {
+    "id": 393,
+    "name": "홍익대학교",
+    "logoPath": "university/logos/홍익대.svg"
+  },
+  {
+    "id": 6,
+    "name": "가톨릭대학교",
+    "logoPath": "university/logos/가톨릭대.svg"
+  },
+  {
+    "id": 46,
+    "name": "고구려대학교",
+    "logoPath": "university/logos/고구려대.svg"
+  },
+  {
+    "id": 51,
+    "name": "공군사관학교",
+    "logoPath": "university/logos/공군사관학교.svg"
+  },
+  {
+    "id": 80,
+    "name": "나사렛대학교",
+    "logoPath": "university/logos/나사렛대.svg"
+  },
+  {
+    "id": 82,
+    "name": "남서울대학교",
+    "logoPath": "university/logos/남서울대.svg"
+  },
+  {
+    "id": 115,
+    "name": "동서울대학교",
+    "logoPath": "university/logos/동서울대.svg"
+  },
+  {
+    "id": 131,
+    "name": "명지전문대학",
+    "logoPath": "university/logos/명지전문대.svg"
+  },
+  {
+    "id": 164,
+    "name": "서라벌대학교",
+    "logoPath": "university/logos/서라벌대.svg"
+  },
+  {
+    "id": 185,
+    "name": "성공회대학교",
+    "logoPath": "university/logos/성공회대.svg"
+  },
+  {
+    "id": 186,
+    "name": "성균관대학교",
+    "logoPath": "university/logos/성균관대.svg"
+  },
+  {
+    "id": 207,
+    "name": "순천향대학교",
+    "logoPath": "university/logos/순천향대.svg"
+  },
+  {
+    "id": 434,
+    "name": "신경주대학교",
+    "logoPath": "university/logos/신경주대.png"
+  },
+  {
+    "id": 214,
+    "name": "신안산대학교",
+    "logoPath": "university/logos/신안산대.svg"
+  },
+  {
+    "id": 244,
+    "name": "우송정보대학",
+    "logoPath": "university/logos/우송정보대.svg"
+  },
+  {
+    "id": 255,
+    "name": "육군사관학교",
+    "logoPath": "university/logos/육군사관학교.svg"
+  },
+  {
+    "id": 273,
+    "name": "전주기전대학",
+    "logoPath": "university/logos/전주기전대.svg"
+  },
+  {
+    "id": 385,
+    "name": "해군사관학교",
+    "logoPath": "university/logos/해군사관학교.svg"
+  },
+  {
+    "id": 11,
+    "name": "강릉영동대학교",
+    "logoPath": "university/logos/강릉영동대.svg"
+  },
+  {
+    "id": 13,
+    "name": "강원관광대학교",
+    "logoPath": "university/logos/강원관광대.svg"
+  },
+  {
+    "id": 15,
+    "name": "강원도립대학교",
+    "logoPath": "university/logos/강원도립대.svg"
+  },
+  {
+    "id": 26,
+    "name": "경남정보대학교",
+    "logoPath": "university/logos/경남정보대.svg"
+  },
+  {
+    "id": 30,
+    "name": "경북과학대학교",
+    "logoPath": "university/logos/경북과학대.svg"
+  },
+  {
+    "id": 32,
+    "name": "경북보건대학교",
+    "logoPath": "university/logos/경북보건대.svg"
+  },
+  {
+    "id": 33,
+    "name": "경북전문대학교",
+    "logoPath": "university/logos/경북전문대.svg"
+  },
+  {
+    "id": 34,
+    "name": "경상국립대학교",
+    "logoPath": "university/logos/경상대.svg"
+  },
+  {
+    "id": 37,
+    "name": "경인교육대학교",
+    "logoPath": "university/logos/경인교육대.svg"
+  },
+  {
+    "id": 38,
+    "name": "경인여자대학교",
+    "logoPath": "university/logos/경인여대.svg"
+  },
+  {
+    "id": 44,
+    "name": "계명문화대학교",
+    "logoPath": "university/logos/계명문화대.png"
+  },
+  {
+    "id": 45,
+    "name": "계원예술대학교",
+    "logoPath": "university/logos/계원예대.svg"
+  },
+  {
+    "id": 52,
+    "name": "공주교육대학교",
+    "logoPath": "university/logos/공주교대.svg"
+  },
+  {
+    "id": 55,
+    "name": "광양보건대학교",
+    "logoPath": "university/logos/광양보건대.svg"
+  },
+  {
+    "id": 58,
+    "name": "광주과학기술원",
+    "logoPath": "university/logos/광주과학기술원.svg"
+  },
+  {
+    "id": 59,
+    "name": "광주교육대학교",
+    "logoPath": "university/logos/광주교대.svg"
+  },
+  {
+    "id": 61,
+    "name": "광주보건대학교",
+    "logoPath": "university/logos/광주보건대.svg"
+  },
+  {
+    "id": 62,
+    "name": "광주여자대학교",
+    "logoPath": "university/logos/광주여대.svg"
+  },
+  {
+    "id": 64,
+    "name": "국립경국대학교",
+    "logoPath": "university/logos/안동대.svg"
+  },
+  {
+    "id": 53,
+    "name": "국립공주대학교",
+    "logoPath": "university/logos/공주대.svg"
+  },
+  {
+    "id": 70,
+    "name": "국립군산대학교",
+    "logoPath": "university/logos/군산대.svg"
+  },
+  {
+    "id": 135,
+    "name": "국립목포대학교",
+    "logoPath": "university/logos/목포대.svg"
+  },
+  {
+    "id": 144,
+    "name": "국립부경대학교",
+    "logoPath": "university/logos/부경대.svg"
+  },
+  {
+    "id": 205,
+    "name": "국립순천대학교",
+    "logoPath": "university/logos/순천대.svg"
+  },
+  {
+    "id": 292,
+    "name": "국립창원대학교",
+    "logoPath": "university/logos/창원대.svg"
+  },
+  {
+    "id": 374,
+    "name": "국립한밭대학교",
+    "logoPath": "university/logos/한밭대_EyzH2jD.svg"
+  },
+  {
+    "id": 68,
+    "name": "국제예술대학교",
+    "logoPath": "university/logos/국제예술대.svg"
+  },
+  {
+    "id": 69,
+    "name": "군산간호대학교",
+    "logoPath": "university/logos/군산간호대.svg"
+  },
+  {
+    "id": 76,
+    "name": "기독간호대학교",
+    "logoPath": "university/logos/기독간호대.svg"
+  },
+  {
+    "id": 88,
+    "name": "대구공업대학교",
+    "logoPath": "university/logos/대구공업대.svg"
+  },
+  {
+    "id": 89,
+    "name": "대구과학대학교",
+    "logoPath": "university/logos/대구과학대.svg"
+  },
+  {
+    "id": 90,
+    "name": "대구교육대학교",
+    "logoPath": "university/logos/대구교대.svg"
+  },
+  {
+    "id": 92,
+    "name": "대구보건대학교",
+    "logoPath": "university/logos/대구보건대.svg"
+  },
+  {
+    "id": 94,
+    "name": "대구예술대학교",
+    "logoPath": "university/logos/대구예술대.svg"
+  },
+  {
+    "id": 95,
+    "name": "대구한의대학교",
+    "logoPath": "university/logos/대구한의대.svg"
+  },
+  {
+    "id": 104,
+    "name": "대전보건대학교",
+    "logoPath": "university/logos/대전보건대.svg"
+  },
+  {
+    "id": 105,
+    "name": "대전신학대학교",
+    "logoPath": "university/logos/대전신학대.svg"
+  },
+  {
+    "id": 107,
+    "name": "덕성여자대학교",
+    "logoPath": "university/logos/덕성여대.svg"
+  },
+  {
+    "id": 111,
+    "name": "동남보건대학교",
+    "logoPath": "university/logos/동남보건대.svg"
+  },
+  {
+    "id": 112,
+    "name": "동덕여자대학교",
+    "logoPath": "university/logos/동덕여대.svg"
+  },
+  {
+    "id": 119,
+    "name": "동아보건대학교",
+    "logoPath": "university/logos/동아보건대.svg"
+  },
+  {
+    "id": 121,
+    "name": "동양미래대학교",
+    "logoPath": "university/logos/동양미래대.svg"
+  },
+  {
+    "id": 124,
+    "name": "동의과학대학교",
+    "logoPath": "university/logos/동의과학대.svg"
+  },
+  {
+    "id": 126,
+    "name": "두원공과대학교",
+    "logoPath": "university/logos/두원공대.svg"
+  },
+  {
+    "id": 134,
+    "name": "목포과학대학교",
+    "logoPath": "university/logos/목포과학대.svg"
+  },
+  {
+    "id": 139,
+    "name": "배화여자대학교",
+    "logoPath": "university/logos/배화여대.svg"
+  },
+  {
+    "id": 141,
+    "name": "백석문화대학교",
+    "logoPath": "university/logos/백석문화대.svg"
+  },
+  {
+    "id": 142,
+    "name": "백석예술대학교",
+    "logoPath": "university/logos/백석예대.svg"
+  },
+  {
+    "id": 143,
+    "name": "백제예술대학교",
+    "logoPath": "university/logos/백제예술대.svg"
+  },
+  {
+    "id": 146,
+    "name": "부산경상대학교",
+    "logoPath": "university/logos/부산경상대.svg"
+  },
+  {
+    "id": 148,
+    "name": "부산교육대학교",
+    "logoPath": "university/logos/부산교대.svg"
+  },
+  {
+    "id": 151,
+    "name": "부산보건대학교",
+    "logoPath": "university/logos/부산보건대.svg"
+  },
+  {
+    "id": 152,
+    "name": "부산여자대학교",
+    "logoPath": "university/logos/부산여대.svg"
+  },
+  {
+    "id": 153,
+    "name": "부산예술대학교",
+    "logoPath": "university/logos/부산예술대.svg"
+  },
+  {
+    "id": 155,
+    "name": "부산장신대학교",
+    "logoPath": "university/logos/부산장신대.svg"
+  },
+  {
+    "id": 159,
+    "name": "삼육보건대학교",
+    "logoPath": "university/logos/삼육보건대.svg"
+  },
+  {
+    "id": 167,
+    "name": "서울교육대학교",
+    "logoPath": "university/logos/서울교대.svg"
+  },
+  {
+    "id": 168,
+    "name": "서울기독대학교",
+    "logoPath": "university/logos/서울기독대.svg"
+  },
+  {
+    "id": 172,
+    "name": "서울시립대학교",
+    "logoPath": "university/logos/시립대.svg"
+  },
+  {
+    "id": 173,
+    "name": "서울신학대학교",
+    "logoPath": "university/logos/서울신학대.svg"
+  },
+  {
+    "id": 175,
+    "name": "서울여자대학교",
+    "logoPath": "university/logos/서울여대.svg"
+  },
+  {
+    "id": 176,
+    "name": "서울예술대학교",
+    "logoPath": "university/logos/서울예대.svg"
+  },
+  {
+    "id": 177,
+    "name": "서울장신대학교",
+    "logoPath": "university/logos/서울장신대.svg"
+  },
+  {
+    "id": 178,
+    "name": "서울한영대학교",
+    "logoPath": "university/logos/서울한영대.svg"
+  },
+  {
+    "id": 187,
+    "name": "성신여자대학교",
+    "logoPath": "university/logos/성신여대.svg"
+  },
+  {
+    "id": 200,
+    "name": "수원과학대학교",
+    "logoPath": "university/logos/수원과학대.svg"
+  },
+  {
+    "id": 202,
+    "name": "수원여자대학교",
+    "logoPath": "university/logos/수원여대.svg"
+  },
+  {
+    "id": 203,
+    "name": "숙명여자대학교",
+    "logoPath": "university/logos/숙명여대.svg"
+  },
+  {
+    "id": 206,
+    "name": "순천제일대학교",
+    "logoPath": "university/logos/순천제일대.svg"
+  },
+  {
+    "id": 210,
+    "name": "숭의여자대학교",
+    "logoPath": "university/logos/숭의여대.svg"
+  },
+  {
+    "id": 219,
+    "name": "안동과학대학교",
+    "logoPath": "university/logos/안동과학대.svg"
+  },
+  {
+    "id": 226,
+    "name": "연암공과대학교",
+    "logoPath": "university/logos/연암공대.svg"
+  },
+  {
+    "id": 230,
+    "name": "영남신학대학교",
+    "logoPath": "university/logos/영남신학대.svg"
+  },
+  {
+    "id": 231,
+    "name": "영남외국어대학",
+    "logoPath": "university/logos/영남외대.svg"
+  },
+  {
+    "id": 232,
+    "name": "영남이공대학교",
+    "logoPath": "university/logos/영남이공대.svg"
+  },
+  {
+    "id": 234,
+    "name": "영산선학대학교",
+    "logoPath": "university/logos/영산선학대.webp"
+  },
+  {
+    "id": 236,
+    "name": "영진전문대학교",
+    "logoPath": "university/logos/영진전문대.svg"
+  },
+  {
+    "id": 238,
+    "name": "예원예술대학교",
+    "logoPath": "university/logos/예원예술대.svg"
+  },
+  {
+    "id": 245,
+    "name": "울산과학기술원",
+    "logoPath": "university/logos/울산과학기술원.svg"
+  },
+  {
+    "id": 246,
+    "name": "울산과학대학교",
+    "logoPath": "university/logos/울산과학대.svg"
+  },
+  {
+    "id": 248,
+    "name": "웅지세무대학교",
+    "logoPath": "university/logos/웅지세무대.svg"
+  },
+  {
+    "id": 251,
+    "name": "원광보건대학교",
+    "logoPath": "university/logos/원광보건대.svg"
+  },
+  {
+    "id": 257,
+    "name": "이화여자대학교",
+    "logoPath": "university/logos/이화여대.svg"
+  },
+  {
+    "id": 262,
+    "name": "인천재능대학교",
+    "logoPath": "university/logos/인천재능대.svg"
+  },
+  {
+    "id": 267,
+    "name": "전남과학대학교",
+    "logoPath": "university/logos/전남과학대.svg"
+  },
+  {
+    "id": 269,
+    "name": "전남도립대학교",
+    "logoPath": "university/logos/전남도립대.svg"
+  },
+  {
+    "id": 270,
+    "name": "전북과학대학교",
+    "logoPath": "university/logos/전북과학대.svg"
+  },
+  {
+    "id": 272,
+    "name": "전주교육대학교",
+    "logoPath": "university/logos/전주교대.svg"
+  },
+  {
+    "id": 275,
+    "name": "전주비전대학교",
+    "logoPath": "university/logos/전주비전대.svg"
+  },
+  {
+    "id": 276,
+    "name": "정화예술대학교",
+    "logoPath": "university/logos/정화예대.svg"
+  },
+  {
+    "id": 277,
+    "name": "제주관광대학교",
+    "logoPath": "university/logos/제주관광대.svg"
+  },
+  {
+    "id": 278,
+    "name": "제주국제대학교",
+    "logoPath": "university/logos/제주국제대.svg"
+  },
+  {
+    "id": 280,
+    "name": "제주한라대학교",
+    "logoPath": "university/logos/제주한라대.svg"
+  },
+  {
+    "id": 281,
+    "name": "조선간호대학교",
+    "logoPath": "university/logos/조선간호대.svg"
+  },
+  {
+    "id": 283,
+    "name": "조선이공대학교",
+    "logoPath": "university/logos/조선이공대.svg"
+  },
+  {
+    "id": 286,
+    "name": "중앙승가대학교",
+    "logoPath": "university/logos/중앙승가대.svg"
+  },
+  {
+    "id": 288,
+    "name": "진주교육대학교",
+    "logoPath": "university/logos/진주교대.svg"
+  },
+  {
+    "id": 289,
+    "name": "진주보건대학교",
+    "logoPath": "university/logos/진주보건대.svg"
+  },
+  {
+    "id": 290,
+    "name": "차의과학대학교",
+    "logoPath": "university/logos/차의과대.svg"
+  },
+  {
+    "id": 293,
+    "name": "창원문성대학교",
+    "logoPath": "university/logos/창원문성대.svg"
+  },
+  {
+    "id": 297,
+    "name": "청주교육대학교",
+    "logoPath": "university/logos/청주교대.svg"
+  },
+  {
+    "id": 301,
+    "name": "추계예술대학교",
+    "logoPath": "university/logos/추계예대.svg"
+  },
+  {
+    "id": 302,
+    "name": "춘천교육대학교",
+    "logoPath": "university/logos/춘천교대.svg"
+  },
+  {
+    "id": 303,
+    "name": "춘해보건대학교",
+    "logoPath": "university/logos/춘해보건대.svg"
+  },
+  {
+    "id": 305,
+    "name": "충남도립대학교",
+    "logoPath": "university/logos/충남도립대.svg"
+  },
+  {
+    "id": 307,
+    "name": "충북도립대학교",
+    "logoPath": "university/logos/충북도립대.svg"
+  },
+  {
+    "id": 312,
+    "name": "포항공과대학교",
+    "logoPath": "university/logos/포항공대.svg"
+  },
+  {
+    "id": 314,
+    "name": "한경국립대학교",
+    "logoPath": "university/logos/한겅대.svg"
+  },
+  {
+    "id": 316,
+    "name": "한국공학대학교",
+    "logoPath": "university/logos/공학대.svg"
+  },
+  {
+    "id": 317,
+    "name": "한국과학기술원",
+    "logoPath": "university/logos/한국과학기술원.svg"
+  },
+  {
+    "id": 318,
+    "name": "한국관광대학교",
+    "logoPath": "university/logos/한국관광대.svg"
+  },
+  {
+    "id": 319,
+    "name": "한국교원대학교",
+    "logoPath": "university/logos/한국교원대.svg"
+  },
+  {
+    "id": 325,
+    "name": "한국성서대학교",
+    "logoPath": "university/logos/한국성서대.svg"
+  },
+  {
+    "id": 329,
+    "name": "한국영상대학교",
+    "logoPath": "university/logos/한국영상대.svg"
+  },
+  {
+    "id": 333,
+    "name": "한국체육대학교",
+    "logoPath": "university/logos/한국체대.svg"
+  },
+  {
+    "id": 552,
+    "name": "한국폴리텍대학",
+    "logoPath": "university/logos/폴리텍_gRva6hZ.png"
+  },
+  {
+    "id": 367,
+    "name": "한국항공대학교",
+    "logoPath": "university/logos/항공대.svg"
+  },
+  {
+    "id": 373,
+    "name": "한림성심대학교",
+    "logoPath": "university/logos/한림성신대.svg"
+  },
+  {
+    "id": 382,
+    "name": "한양여자대학교",
+    "logoPath": "university/logos/한양여대.svg"
+  },
+  {
+    "id": 384,
+    "name": "한일장신대학교",
+    "logoPath": "university/logos/한일장신대.svg"
+  },
+  {
+    "id": 389,
+    "name": "호남신학대학교",
+    "logoPath": "university/logos/호남신학대.svg"
+  },
+  {
+    "id": 4,
+    "name": "가톨릭관동대학교",
+    "logoPath": "university/logos/가톨릭관동대.svg"
+  },
+  {
+    "id": 7,
+    "name": "가톨릭상지대학교",
+    "logoPath": "university/logos/가톨릭상지대.svg"
+  },
+  {
+    "id": 8,
+    "name": "감리교신학대학교",
+    "logoPath": "university/logos/감리교신학대.svg"
+  },
+  {
+    "id": 57,
+    "name": "광주가톨릭대학교",
+    "logoPath": "university/logos/광주가톨릭대.svg"
+  },
+  {
+    "id": 86,
+    "name": "대구가톨릭대학교",
+    "logoPath": "university/logos/대구가톨릭대.svg"
+  },
+  {
+    "id": 101,
+    "name": "대전가톨릭대학교",
+    "logoPath": "university/logos/대전가톨릭대.svg"
+  },
+  {
+    "id": 133,
+    "name": "목포가톨릭대학교",
+    "logoPath": "university/logos/목포가톨릭대.svg"
+  },
+  {
+    "id": 145,
+    "name": "부산가톨릭대학교",
+    "logoPath": "university/logos/부산가톨릭대.svg"
+  },
+  {
+    "id": 154,
+    "name": "부산외국어대학교",
+    "logoPath": "university/logos/부산외대.svg"
+  },
+  {
+    "id": 171,
+    "name": "서울사이버대학교",
+    "logoPath": "university/logos/서울사이버대.svg"
+  },
+  {
+    "id": 199,
+    "name": "수원가톨릭대학교",
+    "logoPath": "university/logos/수원가톨릭대.svg"
+  },
+  {
+    "id": 204,
+    "name": "순복음총회신학교",
+    "logoPath": "university/logos/순복음총회신학교.svg"
+  },
+  {
+    "id": 218,
+    "name": "아주자동차대학교",
+    "logoPath": "university/logos/아주자동차대.svg"
+  },
+  {
+    "id": 260,
+    "name": "인천가톨릭대학교",
+    "logoPath": "university/logos/인천가톨릭대.svg"
+  },
+  {
+    "id": 263,
+    "name": "인하공업전문대학",
+    "logoPath": "university/logos/인하공전.svg"
+  },
+  {
+    "id": 265,
+    "name": "장로회신학대학교",
+    "logoPath": "university/logos/장로회신학대.svg"
+  },
+  {
+    "id": 322,
+    "name": "한국농수산대학교",
+    "logoPath": "university/logos/한국농수산대.svg"
+  },
+  {
+    "id": 326,
+    "name": "한국승강기대학교",
+    "logoPath": "university/logos/한국승강기대.svg"
+  },
+  {
+    "id": 330,
+    "name": "한국예술종합학교",
+    "logoPath": "university/logos/한예종.svg"
+  },
+  {
+    "id": 331,
+    "name": "한국외국어대학교",
+    "logoPath": "university/logos/외대.svg"
+  },
+  {
+    "id": 395,
+    "name": "화성의과학대학교",
+    "logoPath": "university/logos/화성의과학대.svg"
+  },
+  {
+    "id": 5,
+    "name": "가톨릭꽃동네대학교",
+    "logoPath": "university/logos/가톨릭꽃동네대.svg"
+  },
+  {
+    "id": 21,
+    "name": "경기과학기술대학교",
+    "logoPath": "university/logos/경기과학기술대.svg"
+  },
+  {
+    "id": 75,
+    "name": "국립금오공과대학교",
+    "logoPath": "university/logos/금오공대.svg"
+  },
+  {
+    "id": 136,
+    "name": "국립목포해양대학교",
+    "logoPath": "university/logos/목포해양대.svg"
+  },
+  {
+    "id": 320,
+    "name": "국립한국교통대학교",
+    "logoPath": "university/logos/한국교통대.svg"
+  },
+  {
+    "id": 368,
+    "name": "국립한국해양대학교",
+    "logoPath": "university/logos/한국해양대.svg"
+  },
+  {
+    "id": 87,
+    "name": "대구경북과학기술원",
+    "logoPath": "university/logos/대구경북과학기술원.svg"
+  },
+  {
+    "id": 102,
+    "name": "대전과학기술대학교",
+    "logoPath": "university/logos/대전과학기술.svg"
+  },
+  {
+    "id": 118,
+    "name": "동아방송예술대학교",
+    "logoPath": "university/logos/동아방송예대.svg"
+  },
+  {
+    "id": 122,
+    "name": "동원과학기술대학교",
+    "logoPath": "university/logos/동원과학기술대.svg"
+  },
+  {
+    "id": 147,
+    "name": "부산과학기술대학교",
+    "logoPath": "university/logos/부산과학기술대.svg"
+  },
+  {
+    "id": 166,
+    "name": "서울과학기술대학교",
+    "logoPath": "university/logos/서울과기대.svg"
+  },
+  {
+    "id": 174,
+    "name": "서울여자간호대학교",
+    "logoPath": "university/logos/서울여자간호대.svg"
+  },
+  {
+    "id": 241,
+    "name": "용인예술과학대학교",
+    "logoPath": "university/logos/용인예술과학대.svg"
+  },
+  {
+    "id": 294,
+    "name": "청강문화산업대학교",
+    "logoPath": "university/logos/청강문화산업대.svg"
+  },
+  {
+    "id": 308,
+    "name": "충북보건과학대학교",
+    "logoPath": "university/logos/충북보건과학대.svg"
+  },
+  {
+    "id": 321,
+    "name": "한국기술교육대학교",
+    "logoPath": "university/logos/한기대.svg"
+  },
+  {
+    "id": 323,
+    "name": "한국방송통신대학교",
+    "logoPath": "university/logos/방통대.svg"
+  },
+  {
+    "id": 332,
+    "name": "한국전통문화대학교",
+    "logoPath": "university/logos/한국전통문화대.svg"
+  },
+  {
+    "id": 334,
+    "name": "한국침례신학대학교",
+    "logoPath": "university/logos/한국침례신학대.svg"
+  },
+  {
+    "id": 327,
+    "name": "한국에너지공과대학교",
+    "logoPath": "university/logos/한국에너지공과대.svg"
+  },
+  {
+    "id": 460,
+    "name": "한국골프과학기술대학교",
+    "logoPath": "university/logos/한국골프대.svg"
+  },
+  {
+    "id": 550,
+    "name": "인천가톨릭대학교 강화캠퍼스",
+    "logoPath": "university/logos/인천가톨릭대.svg"
+  },
+  {
+    "id": 549,
+    "name": "예원예술대학교 전북희망캠퍼스",
+    "logoPath": "university/logos/예원예술대.svg"
+  },
+  {
+    "id": 542,
+    "name": "경기대학교 서울캠퍼스",
+    "logoPath": "university/logos/경기대.svg"
+  },
+  {
+    "id": 48,
+    "name": "고려대학교 세종캠퍼스",
+    "logoPath": "university/logos/고려대_세종캠.svg"
+  },
+  {
+    "id": 415,
+    "name": "단국대학교 죽전캠퍼스",
+    "logoPath": "university/logos/단국대.svg"
+  },
+  {
+    "id": 84,
+    "name": "단국대학교 천안캠퍼스",
+    "logoPath": "university/logos/단국대.svg"
+  },
+  {
+    "id": 130,
+    "name": "명지대학교 인문캠퍼스",
+    "logoPath": "university/logos/명지대_Y9R0ZR3.svg"
+  },
+  {
+    "id": 424,
+    "name": "명지대학교 자연캠퍼스",
+    "logoPath": "university/logos/명지대_Y9R0ZR3.svg"
+  },
+  {
+    "id": 540,
+    "name": "상명대학교 천안캠퍼스",
+    "logoPath": "university/logos/상명대.svg"
+  },
+  {
+    "id": 545,
+    "name": "안양대학교 강화캠퍼스",
+    "logoPath": "university/logos/안양대.svg"
+  },
+  {
+    "id": 225,
+    "name": "연세대학교 미래캠퍼스",
+    "logoPath": "university/logos/연세대_미래캠.svg"
+  },
+  {
+    "id": 439,
+    "name": "영산대학교 양산캠퍼스",
+    "logoPath": "university/logos/영산대.svg"
+  },
+  {
+    "id": 444,
+    "name": "을지대학교 대전캠퍼스",
+    "logoPath": "university/logos/을지대.svg"
+  },
+  {
+    "id": 547,
+    "name": "전남대학교 여수캠퍼스",
+    "logoPath": "university/logos/전남대.svg"
+  },
+  {
+    "id": 394,
+    "name": "홍익대학교 세종캠퍼스",
+    "logoPath": "university/logos/홍익대_세종캠.svg"
+  },
+  {
+    "id": 18,
+    "name": "건국대학교 글로컬캠퍼스",
+    "logoPath": "university/logos/건국대_글로캠.svg"
+  },
+  {
+    "id": 541,
+    "name": "건양대학교 메디컬캠퍼스",
+    "logoPath": "university/logos/건양대.svg"
+  },
+  {
+    "id": 543,
+    "name": "경동대학교 메디컬캠퍼스",
+    "logoPath": "university/logos/경동대.svg"
+  },
+  {
+    "id": 435,
+    "name": "신한대학교 동두천캠퍼스",
+    "logoPath": "university/logos/신한대.svg"
+  },
+  {
+    "id": 546,
+    "name": "을지대학교 의정부캠퍼스",
+    "logoPath": "university/logos/을지대.svg"
+  },
+  {
+    "id": 548,
+    "name": "중앙대학교 다빈치캠퍼스",
+    "logoPath": "university/logos/중앙대.svg"
+  },
+  {
+    "id": 544,
+    "name": "경동대학교 메트로폴캠퍼스",
+    "logoPath": "university/logos/경동대.svg"
+  },
+  {
+    "id": 380,
+    "name": "한양대학교 ERICA캠퍼스",
+    "logoPath": "university/logos/한양대_에리카.svg"
+  },
+  {
+    "id": 1,
+    "name": "ICT폴리텍대학",
+    "logoPath": "university/logos/ICT폴리텍.jpg"
+  },
+  {
+    "id": 110,
+    "name": "동국대학교 WISE캠퍼스",
+    "logoPath": "university/logos/동국대_wise.svg"
+  }
+]
