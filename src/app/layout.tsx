@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: { default: "K-unirank 개발 미리보기", template: "%s | K-unirank" },
   description: "K-unirank의 Spring Boot + React 전환 개발 미리보기입니다.",
@@ -20,10 +22,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               <Link href="/admissions/compare/">내 점수</Link>
               <Link href="/universities/">대학</Link>
               <Link href="/ranking/">순위</Link>
-              <Link href="/vs/">VS</Link>
-              <Link href="/ai/">AI 입결</Link>
-              <Link href="/favorites/">관심 대학</Link>
-              <Link href="/login/">로그인</Link>
+              {process.env.VS_FRONTEND_ENABLED === "true" && <Link href="/vs/">VS</Link>}
+              {process.env.AI_FRONTEND_ENABLED === "true" && <Link href="/ai/">AI 입결</Link>}
+              {process.env.MEMBER_FRONTEND_ENABLED === "true" && <>
+                <Link href="/favorites/">관심 대학</Link>
+                <Link href="/login/">로그인</Link>
+              </>}
             </nav>
           </div>
         </header>
