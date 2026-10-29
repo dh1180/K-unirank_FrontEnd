@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { request as httpRequest } from "node:http";
+import { request as httpsRequest } from "node:https";
+import { Readable } from "node:stream";
 import { SITE_ORIGIN, legacyPath, productionHost } from "@/lib/site-policy.mjs";
 export const dynamic = "force-dynamic";
 type Context = { params: Promise<{ path: string[] }> };
@@ -30,31 +33,46 @@ async function bridge(request: NextRequest, context: Context) {
   headers.set("host", new URL(SITE_ORIGIN).host);
   headers.set("x-forwarded-proto", "https");
   try {
-    const upstream = await fetch(target, {
-      method: request.method,
-      headers,
-      redirect: "manual",
-      cache: "no-store",
-      signal: AbortSignal.timeout(30000),
-      ...(["GET", "HEAD"].includes(request.method)
-        ? {}
-        : { body: await request.arrayBuffer() }),
-    });
-    const resultHeaders = new Headers(upstream.headers);
-    for (const key of [
-      "connection",
-      "transfer-encoding",
-      "content-length",
-      "content-encoding",
-      "set-cookie",
-    ])
-      resultHeaders.delete(key);
-    for (const cookie of upstream.headers.getSetCookie())
-      resultHeaders.append("set-cookie", cookie);
-    resultHeaders.set("cache-control", "private, no-store");
-    return new NextResponse(upstream.body, {
-      status: upstream.status,
-      headers: resultHeaders,
+    const body = ["GET", "HEAD"].includes(request.method)
+      ? null
+      : Buffer.from(await request.arrayBuffer());
+    if (body) headers.set("content-length", String(body.byteLength));
+    // Node HTTP preserves the original Host required by Django's existing
+    // ALLOWED_HOSTS and CSRF checks; fetch may normalize it to the private host.
+    return await new Promise<NextResponse>((resolve, reject) => {
+      const transport =
+        target.protocol === "https:" ? httpsRequest : httpRequest;
+      const outgoing = transport(
+        target,
+        { method: request.method, headers: Object.fromEntries(headers) },
+        (upstream) => {
+          const resultHeaders = new Headers();
+          for (const [key, value] of Object.entries(upstream.headers)) {
+            if (!value || ["connection", "transfer-encoding"].includes(key))
+              continue;
+            for (const item of Array.isArray(value) ? value : [value])
+              resultHeaders.append(key, item);
+          }
+          if (!path.startsWith("/static/"))
+            resultHeaders.set("cache-control", "private, no-store");
+          const status = upstream.statusCode || 502;
+          const noBody =
+            request.method === "HEAD" || [204, 205, 304].includes(status);
+          resolve(
+            new NextResponse(
+              noBody
+                ? null
+                : (Readable.toWeb(upstream) as ReadableStream<Uint8Array>),
+              { status, headers: resultHeaders },
+            ),
+          );
+        },
+      );
+      outgoing.setTimeout(30000, () =>
+        outgoing.destroy(new Error("Legacy timeout")),
+      );
+      outgoing.on("error", reject);
+      outgoing.end(body);
     });
   } catch {
     return new NextResponse(
