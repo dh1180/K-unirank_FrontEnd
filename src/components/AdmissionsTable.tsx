@@ -221,7 +221,13 @@ export function AdmissionsTable({
                     className="source-link"
                     data-ga-event="admission_source_click"
                     data-ga-param-university={row.universityName}
-                    data-ga-param-source={row.sourceType}
+                    data-ga-param-source={
+                      row.sourceType === "ADIGA"
+                        ? "대입정보포털 어디가"
+                        : row.sourceType === "PROCOLLEGE"
+                          ? "전문대학포털"
+                          : "대학 입학처"
+                    }
                     href={row.sourceUrl}
                     target="_blank"
                     rel="noopener noreferrer"

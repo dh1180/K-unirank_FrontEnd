@@ -42,6 +42,10 @@ export default async function RankingPage() {
             {data.ranking.slice(0, 3).map((item) => (
               <Link
                 className={`podium-card podium-${item.rank}`}
+                data-ga-event="ranking_university_open"
+                data-ga-param-board="overall"
+                data-ga-param-rank={item.rank}
+                data-ga-param-university={item.name}
                 href={`/universities/${item.university_id}/`}
                 key={item.university_id}
               >
@@ -84,7 +88,13 @@ export default async function RankingPage() {
                   </span>
                   <UniversityLogo id={item.university_id} name={item.name} />
                   <div>
-                    <Link href={`/universities/${item.university_id}/`}>
+                    <Link
+                      data-ga-event="ranking_university_open"
+                      data-ga-param-board="overall"
+                      data-ga-param-rank={item.rank}
+                      data-ga-param-university={item.name}
+                      href={`/universities/${item.university_id}/`}
+                    >
                       {item.name}
                     </Link>
                     <small>

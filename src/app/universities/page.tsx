@@ -114,6 +114,9 @@ export default async function UniversitiesPage({
               {data.items.map((item) => (
                 <Link
                   className="school-card"
+                  data-ga-event="university_open"
+                  data-ga-param-university={item.name}
+                  data-ga-param-region={item.region ?? ""}
                   key={item.id}
                   href={`/universities/${item.id}/`}
                 >

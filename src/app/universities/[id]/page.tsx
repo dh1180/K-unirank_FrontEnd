@@ -119,7 +119,7 @@ export default async function UniversityDetailPage({ params }: Props) {
         </div>
       </section>
       <DisplayAd />
-      <UniversityOverview id={id} data={overview} />
+      <UniversityOverview id={id} name={data.name} data={overview} />
     </div>
   );
 }

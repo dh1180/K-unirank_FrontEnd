@@ -19,9 +19,11 @@ function indicatorValue(value: number, kind: string) {
 export function UniversityOverview({
   id,
   data,
+  name,
 }: {
   id: number;
   data: Overview | null;
+  name: string;
 }) {
   const href = `/admissions/university/${id}/`;
   const admissions = data?.admissions;
@@ -100,6 +102,19 @@ export function UniversityOverview({
                         <small>{range.unit}</small>
                       </strong>
                       <Link
+                        data-ga-event="admission_core_summary_open"
+                        data-ga-param-university={name}
+                        data-ga-param-track={
+                          range.code.includes("CSAT")
+                            ? "csat"
+                            : range.category.includes("종합")
+                              ? "holistic"
+                              : range.category.includes("논술")
+                                ? "essay"
+                                : range.category.includes("실기")
+                                  ? "practical"
+                                  : "student"
+                        }
                         href={`${href}?${toQuery({ year: admissions.year ?? undefined, phase: range.phase, q: range.category, metrics: "public" })}#results`}
                       >
                         전형별 입결 →
