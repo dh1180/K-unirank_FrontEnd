@@ -27,60 +27,6 @@ export function UniversityOverview({
   const admissions = data?.admissions;
   return (
     <>
-      <section className="panel overview-section">
-        <div className="overview-heading">
-          <div>
-            <p className="eyebrow">OFFICIAL DATA</p>
-            <h2>공식 공시 지표</h2>
-          </div>
-          <span>대학알리미 · 지표별 최신 공개 자료</span>
-        </div>
-        {!data ? (
-          <p className="overview-empty">
-            공시 지표를 불러오지 못했습니다. 잠시 후 다시 확인해 주세요.
-          </p>
-        ) : data.indicators.length ? (
-          <div className="official-indicator-grid">
-            {data.indicators.map((item) => {
-              const display = indicatorValue(item.value, item.kind);
-              return (
-                <article className="official-indicator-card" key={item.slug}>
-                  <div className="indicator-card-label">
-                    <h3>{item.label}</h3>
-                    <span>{item.year}년</span>
-                  </div>
-                  <p className="indicator-card-value">
-                    {display.value}
-                    <small>{display.unit}</small>
-                  </p>
-                  <div className="indicator-card-links">
-                    <Link
-                      href={`/universities/indicators/${item.slug}/?year=${item.year}#results`}
-                    >
-                      전체 대학 비교 →
-                    </Link>
-                    {item.sourceUrl && /^https?:\/\//.test(item.sourceUrl) ? (
-                      <a
-                        href={item.sourceUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        공시 출처 ↗
-                      </a>
-                    ) : (
-                      <span>대학알리미</span>
-                    )}
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        ) : (
-          <p className="overview-empty">
-            현재 확인할 수 있는 공식 공시 지표가 없습니다.
-          </p>
-        )}
-      </section>
       <section className="panel overview-section admission-overview">
         <div className="overview-heading">
           <div>
@@ -180,6 +126,60 @@ export function UniversityOverview({
               공개 입시결과 전체 보기 →
             </Link>
           </>
+        )}
+      </section>
+      <section className="panel overview-section">
+        <div className="overview-heading">
+          <div>
+            <p className="eyebrow">OFFICIAL DATA</p>
+            <h2>공식 공시 지표</h2>
+          </div>
+          <span>대학알리미 · 지표별 최신 공개 자료</span>
+        </div>
+        {!data ? (
+          <p className="overview-empty">
+            공시 지표를 불러오지 못했습니다. 잠시 후 다시 확인해 주세요.
+          </p>
+        ) : data.indicators.length ? (
+          <div className="official-indicator-grid">
+            {data.indicators.map((item) => {
+              const display = indicatorValue(item.value, item.kind);
+              return (
+                <article className="official-indicator-card" key={item.slug}>
+                  <div className="indicator-card-label">
+                    <h3>{item.label}</h3>
+                    <span>{item.year}년</span>
+                  </div>
+                  <p className="indicator-card-value">
+                    {display.value}
+                    <small>{display.unit}</small>
+                  </p>
+                  <div className="indicator-card-links">
+                    <Link
+                      href={`/universities/indicators/${item.slug}/?year=${item.year}#results`}
+                    >
+                      전체 대학 비교 →
+                    </Link>
+                    {item.sourceUrl && /^https?:\/\//.test(item.sourceUrl) ? (
+                      <a
+                        href={item.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        공시 출처 ↗
+                      </a>
+                    ) : (
+                      <span>대학알리미</span>
+                    )}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        ) : (
+          <p className="overview-empty">
+            현재 확인할 수 있는 공식 공시 지표가 없습니다.
+          </p>
         )}
       </section>
     </>

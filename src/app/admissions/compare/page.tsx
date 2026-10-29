@@ -243,17 +243,28 @@ export default async function GradeComparisonPage({
                       <p>{row.selectionName}</p>
                     </div>
                     <div className="compare-result-score">
-                      <span>{row.referenceBasis}</span>
-                      <strong>
-                        {row.referenceCut.toFixed(2)}
-                        <small>등급</small>
-                      </strong>
+                      <div className="compare-score-values">
+                        <div>
+                          <span>내 등급</span>
+                          <strong className="my-grade">
+                            {data.grade.toFixed(2)}
+                            <small>등급</small>
+                          </strong>
+                        </div>
+                        <div>
+                          <span>{row.referenceBasis}</span>
+                          <strong>
+                            {row.referenceCut.toFixed(2)}
+                            <small>등급</small>
+                          </strong>
+                        </div>
+                      </div>
                       <span className={`compare-position ${row.positionTone}`}>
                         {row.positionLabel}
                       </span>
                     </div>
                     <details className="compare-row-details">
-                      <summary>전형·입결 상세</summary>
+                      <summary>전형 상세·출처</summary>
                       <div>
                         <p>
                           {row.selectionCategory} · {row.selectionName}
@@ -279,6 +290,7 @@ export default async function GradeComparisonPage({
                           </div>
                         </dl>
                         <Link
+                          className="compare-source-link"
                           href={`/admissions/unit/${row.recruitmentUnitId}/`}
                         >
                           학과별 입결·원문 출처 보기 →

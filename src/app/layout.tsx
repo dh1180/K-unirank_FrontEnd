@@ -35,7 +35,6 @@ export default function RootLayout({
               <span className="brand-mark">K</span>K-unirank
             </Link>
             <Navigation
-              vs={process.env.VS_FRONTEND_ENABLED === "true"}
               ai={process.env.AI_FRONTEND_ENABLED === "true"}
               member={process.env.MEMBER_FRONTEND_ENABLED === "true"}
             />
@@ -55,6 +54,7 @@ export default function RootLayout({
                 <Link href="/">입결 찾기</Link>
                 <Link href="/universities/">대학 정보</Link>
                 <Link href="/rankings/">대학 순위</Link>
+                <Link href="/vs/">대학 투표</Link>
               </div>
               <p>
                 입시 데이터는 원문 출처와 함께 제공합니다.
