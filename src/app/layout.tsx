@@ -3,7 +3,12 @@ import Link from "next/link";
 import localFont from "next/font/local";
 import { headers } from "next/headers";
 import { SiteServices } from "@/components/SiteServices";
-import { AD_CLIENT, SITE_ORIGIN, pagePolicy } from "@/lib/site-policy.mjs";
+import {
+  AD_CLIENT,
+  SITE_ORIGIN,
+  SOCIAL_IMAGE,
+  pagePolicy,
+} from "@/lib/site-policy.mjs";
 import "./globals.css";
 import { Navigation } from "@/components/Navigation";
 
@@ -48,14 +53,14 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         "대학·학과별 입결과 수시·정시 결과, 사용자 VS 기반 대학 선호도 랭킹을 비교해보세요.",
       url: policy.canonical,
-      images: [{ url: "/brand/k-unirank.png", alt: "K-unirank" }],
+      images: [{ url: SOCIAL_IMAGE, alt: "K-unirank" }],
     },
     twitter: {
       card: "summary",
       title: "대학 입결·순위·선호도 비교 | K-unirank",
       description:
         "대학·학과 입결과 대학 선호도 랭킹을 한곳에서 검색하고 비교해보세요.",
-      images: ["/brand/k-unirank.png"],
+      images: [SOCIAL_IMAGE],
     },
     other: { "google-adsense-account": AD_CLIENT },
     robots: {
@@ -99,7 +104,7 @@ export default async function RootLayout({
               "@id": `${SITE_ORIGIN}/#organization`,
               name: "K-unirank",
               url: SITE_ORIGIN,
-              logo: `${SITE_ORIGIN}/brand/k-unirank.png`,
+              logo: SOCIAL_IMAGE,
               description:
                 "대학 입결과 학과별 입시결과, 사용자 VS 기반 대학 선호도 랭킹을 제공하는 대학 정보 서비스",
             }).replaceAll("<", "\\u003c"),

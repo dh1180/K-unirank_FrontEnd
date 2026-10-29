@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.k-unirank.com" }],
+        destination: "https://k-unirank.com/:path*",
+        permanent: true,
+      },
+      {
         source: "/favicon.ico",
         destination: "/brand/k-unirank.png",
         permanent: true,

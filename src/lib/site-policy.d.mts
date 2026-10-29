@@ -1,4 +1,5 @@
 export const SITE_ORIGIN: string;
+export const SOCIAL_IMAGE: string;
 export const GA_ID: string;
 export const AD_CLIENT: string;
 export const AD_SLOT: string;

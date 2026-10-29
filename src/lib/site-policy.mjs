@@ -1,10 +1,14 @@
 export const SITE_ORIGIN = "https://k-unirank.com";
+export const SOCIAL_IMAGE =
+  SITE_ORIGIN + "/static/university/K-uniran.c8e568b20f96.png";
 export const GA_ID = "G-5WK14ZDHSP";
 export const AD_CLIENT = "ca-pub-3862816878614020";
 export const AD_SLOT = "8829169633";
 // Django's sitemap renders local calendar dates in TIME_ZONE=Asia/Seoul.
 export function sitemapDate(value) {
-  return new Date(new Date(value).getTime()+9*60*60*1000).toISOString().slice(0,10);
+  return new Date(new Date(value).getTime() + 9 * 60 * 60 * 1000)
+    .toISOString()
+    .slice(0, 10);
 }
 export function productionHost(host, mode = "auto") {
   return (
@@ -15,7 +19,7 @@ export function productionHost(host, mode = "auto") {
   );
 }
 export function privatePath(path) {
-  return /^\/(api|admin|accounts|login|favorites|ai|vs|result|support)(\/|$)/.test(
+  return /^\/(api|admin|health|accounts|login|favorites|ai|vs|result|support)(\/|$)/.test(
     path,
   );
 }
