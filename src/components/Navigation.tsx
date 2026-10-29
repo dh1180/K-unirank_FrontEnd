@@ -16,7 +16,7 @@ export function Navigation({
     { href: "/", label: "입결 찾기" },
     { href: "/admissions/compare/", label: "내 점수" },
     { href: "/universities/", label: "대학" },
-    { href: "/ranking/", label: "선호도 순위" },
+    { href: "/rankings/", label: "대학 순위" },
     ...(vs ? [{ href: "/vs/", label: "VS" }] : []),
     ...(ai ? [{ href: "/ai/", label: "AI 입결" }] : []),
   ];
@@ -30,7 +30,11 @@ export function Navigation({
             (
               link.href === "/"
                 ? pathname === "/"
-                : pathname.startsWith(link.href)
+                : link.href === "/rankings/"
+                  ? pathname.startsWith("/rankings/") ||
+                    pathname.startsWith("/ranking/") ||
+                    pathname.startsWith("/admissions/ranking/")
+                  : pathname.startsWith(link.href)
             )
               ? "active"
               : ""
@@ -39,7 +43,11 @@ export function Navigation({
             (
               link.href === "/"
                 ? pathname === "/"
-                : pathname.startsWith(link.href)
+                : link.href === "/rankings/"
+                  ? pathname.startsWith("/rankings/") ||
+                    pathname.startsWith("/ranking/") ||
+                    pathname.startsWith("/admissions/ranking/")
+                  : pathname.startsWith(link.href)
             )
               ? "page"
               : undefined

@@ -5,6 +5,7 @@ import { Icon } from "@/components/Icon";
 import { AdmissionsTable } from "@/components/AdmissionsTable";
 import { Pagination } from "@/components/Pagination";
 import { UniversityLogo } from "@/components/UniversityLogo";
+import { MetricToggle } from "@/components/MetricToggle";
 
 type Search = {
   q?: string;
@@ -12,6 +13,7 @@ type Search = {
   phase?: string;
   track?: string;
   page?: string;
+  metrics?: string;
 };
 export default async function HomePage({
   searchParams,
@@ -28,7 +30,8 @@ export default async function HomePage({
     ? raw.track!
     : "";
   const page = positivePage(raw.page);
-  const filters = { q, kind, phase, track };
+  const metrics = raw.metrics === "all" ? "all" : "public";
+  const filters = { q, kind, phase, track, metrics };
   const [data, totals, universities] = await Promise.all([
     searchAdmissions({ ...filters, page, size: 20 }),
     searchAdmissions({ metrics: "all", size: 1 }),
@@ -64,7 +67,7 @@ export default async function HomePage({
           입결 찾기
         </Link>
         <Link href="/admissions/compare/">내 점수 학과 찾기</Link>
-        <Link href="/ranking/">대학 선호도</Link>
+        <Link href="/rankings/">대학 순위</Link>
       </div>
       <section className="discovery-hero">
         <div className="discovery-copy">
@@ -83,6 +86,7 @@ export default async function HomePage({
             공개된 입시 결과와 원문 출처를 한곳에 모았어요.
           </p>
           <form className="hero-search" action="/#explore" method="get">
+            <input type="hidden" name="metrics" value={metrics} />
             <Icon name="search" />
             <input
               name="q"
@@ -182,9 +186,11 @@ export default async function HomePage({
               placeholder="대학, 학과, 전형 검색"
               defaultValue={q}
             />
-            {Object.entries({ kind, phase, track }).map(([key, value]) => (
-              <input key={key} type="hidden" name={key} value={value} />
-            ))}
+            {Object.entries({ kind, phase, track, metrics }).map(
+              ([key, value]) => (
+                <input key={key} type="hidden" name={key} value={value} />
+              ),
+            )}
             <button className="button primary">검색</button>
           </form>
           <div className="filter-groups">
@@ -208,10 +214,20 @@ export default async function HomePage({
             ])}
           </div>
         </div>
+        <div className="admission-controls">
+          <MetricToggle
+            href="/"
+            params={filters}
+            publicOnly={metrics !== "all"}
+          />
+          <Link href="/#explore">조건 초기화 ↻</Link>
+        </div>
         <div className="result-toolbar">
           <p>
             <b>{data?.totalCount.toLocaleString("ko-KR") ?? "—"}</b>건{" "}
-            <span>입결 지표 공개</span>
+            <span>
+              {metrics === "all" ? "전체 입시결과" : "입결 지표 공개"}
+            </span>
           </p>
           <Link href="/#explore">조건 초기화 ↻</Link>
         </div>
