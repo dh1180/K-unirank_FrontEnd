@@ -1,9 +1,10 @@
+import { regionOptions } from "@/lib/regions.mjs";
 import { DisplayAd } from "@/components/DisplayAd";
 import { StructuredData } from "@/components/StructuredData";
 import { SITE_ORIGIN } from "@/lib/site-policy.mjs";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { listUniversities } from "@/lib/api";
+import { listUniversities, universityRegions } from "@/lib/api";
 import { positivePage, toQuery } from "@/lib/query.mjs";
 import { Notice } from "@/components/Notice";
 import { Pagination } from "@/components/Pagination";
@@ -12,19 +13,6 @@ import { Icon } from "@/components/Icon";
 
 export const metadata: Metadata = { title: "전국 대학 찾기" };
 type Search = { q?: string; region?: string; page?: string };
-const regions = [
-  ["", "전체"],
-  ["서울특별시", "서울"],
-  ["경기도", "경기"],
-  ["인천광역시", "인천"],
-  ["부산광역시", "부산"],
-  ["대구광역시", "대구"],
-  ["대전광역시", "대전"],
-  ["강원특별자치도", "강원"],
-  ["충청남도", "충남"],
-  ["경상남도", "경남"],
-  ["제주특별자치도", "제주"],
-];
 export default async function UniversitiesPage({
   searchParams,
 }: {
@@ -35,7 +23,8 @@ export default async function UniversitiesPage({
   const region =
     typeof params.region === "string" ? params.region.slice(0, 30) : "";
   const page = positivePage(params.page);
-  const data = await listUniversities(q, page, region);
+  const [data, availableRegions] = await Promise.all([listUniversities(q,page,region),universityRegions()]);
+  const regions = [["", "전체"],...regionOptions(availableRegions || [])];
   return (
     <>
       {data && (

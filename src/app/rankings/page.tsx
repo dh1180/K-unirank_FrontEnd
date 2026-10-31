@@ -1,3 +1,4 @@
+import { ExploreTabs } from "@/components/ExploreTabs";
 import Link from "next/link";
 import { rankingCatalog } from "@/lib/rankings";
 import { Icon } from "@/components/Icon";
@@ -7,6 +8,7 @@ export default async function RankingsHub() {
   const cards = await rankingCatalog();
   return (
     <>
+      <ExploreTabs active="rankings" />
       <section className="directory-heading" data-ga-view="ranking_hub_view">
         <div>
           <p className="eyebrow">RANKINGS</p>

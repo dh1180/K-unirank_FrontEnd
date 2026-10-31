@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createHmac } from "node:crypto";
 
 export const dynamic = "force-dynamic";
 type Params = { params: Promise<{ action: string }> };
@@ -17,8 +18,9 @@ async function proxy(request: NextRequest, method: "GET" | "POST", context: Para
   if ((method === "GET" && action !== "next") || (method === "POST" && action !== "vote")) {
     return NextResponse.json({ detail: "지원하지 않는 VS 요청입니다." }, { status: 404 });
   }
-  const internal = process.env.API_INTERNAL_URL;
-  if (!internal) {
+  const internal = process.env.VS_API_INTERNAL_URL;
+  const token = process.env.VS_FRONTEND_TOKEN?.trim();
+  if (!internal || !token || token.length < 32) {
     return NextResponse.json({ detail: "VS 서버가 아직 연결되지 않았습니다." }, { status: 503 });
   }
   if (method === "POST") {
@@ -37,16 +39,39 @@ async function proxy(request: NextRequest, method: "GET" | "POST", context: Para
     }
   }
   try {
+    const cookie = request.cookies.get("kunirank_vs")?.value;
+    const network = request.headers.get("x-real-ip") || request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const hash = (value: string) => createHmac("sha256", token).update(value).digest("hex");
+    let body: string | undefined;
+    if (method === "POST") {
+      const reader = request.body?.getReader();
+      const chunks: Uint8Array[] = [];
+      let size = 0;
+      if (reader) while (true) {
+        const part = await reader.read();
+        if (part.done) break;
+        size += part.value.byteLength;
+        if (size > 2048) {
+          await reader.cancel();
+          return NextResponse.json({ detail: "요청 크기가 너무 큽니다." }, { status: 413 });
+        }
+        chunks.push(part.value);
+      }
+      body = Buffer.concat(chunks).toString("utf8");
+    }
     const endpoint = new URL(`/api/v1/boards/overall/${action}`, internal);
     const upstream = await fetch(endpoint, {
       method,
       cache: "no-store",
       headers: {
         Accept: "application/json",
-        ...(method === "POST" ? { "Content-Type": "application/json" } : {}),
-        ...(request.headers.get("cookie") ? { Cookie: request.headers.get("cookie")! } : {}),
+        "X-VS-Frontend-Token": token,
+        "X-VS-Client-Key": hash(cookie || `${network}:${request.headers.get("user-agent") || ""}`),
+        "X-VS-Network-Key": hash(`network:${network}`),
+        ...(method === "POST" ? { "Content-Type": "application/json", Origin: request.headers.get("origin")! } : {}),
+        ...(cookie && /^[A-Za-z0-9_-]{20,100}$/.test(cookie) ? { Cookie: `kunirank_vs=${cookie}` } : {}),
       },
-      ...(method === "POST" ? { body: await request.text() } : {}),
+      ...(method === "POST" ? { body } : {}),
       signal: AbortSignal.timeout(10_000),
     });
     const result = new NextResponse(await upstream.text(), {
@@ -55,6 +80,7 @@ async function proxy(request: NextRequest, method: "GET" | "POST", context: Para
     });
     // Preserve SameSite, HttpOnly, Secure and Path attributes from Spring.
     for (const cookie of upstream.headers.getSetCookie()) result.headers.append("Set-Cookie", cookie);
+    if (upstream.headers.has("retry-after")) result.headers.set("Retry-After", upstream.headers.get("retry-after")!);
     return result;
   } catch {
     return NextResponse.json({ detail: "VS API 서버 응답이 지연되거나 연결되지 않았습니다." }, {

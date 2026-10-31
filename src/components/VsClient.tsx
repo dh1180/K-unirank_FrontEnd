@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { UniversityLogo } from "@/components/UniversityLogo";
+import { regionLabel } from "@/lib/regions.mjs";
 import { useCallback, useEffect, useState } from "react";
 import { vsVoteRequest, type VsMatch } from "@/lib/vs.mjs";
 
@@ -72,16 +74,17 @@ export default function VsPage() {
 
   return (
     <>
-      <section className="page-header">
-        <h1>대학 VS</h1>
+      <section className="page-header vote-header">
+        <span className="eyebrow">YOUR CHOICE</span>
+        <h1>당신의 선택, 대학 투표</h1>
         <p>
-          더 선호하는 대학을 선택해 줘. 투표는 종합 대학 선호도 순위에 반영돼.
+          두 대학 중 더 선호하는 대학을 골라주세요. 선택이 모여 대학 선호도 순위를 만듭니다.
         </p>
         <p className="muted">
-          한 세션에서 같은 대진이 반복되면 점수 영향도는 줄어들어.
+          잘 모르는 대학이라면 건너뛰고 다음 대진에 참여할 수 있어요.
         </p>
       </section>
-      <section className="panel">
+      <section className="panel vote-panel" aria-busy={pending}>
         {voteCount !== null && (
           <p className="muted">
             이 세션의 투표 참여 {voteCount.toLocaleString("ko-KR")}회
@@ -98,12 +101,14 @@ export default function VsPage() {
               <button
                 type="button"
                 className="vs-choice"
+                aria-label={`${school.name}에 투표`}
                 key={school.id}
                 disabled={pending}
                 onClick={() => void vote(school.id)}
               >
+                <UniversityLogo id={school.id} name={school.name} logoPath={school.logo_path} size="large" />
                 <strong>{school.name}</strong>
-                <span className="muted">{school.region ?? "지역 미등록"}</span>
+                <span className="muted">{school.region ? regionLabel(school.region) : "지역 미등록"}</span>
                 <span className="vs-select">선택하기</span>
               </button>
             ))}
@@ -138,8 +143,7 @@ export default function VsPage() {
         </div>
       </section>
       <p className="help">
-        실제 대학 선호도를 비교하는 투표야. 공식 대학 평가나 합격 가능성을
-        의미하지 않아.
+        사용자 선호도를 비교하는 투표입니다. 공식 대학 평가나 합격 가능성을 의미하지 않습니다.
       </p>
     </>
   );

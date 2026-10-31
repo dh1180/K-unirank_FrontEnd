@@ -1,3 +1,4 @@
+import { ExploreTabs } from "@/components/ExploreTabs";
 import { DisplayAd } from "@/components/DisplayAd";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -201,6 +202,7 @@ export default async function GradeComparisonPage({
       )}
       {data && (
         <>
+      <ExploreTabs active="compare" />
           <section className="comparison-results" id="comparison-results">
             <div className="comparison-result-heading">
               <div>
