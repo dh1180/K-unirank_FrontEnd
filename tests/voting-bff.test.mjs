@@ -18,7 +18,7 @@ test('voting BFF forwards only voting cookie and private trust, rejects foreign 
   const token='isolated-test-token-at-least-thirty-two-characters';
   vm.runInNewContext(code,{exports,require,process:{env:{VS_FRONTEND_ENABLED:'true',VS_API_INTERNAL_URL:`http://127.0.0.1:${server.address().port}`,VS_FRONTEND_TOKEN:token}},Buffer,fetch,AbortSignal,URL});
   const context={params:Promise.resolve({action:'vote'})};
-  const request=(origin,body='{}')=>new NextRequest('https://frontend.test/api/vs/vote/',{method:'POST',headers:{origin,'content-type':'application/json',cookie:'sessionid=private-account; kunirank_vs=abcdefghijklmnopqrstuvwxyz123456','x-real-ip':'127.0.0.1'},body});
+  const request=(origin,body='{}')=>new NextRequest('http://localhost:3000/api/vs/vote/',{method:'POST',headers:{host:'frontend.test',origin,'content-type':'application/json',cookie:'sessionid=private-account; kunirank_vs=abcdefghijklmnopqrstuvwxyz123456','x-real-ip':'127.0.0.1'},body});
   const response=await exports.POST(request('https://frontend.test'),context);
   assert.equal(response.status,200);
   assert.match(response.headers.get('set-cookie'),/HttpOnly; Secure; SameSite=Lax/);
@@ -31,3 +31,4 @@ test('voting BFF forwards only voting cookie and private trust, rejects foreign 
   assert.equal(received.length,1);
  }finally {server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}
 });
+
