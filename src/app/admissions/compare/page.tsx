@@ -73,6 +73,7 @@ export default async function GradeComparisonPage({
       : null;
   return (
     <div className="comparison-page">
+      <ExploreTabs active="compare" />
       <section
         data-ga-view="admission_compare_view"
         data-ga-param-year={data?.selectedYear ?? ""}
@@ -202,7 +203,6 @@ export default async function GradeComparisonPage({
       )}
       {data && (
         <>
-      <ExploreTabs active="compare" />
           <section className="comparison-results" id="comparison-results">
             <div className="comparison-result-heading">
               <div>
