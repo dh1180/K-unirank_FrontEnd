@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createHmac } from "node:crypto";
+import { sameOrigin } from "@/lib/request-origin.mjs";
 
 export const dynamic = "force-dynamic";
 type Params = { params: Promise<{ action: string }> };
@@ -27,9 +28,7 @@ async function proxy(request: NextRequest, method: "GET" | "POST", context: Para
     const origin = request.headers.get("origin");
     // Railway terminates TLS before Next, so nextUrl.origin can be internal HTTP.
     const publicHost = request.headers.get("host") || request.nextUrl.host;
-    const sameOrigin = origin === `https://${publicHost}` ||
-      (process.env.NODE_ENV !== "production" && origin === `http://${publicHost}`);
-    if (!origin || !sameOrigin
+    if (!sameOrigin(origin, publicHost, process.env.NODE_ENV !== "production")
         || request.headers.get("sec-fetch-site") === "cross-site") {
       return NextResponse.json({ detail: "허용되지 않은 요청입니다." }, { status: 403 });
     }

@@ -2,9 +2,7 @@ import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-/** Readiness checks the same private Spring API used by server-rendered pages. */
-export async function GET() {
-  const base = process.env.API_INTERNAL_URL;
+async function ready(base: string | undefined) {
   if (base) {
     try {
       const response = await fetch(new URL("/actuator/health", base), {
@@ -12,13 +10,21 @@ export async function GET() {
         signal: AbortSignal.timeout(5_000),
       });
       if (response.ok && (await response.json()).status === "UP") {
-        return NextResponse.json({ status: "UP" }, { headers: { "Cache-Control": "no-store" } });
+        return true;
       }
     } catch {
       // Never expose the private URL or upstream error details to browsers.
     }
   }
-  return NextResponse.json({ status: "DOWN" }, {
-    status: 503, headers: { "Cache-Control": "no-store" },
+  return false;
+}
+
+/** All enabled core services must be ready, including voting after its migration. */
+export async function GET() {
+  const checks = [ready(process.env.API_INTERNAL_URL)];
+  if (process.env.VS_FRONTEND_ENABLED === "true") checks.push(ready(process.env.VS_API_INTERNAL_URL));
+  const up = (await Promise.all(checks)).every(Boolean);
+  return NextResponse.json({ status: up ? "UP" : "DOWN" }, {
+    status: up ? 200 : 503, headers: { "Cache-Control": "no-store" },
   });
 }

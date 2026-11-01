@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { sameOrigin } from "@/lib/request-origin.mjs";
 
 /** Trusted internal API endpoint paths only. No user-controlled proxy destination. */
 const permitted = new Set([
@@ -23,7 +24,7 @@ export async function proxyMember(request: NextRequest, destination: string,
   if (!permitted.has(destination) && !isFavoriteId && !isFavoriteUnitId) return error("지원하지 않는 요청입니다.", 404);
   if (method !== "GET") {
     const origin = request.headers.get("origin");
-    if (!origin || origin !== request.nextUrl.origin
+    if (!sameOrigin(origin, request.headers.get("host") || request.nextUrl.host, process.env.NODE_ENV !== "production")
         || request.headers.get("sec-fetch-site") === "cross-site") {
       return error("요청 출처를 확인할 수 없습니다.", 403);
     }
