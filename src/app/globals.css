@@ -4109,7 +4109,7 @@ input::placeholder {
 .vote-panel .vote-card { position:relative; min-width:0; }
 .vote-panel .vote-card .vs-choice { width:100%; min-height:390px; }
 .vote-panel .vote-card .logo-large { width:128px; height:128px; }
-.vote-card .vote-reference-overlay { position:absolute; bottom:52px; inset-inline:14px; opacity:0; visibility:hidden; transform:translateY(8px); pointer-events:none; transition:opacity .18s,transform .18s,visibility .18s; }
+.vote-card .vote-reference-overlay { position:absolute; bottom:52px; inset-inline:14px; opacity:0; visibility:hidden; transform:translateY(8px); pointer-events:auto; transition:opacity .18s,transform .18s,visibility .18s; }
 .vote-card.reference-open .vote-reference-overlay, .vote-card .vs-choice:focus-visible + .vote-reference-overlay { opacity:1; visibility:visible; transform:none; }
 @media(hover:hover) { .vote-card:hover .vote-reference-overlay { opacity:1; visibility:visible; transform:none; } }
 .vote-reference { padding:18px; border:1px solid #dcd9ff; border-radius:20px; background:rgba(255,255,255,.98); box-shadow:0 15px 35px #24263824; color:#34374a; text-align:left; }
@@ -4139,3 +4139,4 @@ input::placeholder {
  .vote-reference-note { font-size:9px; line-height:1.4; }
 }
 @media(prefers-reduced-motion:reduce) { .vote-card .vote-reference-overlay { transition:none; } }
+
