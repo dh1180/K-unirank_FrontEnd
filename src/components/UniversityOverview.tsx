@@ -135,7 +135,7 @@ export function UniversityOverview({
               </p>
             )}
             <Link
-              className="button primary overview-admissions-link"
+              className="button primary overview-admissions-link admission-cta"
               href={`${href}?${toQuery({ year: admissions.year ?? undefined, metrics: "public" })}#results`}
             >
               공개 입시결과 전체 보기 →

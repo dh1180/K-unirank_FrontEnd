@@ -86,7 +86,8 @@ async function proxy(request: NextRequest, method: "GET" | "POST", context: Para
           let admissionReference = null;
           try {
             if (Number.isSafeInteger(school.id) && school.id > 0) {
-              const reference = await fetch(new URL(`/api/v1/universities/${school.id}/admission-reference`, process.env.API_INTERNAL_URL), {
+              // A new cache key prevents pre-cleanup aggregates surviving this rollout.
+              const reference = await fetch(new URL(`/api/v1/universities/${school.id}/admission-reference?quality=2`, process.env.API_INTERNAL_URL), {
                 next: { revalidate: 300 }, signal: AbortSignal.timeout(4000),
               });
               if (reference.ok) admissionReference = await reference.json();

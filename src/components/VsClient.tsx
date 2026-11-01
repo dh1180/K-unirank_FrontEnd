@@ -3,13 +3,18 @@
 import Link from "next/link";
 import { UniversityLogo } from "@/components/UniversityLogo";
 import { regionLabel } from "@/lib/regions.mjs";
+import { publicMetricValid } from "@/lib/admission-metrics.mjs";
 import { useCallback, useEffect, useState } from "react";
 import { vsVoteRequest, type VsMatch, type AdmissionReference } from "@/lib/vs.mjs";
 
 function AdmissionPreview({ info }: { info: AdmissionReference | null | undefined }) {
+  const cuts=(info?.cuts ?? []).map(cut => {
+    const clean=(value:number|null) => value!==null && publicMetricValid({code:cut.label==="수능 평백"?"CSAT_PERCENTILE_MEAN":"",unit:cut.unit,value}) ? value : null;
+    return {...cut,value50:clean(cut.value50),value70:clean(cut.value70)};
+  }).filter(cut=>cut.value50!==null || cut.value70!==null);
   return <div className="vote-reference">
     <div className="vote-reference-head"><strong>입시 참고</strong>{info?.year && <span>{info.year}학년도</span>}</div>
-    {info?.cuts.length ? info.cuts.map(cut => <div className="vote-reference-cut" key={cut.label}>
+    {cuts.length ? cuts.map(cut => <div className="vote-reference-cut" key={cut.label}>
       <h3>{cut.label}</h3>
       <dl>{([50,70] as const).map(percent => <div key={percent}><dt>{percent}%</dt><dd><strong>{(percent===50 ? cut.value50 : cut.value70)?.toFixed(2) ?? "—"}</strong><span>{cut.unit}</span></dd></div>)}</dl>
     </div>) : <p className="muted">{info ? "공개된 입결 집계 자료가 없습니다." : "입결 참고 정보를 불러오지 못했습니다."}</p>}

@@ -78,7 +78,7 @@ export default async function UniversityDetailPage({ params }: Props) {
             {data.universityType ?? "대학 유형 정보 없음"}
           </p>
         </div>
-        <Link className="button primary" href={`/admissions/university/${id}/`}>
+        <Link className="button primary admission-cta" href={`/admissions/university/${id}/`}>
           입시결과 보기 <Icon name="arrow" size={18} />
         </Link>
       </section>
@@ -109,7 +109,7 @@ export default async function UniversityDetailPage({ params }: Props) {
             </a>
           ) : null}
           <Link
-            className="button"
+            className="button primary admission-cta"
             data-ga-event="admission_open_from_university"
             data-ga-param-university={data.name}
             href={`/admissions/university/${id}/`}
