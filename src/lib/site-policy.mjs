@@ -25,7 +25,8 @@ export function privatePath(path) {
 }
 export function legacyPath(path) {
   return (
-    /^\/(vs|accounts|support|result|static|admin)(\/|$)/.test(path) ||
+    /^\/(accounts|support|result|static|admin)(\/|$)/.test(path) ||
+    /^\/vs\/[^/]+\/submit\/?$/.test(path) ||
     /^\/api\/v1\/boards\/[^/]+\/(next|vote|ranking)\/?$/.test(path) ||
     path === "/admissions/results/" ||
     (path.startsWith("/ranking/") && path !== "/ranking/")

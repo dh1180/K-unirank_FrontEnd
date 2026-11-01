@@ -1,3 +1,4 @@
+import { ExploreTabs } from "@/components/ExploreTabs";
 import { DisplayAd } from "@/components/DisplayAd";
 import Link from "next/link";
 import { searchAdmissions, listUniversities } from "@/lib/api";
@@ -87,13 +88,7 @@ export default async function HomePage({
           },
         }}
       />
-      <div className="section-tabs">
-        <Link className="active" href="/">
-          입결 찾기
-        </Link>
-        <Link href="/admissions/compare/">내 점수 학과 찾기</Link>
-        <Link href="/rankings/">대학 순위</Link>
-      </div>
+      <ExploreTabs active="admissions" />
       <section className="discovery-hero">
         <div className="discovery-copy">
           <p className="eyebrow">

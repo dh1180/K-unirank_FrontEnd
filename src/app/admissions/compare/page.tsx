@@ -1,3 +1,4 @@
+import { ExploreTabs } from "@/components/ExploreTabs";
 import { DisplayAd } from "@/components/DisplayAd";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -72,6 +73,7 @@ export default async function GradeComparisonPage({
       : null;
   return (
     <div className="comparison-page">
+      <ExploreTabs active="compare" />
       <section
         data-ga-view="admission_compare_view"
         data-ga-param-year={data?.selectedYear ?? ""}

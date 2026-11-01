@@ -4088,3 +4088,20 @@ input::placeholder {
   font-size: 10px;
   margin-bottom: 8px;
 }
+.vote-header h1 { letter-spacing: -.045em; }
+.vote-panel { max-width: 960px; margin-inline: auto; }
+.vote-panel .vs-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; margin:24px 0; }
+.vote-panel .vs-choice { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; min-height:300px; padding:28px 16px; border:1px solid var(--border,#e5e5ef); border-radius:24px; background:#fff; color:#242638; font:inherit; cursor:pointer; transition:transform .15s,border-color .15s,background .15s; }
+.vote-panel .vs-choice:hover:not(:disabled), .vote-panel .vs-choice:focus-visible { border-color:#6556d9; background:#f7f5ff; transform:translateY(-3px); }
+.vote-panel .vs-choice strong { font-size:24px; letter-spacing:-.035em; overflow-wrap:anywhere; }
+.vote-panel .vs-select { color:#6556d9; background:#f0edff; padding:10px 24px; border-radius:12px; font-weight:700; }
+.vote-panel .vs-choice:disabled { opacity:.6; cursor:wait; }
+.vote-panel .actions { justify-content:center; flex-wrap:wrap; }
+@media(max-width:600px) {
+ .vote-panel { padding:16px; }
+ .vote-panel .vs-grid { gap:10px; margin:16px 0; }
+ .vote-panel .vs-choice { min-height:235px; padding:18px 8px; gap:14px; border-radius:16px; }
+ .vote-panel .vs-choice strong { font-size:17px; }
+ .vote-panel .vs-choice .logo-large { width:70px; height:70px; }
+ .vote-panel .vs-select { padding:8px 16px; font-size:13px; }
+}

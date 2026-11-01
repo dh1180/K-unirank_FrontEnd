@@ -39,6 +39,7 @@ export function searchAdmissions(
 export function getUniversity(id: number): Promise<UniversityDetail | null> {
   return apiGet<UniversityDetail>(`/api/v1/universities/${id}`);
 }
+export function universityRegions():Promise<string[]|null> { return apiGet<string[]>("/api/v1/universities/regions"); }
 
 export function universityOverview(
   id: number,
