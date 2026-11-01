@@ -4140,3 +4140,5 @@ input::placeholder {
 }
 @media(prefers-reduced-motion:reduce) { .vote-card .vote-reference-overlay { transition:none; } }
 
+.university-profile .admission-cta { font-family:inherit; font-size:16px; font-weight:800; letter-spacing:-.025em; min-height:48px; box-shadow:0 4px 12px #6556d926; }
+.university-profile .admission-cta:hover { background:#5143be; box-shadow:0 6px 16px #6556d936; }

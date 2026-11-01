@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { summaryMetrics, publicMetricValid } from "@/lib/admission-metrics.mjs";
 import type { AdmissionResult } from "@/lib/types";
 import { UniversityLogo } from "@/components/UniversityLogo";
 
@@ -45,31 +46,6 @@ export function metricLabel(code: string) {
   return metricLabels[code] ?? code.replaceAll("_", " ");
 }
 
-function summaryMetrics(row: AdmissionResult) {
-  const publicMetrics = row.metrics.filter(
-    (metric) => !metric.code.includes("REFERENCE_MEAN"),
-  );
-  const preferred =
-    row.phase === "JEONGSI"
-      ? [
-          "CSAT_PERCENTILE_MEAN_70_CUT",
-          "CSAT_CONVERTED_SCORE_70_CUT",
-          "CSAT_GRADE_70_CUT",
-          "COLLEGE_CSAT_AVERAGE",
-          "COLLEGE_CSAT_MINIMUM",
-        ]
-      : [
-          "STUDENT_GRADE_70_CUT",
-          "CONVERTED_SCORE_70_CUT",
-          "COLLEGE_STUDENT_AVERAGE",
-          "COLLEGE_STUDENT_MINIMUM",
-          "ESSAY_SCORE_70_CUT",
-        ];
-  const selected = preferred.flatMap((code) =>
-    publicMetrics.filter((metric) => metric.code === code),
-  );
-  return (selected.length ? selected : publicMetrics).slice(0, 2);
-}
 export function AdmissionsTable({
   items,
   detailed = false,
@@ -173,13 +149,13 @@ export function AdmissionsTable({
                   <span className="muted">입결 지표 미공개</span>
                 )}
                 {detailed &&
-                  row.metrics.filter((m) => !m.code.includes("REFERENCE_MEAN"))
+                  row.metrics.filter(publicMetricValid)
                     .length > 2 && (
                     <details className="all-metrics">
                       <summary>전체 입결 지표 보기</summary>
                       <dl>
                         {row.metrics
-                          .filter((m) => !m.code.includes("REFERENCE_MEAN"))
+                          .filter(publicMetricValid)
                           .map((metric) => (
                             <div key={metric.code}>
                               <dt>{metricLabel(metric.code)}</dt>
@@ -202,9 +178,7 @@ export function AdmissionsTable({
                     </p>
                     <dl>
                       {row.metrics
-                        .filter(
-                          (metric) => !metric.code.includes("REFERENCE_MEAN"),
-                        )
+                        .filter(publicMetricValid)
                         .map((metric) => (
                           <div key={metric.code}>
                             <dt>{metricLabel(metric.code)}</dt>
