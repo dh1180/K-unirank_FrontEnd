@@ -78,7 +78,26 @@ async function proxy(request: NextRequest, method: "GET" | "POST", context: Para
       ...(method === "POST" ? { body } : {}),
       signal: AbortSignal.timeout(10_000),
     });
-    const result = new NextResponse(await upstream.text(), {
+    let responseBody = await upstream.text();
+    if (method === "GET" && upstream.ok && process.env.API_INTERNAL_URL) {
+      const match = JSON.parse(responseBody);
+      if (Array.isArray(match.pair) && match.pair.length === 2) {
+        match.pair = await Promise.all(match.pair.map(async (school: { id: number }) => {
+          let admissionReference = null;
+          try {
+            if (Number.isSafeInteger(school.id) && school.id > 0) {
+              const reference = await fetch(new URL(`/api/v1/universities/${school.id}/admission-reference`, process.env.API_INTERNAL_URL), {
+                next: { revalidate: 300 }, signal: AbortSignal.timeout(4000),
+              });
+              if (reference.ok) admissionReference = await reference.json();
+            }
+          } catch { /* A missing reference must not prevent voting. */ }
+          return { ...school, admissionReference };
+        }));
+        responseBody = JSON.stringify(match);
+      }
+    }
+    const result = new NextResponse(responseBody, {
       status: upstream.status,
       headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" },
     });

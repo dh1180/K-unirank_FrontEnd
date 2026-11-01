@@ -1,4 +1,5 @@
-export type VsSchool = { id: number; name: string; logo_path: string | null; region: string | null };
+export type AdmissionReference = { year: number | null; cuts: Array<{label:string;unit:string;value50:number|null;value70:number|null}> };
+export type VsSchool = { id: number; name: string; logo_path: string | null; region: string | null; admissionReference?: AdmissionReference | null };
 export type VsMatch = {
   board: { slug: string; name: string };
   pair: [VsSchool, VsSchool];

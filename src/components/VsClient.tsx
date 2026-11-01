@@ -4,7 +4,18 @@ import Link from "next/link";
 import { UniversityLogo } from "@/components/UniversityLogo";
 import { regionLabel } from "@/lib/regions.mjs";
 import { useCallback, useEffect, useState } from "react";
-import { vsVoteRequest, type VsMatch } from "@/lib/vs.mjs";
+import { vsVoteRequest, type VsMatch, type AdmissionReference } from "@/lib/vs.mjs";
+
+function AdmissionPreview({ info }: { info: AdmissionReference | null | undefined }) {
+  return <div className="vote-reference">
+    <div className="vote-reference-head"><strong>입시 참고</strong>{info?.year && <span>{info.year}학년도</span>}</div>
+    {info?.cuts.length ? info.cuts.map(cut => <div className="vote-reference-cut" key={cut.label}>
+      <h3>{cut.label}</h3>
+      <dl>{([50,70] as const).map(percent => <div key={percent}><dt>{percent}%</dt><dd><strong>{(percent===50 ? cut.value50 : cut.value70)?.toFixed(2) ?? "—"}</strong><span>{cut.unit}</span></dd></div>)}</dl>
+    </div>) : <p className="muted">{info ? "공개된 입결 집계 자료가 없습니다." : "입결 참고 정보를 불러오지 못했습니다."}</p>}
+    <p className="vote-reference-note">대학 단위 집계 · 전형·학과별 결과는 다를 수 있습니다.</p>
+  </div>;
+}
 
 type VoteReceipt = { vote_id: number; vote_count: number };
 type ErrorShape = { detail?: string };
@@ -25,6 +36,7 @@ export default function VsPage() {
   const [pending, setPending] = useState(true);
   const [error, setError] = useState("");
   const [voteCount, setVoteCount] = useState<number | null>(null);
+  const [expanded, setExpanded] = useState<number | null>(null);
 
   const nextPair = useCallback(async () => {
     setPending(true);
@@ -38,6 +50,7 @@ export default function VsPage() {
       if (body.pair?.length !== 2 || !body.challenge)
         throw new Error("대진 응답이 잘못되었습니다.");
       setMatch(body);
+      setExpanded(null);
       setVoteCount(body.voteCount);
     } catch (ex) {
       setMatch(null);
@@ -98,11 +111,11 @@ export default function VsPage() {
         {match && (
           <div className="vs-grid">
             {match.pair.map((school) => (
+              <article className={`vote-card ${expanded === school.id ? "reference-open" : ""}`} key={school.id}>
               <button
                 type="button"
                 className="vs-choice"
                 aria-label={`${school.name}에 투표`}
-                key={school.id}
                 disabled={pending}
                 onClick={() => void vote(school.id)}
               >
@@ -111,6 +124,9 @@ export default function VsPage() {
                 <span className="muted">{school.region ? regionLabel(school.region) : "지역 미등록"}</span>
                 <span className="vs-select">선택하기</span>
               </button>
+              <div id={`vote-reference-${school.id}`} className="vote-reference-overlay"><AdmissionPreview info={school.admissionReference} /></div>
+              <button className="vote-reference-toggle" type="button" aria-expanded={expanded === school.id} aria-controls={`vote-reference-${school.id}`} onClick={() => setExpanded(expanded === school.id ? null : school.id)}>입결 정보 {expanded === school.id ? "접기" : "보기"}</button>
+              </article>
             ))}
           </div>
         )}
@@ -122,21 +138,17 @@ export default function VsPage() {
               disabled={pending}
               onClick={() => void vote(null)}
             >
-              둘 다 건너뛰기
+              건너뛰고 다음 대진
             </button>
           )}
-          <button
+          {!match && <button
             className="button"
             type="button"
             disabled={pending}
             onClick={() => void nextPair()}
           >
-            {pending
-              ? "불러오는 중..."
-              : match
-                ? "다른 대진 보기"
-                : "다시 시도"}
-          </button>
+            {pending ? "불러오는 중..." : "다시 시도"}
+          </button>}
           <Link className="button" href="/ranking/">
             현재 순위 보기
           </Link>
