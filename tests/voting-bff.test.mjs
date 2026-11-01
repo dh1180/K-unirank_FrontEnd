@@ -32,3 +32,22 @@ test('voting BFF forwards only voting cookie and private trust, rejects foreign 
  }finally {server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}
 });
 
+test('next pair keeps signature and cookie while optional references fail independently',async()=>{
+ const server=http.createServer((req,res)=>{
+  res.setHeader('Content-Type','application/json');
+  if(req.url.endsWith('/next')) {res.setHeader('Set-Cookie','kunirank_vs=sample; HttpOnly; Secure');res.end(JSON.stringify({pair:[{id:1,name:'A'},{id:2,name:'B'}],challenge:'signed',voteCount:0}));}
+  else if(req.url.includes('/1/admission-reference')) {assert.equal(req.headers['x-vs-frontend-token'],undefined);res.end(JSON.stringify({year:2026,cuts:[{label:'교과 등급',unit:'등급',value50:null,value70:3.25}]}));}
+  else {res.statusCode=503;res.end('{}');}
+ });
+ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+ try {
+  const code=ts.transpileModule(readFileSync(new URL('../src/app/api/vs/[action]/route.ts',import.meta.url),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
+  const exports={};const base=`http://127.0.0.1:${server.address().port}`;
+  vm.runInNewContext(code,{exports,require,process:{env:{VS_FRONTEND_ENABLED:'true',VS_API_INTERNAL_URL:base,API_INTERNAL_URL:base,VS_FRONTEND_TOKEN:'isolated-test-token-at-least-thirty-two-characters'}},Buffer,fetch,AbortSignal,URL});
+  const response=await exports.GET(new NextRequest('https://frontend.test/api/vs/next/'),{params:Promise.resolve({action:'next'})});
+  assert.equal(response.status,200);assert.match(response.headers.get('set-cookie'),/HttpOnly/);
+  const match=await response.json();assert.equal(match.challenge,'signed');
+  assert.equal(match.pair[0].admissionReference.cuts[0].value70,3.25);
+  assert.equal(match.pair[1].admissionReference,null);
+ } finally {server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}
+});

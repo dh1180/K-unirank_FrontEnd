@@ -4105,3 +4105,37 @@ input::placeholder {
  .vote-panel .vs-choice .logo-large { width:70px; height:70px; }
  .vote-panel .vs-select { padding:8px 16px; font-size:13px; }
 }
+/* VS references stay inside the card, so hovering never shifts the pair. */
+.vote-panel .vote-card { position:relative; min-width:0; }
+.vote-panel .vote-card .vs-choice { width:100%; min-height:390px; }
+.vote-panel .vote-card .logo-large { width:128px; height:128px; }
+.vote-card .vote-reference-overlay { position:absolute; bottom:52px; inset-inline:14px; opacity:0; visibility:hidden; transform:translateY(8px); pointer-events:none; transition:opacity .18s,transform .18s,visibility .18s; }
+.vote-card.reference-open .vote-reference-overlay, .vote-card .vs-choice:focus-visible + .vote-reference-overlay { opacity:1; visibility:visible; transform:none; }
+@media(hover:hover) { .vote-card:hover .vote-reference-overlay { opacity:1; visibility:visible; transform:none; } }
+.vote-reference { padding:18px; border:1px solid #dcd9ff; border-radius:20px; background:rgba(255,255,255,.98); box-shadow:0 15px 35px #24263824; color:#34374a; text-align:left; }
+.vote-reference-head { display:flex; align-items:center; justify-content:space-between; gap:8px; padding-bottom:12px; border-bottom:1px solid #eeeef6; font-size:14px; }
+.vote-reference-head strong { color:#6556d9; }
+.vote-reference-head span { color:#767b90; }
+.vote-reference-cut h3 { font-size:14px; margin:12px 0 8px; }
+.vote-reference-cut dl { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:0; }
+.vote-reference-cut dl > div { display:flex; gap:10px; align-items:center; min-width:0; }
+.vote-reference-cut dt { color:#85899c; font-size:12px; }
+.vote-reference-cut dd { display:flex; align-items:baseline; gap:5px; margin:0; }
+.vote-reference-cut dd strong { font-size:22px; font-variant-numeric:tabular-nums; color:#272d46; }
+.vote-reference-cut dd span { font-size:11px; color:#767b90; }
+.vote-reference-note { font-size:10px; color:#85899c; margin:12px 0 0; }
+.vote-reference-toggle { display:block; margin:8px auto 0; padding:6px 12px; border:0; border-radius:8px; background:transparent; color:#6556d9; font:inherit; font-size:13px; cursor:pointer; }
+.vote-reference-toggle:focus-visible { outline:2px solid #6556d9; }
+@media(max-width:600px) {
+ .vote-panel .vote-card .vs-choice { min-height:300px; }
+ .vote-panel .vote-card .logo-large { width:76px; height:76px; }
+ .vote-card .vote-reference-overlay { inset-inline:4px; bottom:46px; }
+ .vote-reference { padding:12px; border-radius:14px; }
+ .vote-reference-head { font-size:12px; flex-wrap:wrap; }
+ .vote-reference-cut dl { gap:6px; }
+ .vote-reference-cut dl > div { flex-direction:column; gap:3px; align-items:flex-start; }
+ .vote-reference-cut dd { gap:2px; flex-wrap:wrap; }
+ .vote-reference-cut dd strong { font-size:17px; }
+ .vote-reference-note { font-size:9px; line-height:1.4; }
+}
+@media(prefers-reduced-motion:reduce) { .vote-card .vote-reference-overlay { transition:none; } }
