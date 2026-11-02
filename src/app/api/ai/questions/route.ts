@@ -68,7 +68,8 @@ export async function POST(request: NextRequest) {
       status: result.status,
       headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
     });
-  } catch {
+  } catch (error) {
+    if (error instanceof SyntaxError) return NextResponse.json({ detail: "JSON 형식을 확인해 주세요." }, { status: 400 });
     return NextResponse.json({ detail: "AI 입결 API 서버에 연결하지 못했습니다." }, { status: 502 });
   }
 }
