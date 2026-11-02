@@ -1,6 +1,6 @@
 :root {
   --ink: #202638;
-  --muted: #7a8091;
+  --muted: #626b7d;
   --brand: #5754d9;
   --brand-dark: #4642bd;
   --soft: #efeffd;
@@ -165,7 +165,7 @@ p {
   font-size: 11px;
   font-weight: 750;
   letter-spacing: 1.25px;
-  color: #85899a;
+  color: var(--muted);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -247,7 +247,7 @@ select:focus {
   box-shadow: 0 0 0 3px #5754d90b;
 }
 input::placeholder {
-  color: #a0a4b1;
+  color: var(--muted);
 }
 .badge {
   display: inline-block;
@@ -259,7 +259,7 @@ input::placeholder {
   letter-spacing: 0;
 }
 .badge.neutral {
-  color: #71768a;
+  color: var(--muted);
   background: #eceef4;
 }
 .badge.purple {
@@ -282,7 +282,7 @@ input::placeholder {
   font-size: 12px;
   font-weight: 700;
   border-radius: 7px;
-  color: #737789;
+  color: var(--muted);
 }
 .section-tabs a.active {
   background: var(--soft);
@@ -313,7 +313,7 @@ input::placeholder {
 }
 .hero-description {
   font-size: 13px;
-  color: #85899a;
+  color: var(--muted);
   line-height: 1.9;
   margin-bottom: 25px;
 }
@@ -327,7 +327,7 @@ input::placeholder {
   padding: 7px 7px 7px 17px;
 }
 .hero-search > svg {
-  color: #9b9eaf;
+  color: var(--muted);
 }
 .hero-search input {
   padding: 8px 0;
@@ -361,7 +361,7 @@ input::placeholder {
   gap: 8px;
   margin-top: 16px;
   font-size: 10px;
-  color: #999eac;
+  color: var(--muted);
 }
 .suggestions > span {
   margin-right: 4px;
@@ -371,7 +371,7 @@ input::placeholder {
   border-radius: 5px;
   background: #fcfcfe;
   padding: 5px 9px;
-  color: #7b8090;
+  color: var(--muted);
 }
 .suggestions a:hover {
   color: var(--brand);
@@ -391,7 +391,7 @@ input::placeholder {
   font-size: 9px;
   font-weight: 800;
   letter-spacing: 1.5px;
-  color: #73788a;
+  color: var(--muted);
 }
 .grade-icon {
   display: grid;
@@ -412,7 +412,7 @@ input::placeholder {
 }
 .grade-card > p {
   font-size: 11px;
-  color: #969baa;
+  color: var(--muted);
   margin-bottom: 23px;
 }
 .grade-inputs {
@@ -425,7 +425,7 @@ input::placeholder {
   flex-direction: column;
   gap: 7px;
   font-size: 10px;
-  color: #818697;
+  color: var(--muted);
   font-weight: 600;
 }
 .grade-inputs :is(input, select) {
@@ -444,7 +444,7 @@ input::placeholder {
 .grade-card > small {
   display: block;
   font-size: 9px;
-  color: #9b9fad;
+  color: var(--muted);
   margin-top: 12px;
 }
 .coverage-bar {
@@ -456,7 +456,7 @@ input::placeholder {
   margin: 0 10px 44px;
   border-bottom: 1px solid #e5e7ef;
   font-size: 11px;
-  color: #8c91a0;
+  color: var(--muted);
 }
 .coverage-bar > span {
   display: flex;
@@ -471,7 +471,7 @@ input::placeholder {
 .coverage-bar > small {
   margin-left: auto;
   font-size: 10px;
-  color: #a0a4b1;
+  color: var(--muted);
 }
 .section-heading {
   display: flex;
@@ -490,7 +490,7 @@ input::placeholder {
 }
 .section-heading p:not(.eyebrow) {
   font-size: 12px;
-  color: #989dab;
+  color: var(--muted);
   margin: 0;
 }
 .explorer-panel {
@@ -508,7 +508,7 @@ input::placeholder {
   border-radius: 9px;
 }
 .explorer-search > svg {
-  color: #9c9fb1;
+  color: var(--muted);
 }
 .explorer-search input:not([type="hidden"]) {
   width: 100%;
@@ -536,7 +536,7 @@ input::placeholder {
 .filter-chip-row > span {
   min-width: 64px;
   font-size: 11px;
-  color: #8c91a3;
+  color: var(--muted);
   font-weight: 650;
   padding-top: 9px;
 }
@@ -554,7 +554,7 @@ input::placeholder {
   border-radius: 7px;
   font-size: 11px;
   font-weight: 650;
-  color: #868b9a;
+  color: var(--muted);
   background: #fff;
   white-space: nowrap;
 }
@@ -574,7 +574,7 @@ input::placeholder {
   gap: 15px;
   padding: 20px 3px 15px;
   font-size: 11px;
-  color: #8c91a3;
+  color: var(--muted);
 }
 .result-toolbar p {
   margin: 0;
@@ -589,7 +589,7 @@ input::placeholder {
   font-size: 10px;
 }
 .result-toolbar > a {
-  color: #8d91a1;
+  color: var(--muted);
   font-size: 11px;
 }
 .table-scroll {
@@ -607,7 +607,7 @@ input::placeholder {
 }
 .admissions-table thead {
   background: #f9f9fc;
-  color: #8e93a3;
+  color: var(--muted);
 }
 .admissions-table th {
   font-weight: 650;
@@ -630,7 +630,7 @@ input::placeholder {
 }
 .admissions-table td > small {
   display: block;
-  color: #a1a5b1;
+  color: var(--muted);
   margin-top: 4px;
   font-size: 10px;
 }
@@ -666,8 +666,9 @@ input::placeholder {
 }
 .table-metric small {
   display: block;
-  color: #a0a4b2;
-  font-size: 9px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 550;
 }
 .table-metric b {
   color: #5654bd;
@@ -677,11 +678,11 @@ input::placeholder {
 .table-metric span {
   font-size: 9px;
   margin-left: 4px;
-  color: #a0a4b2;
+  color: var(--muted);
 }
 .source-link {
   font-size: 10px;
-  color: #8c91a3;
+  color: var(--muted);
   white-space: nowrap;
 }
 .source-link:hover {
@@ -701,14 +702,14 @@ input::placeholder {
   padding: 9px 15px;
   border-radius: 8px;
   font-weight: 650;
-  color: #787d91;
+  color: var(--muted);
 }
 .pagination > a:hover {
   border-color: #c3c1ee;
   color: var(--brand);
 }
 .pagination > span {
-  color: #9a9fb0;
+  color: var(--muted);
 }
 .pagination > [aria-disabled] {
   opacity: 0.45;
@@ -743,7 +744,7 @@ input::placeholder {
 }
 .home-school small {
   font-size: 10px;
-  color: #969baa;
+  color: var(--muted);
 }
 .university-logo {
   display: inline-flex;
@@ -802,7 +803,7 @@ input::placeholder {
 }
 .directory-heading p:not(.eyebrow),
 .page-header p:not(.eyebrow) {
-  color: #9297a5;
+  color: var(--muted);
   font-size: 13px;
   margin: 0;
 }
@@ -817,7 +818,7 @@ input::placeholder {
 }
 .heading-stamp span {
   font-size: 10px;
-  color: #a3a5b6;
+  color: var(--muted);
 }
 .directory-search {
   display: flex;
@@ -829,7 +830,7 @@ input::placeholder {
   border-radius: 13px;
 }
 .directory-search > svg {
-  color: #9a9eae;
+  color: var(--muted);
 }
 .directory-search input:not([type="hidden"]) {
   border: 0;
@@ -881,25 +882,25 @@ input::placeholder {
   align-items: center;
   gap: 4px;
   font-size: 11px;
-  color: #969baa;
+  color: var(--muted);
   margin: 0 0 9px;
 }
 .school-card-content > span {
   font-size: 10px;
-  color: #b3b7c2;
+  color: var(--muted);
 }
 .school-arrow {
-  color: #bbb9d6;
+  color: var(--muted);
 }
 .breadcrumb {
   display: flex;
   gap: 12px;
   font-size: 11px;
-  color: #8d92a2;
+  color: var(--muted);
   margin: 0 0 22px;
 }
 .breadcrumb span {
-  color: #c4c7d1;
+  color: var(--muted);
 }
 .breadcrumb a:hover {
   color: var(--brand);
@@ -925,7 +926,7 @@ input::placeholder {
   display: flex;
   align-items: center;
   gap: 6px;
-  color: #979aaa;
+  color: var(--muted);
   font-size: 12px;
   margin-bottom: 0;
 }
@@ -952,7 +953,7 @@ input::placeholder {
 }
 .metric-grid dt {
   font-size: 11px;
-  color: #9a9eac;
+  color: var(--muted);
 }
 .metric-grid dd {
   font-size: 13px;
@@ -962,7 +963,7 @@ input::placeholder {
 }
 .panel > p {
   font-size: 12px;
-  color: #8e93a3;
+  color: var(--muted);
 }
 .panel a:not(.button) {
   color: var(--brand);
@@ -984,7 +985,7 @@ input::placeholder {
 }
 .list-item p {
   font-size: 11px;
-  color: #9398a7;
+  color: var(--muted);
   margin: 5px 0;
 }
 .unit-grid {
@@ -1012,7 +1013,7 @@ input::placeholder {
   align-items: center;
   gap: 8px;
   font-size: 11px;
-  color: #8d92a2;
+  color: var(--muted);
   margin: 0 0 24px;
   padding-left: 3px;
 }
@@ -1043,7 +1044,7 @@ input::placeholder {
 .podium-rank {
   font-size: 25px;
   font-weight: 800;
-  color: #b4b3d2;
+  color: var(--muted);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1053,7 +1054,7 @@ input::placeholder {
 .podium-rank span {
   font-size: 8px;
   letter-spacing: 1.2px;
-  color: #a09dbd;
+  color: var(--muted);
   font-weight: 700;
 }
 .podium-1 .podium-rank {
@@ -1073,12 +1074,12 @@ input::placeholder {
   font-variant-numeric: tabular-nums;
 }
 .podium-card p span {
-  color: #999aaf;
+  color: var(--muted);
   font-size: 11px;
 }
 .podium-card > small {
   font-size: 10px;
-  color: #a2a6b2;
+  color: var(--muted);
 }
 .ranking-panel {
   background: #fff;
@@ -1099,7 +1100,7 @@ input::placeholder {
 }
 .ranking-table-heading > span {
   font-size: 10px;
-  color: #9b9eae;
+  color: var(--muted);
 }
 .ranking-list {
   list-style: none;
@@ -1122,7 +1123,7 @@ input::placeholder {
   text-align: center;
   font-size: 17px;
   font-weight: 750;
-  color: #9b9eb0;
+  color: var(--muted);
 }
 .rank-number.top {
   color: var(--brand);
@@ -1145,7 +1146,7 @@ input::placeholder {
 .ranking-row small {
   display: block;
   font-size: 10px;
-  color: #a4a8b5;
+  color: var(--muted);
   margin-top: 6px;
   font-weight: 400;
 }
@@ -1173,7 +1174,7 @@ input::placeholder {
 }
 .form-field label {
   font-size: 11px;
-  color: #8d92a3;
+  color: var(--muted);
   font-weight: 650;
 }
 .form-field input,
@@ -1208,7 +1209,7 @@ input::placeholder {
 }
 .chart-heading > span {
   font-size: 10px;
-  color: #989bae;
+  color: var(--muted);
   text-align: right;
 }
 .chart-school {
@@ -1242,7 +1243,7 @@ input::placeholder {
   border-radius: 13px;
   padding: 19px;
   margin-top: 20px;
-  color: #757491;
+  color: var(--muted);
   font-size: 12px;
 }
 .empty-state {
@@ -1261,7 +1262,7 @@ input::placeholder {
 }
 .empty-state p {
   font-size: 12px;
-  color: #999eac;
+  color: var(--muted);
 }
 .empty-state .button {
   margin-top: 14px;
@@ -1280,7 +1281,7 @@ input::placeholder {
   font-size: 19px;
 }
 .footer p {
-  color: #a3a6b1;
+  color: var(--muted);
   font-size: 10px;
   margin: 15px 0 0;
   line-height: 1.9;
@@ -1289,7 +1290,7 @@ input::placeholder {
   display: flex;
   gap: 22px;
   font-size: 11px;
-  color: #7d8292;
+  color: var(--muted);
 }
 .footer-inner > div:last-child {
   text-align: right;
@@ -1297,14 +1298,14 @@ input::placeholder {
 .footer-bottom {
   display: flex;
   justify-content: space-between;
-  color: #b0b3bf;
+  color: var(--muted);
   font-size: 9px;
   border-top: 1px solid #f0f0f6;
   padding-top: 20px;
   margin-top: 25px;
 }
 .preview-label {
-  color: #aaa7c8;
+  color: var(--muted);
 }
 .vs-grid {
   display: grid;
@@ -1939,7 +1940,7 @@ input::placeholder {
   font-size: 18px;
   font-weight: 550;
   letter-spacing: -0.4px;
-  color: #777d90;
+  color: var(--muted);
   margin-top: 5px;
 }
 .admissions-detail-heading p:last-child {
@@ -1977,7 +1978,7 @@ input::placeholder {
 .admissions-table th {
   padding: 16px 13px;
   font-size: 12px;
-  color: #6f7587;
+  color: var(--muted);
   line-height: 1.5;
 }
 .admissions-table td {
@@ -2018,7 +2019,7 @@ input::placeholder {
   display: inline;
   font-size: 11px;
   font-weight: 450;
-  color: #969cad;
+  color: var(--muted);
   white-space: nowrap;
 }
 .table-metric {
@@ -2070,7 +2071,7 @@ input::placeholder {
 }
 .all-metrics dt {
   font-size: 11px;
-  color: #959baa;
+  color: var(--muted);
   line-height: 1.7;
 }
 .all-metrics dd {
@@ -2161,7 +2162,7 @@ input::placeholder {
 }
 .indicator-card > div small {
   font-size: 11px;
-  color: #9c9fb0;
+  color: var(--muted);
 }
 .indicator-card h3 {
   font-size: 18px;
@@ -2182,7 +2183,7 @@ input::placeholder {
   border-top: 1px solid #eff0f5;
   padding-top: 15px;
   font-size: 10px;
-  color: #999eac;
+  color: var(--muted);
 }
 .indicator-card footer strong {
   font-size: 11px;
@@ -2221,7 +2222,7 @@ input::placeholder {
   flex-direction: column;
   gap: 8px;
   font-size: 12px;
-  color: #7e8496;
+  color: var(--muted);
 }
 .ranking-controls select,
 .ranking-controls input {
@@ -2249,7 +2250,7 @@ input::placeholder {
 .data-ranking-head {
   background: #f8f8fc;
   font-size: 12px;
-  color: #8c92a2;
+  color: var(--muted);
   border-bottom: 1px solid var(--line);
 }
 .data-ranking-head > span:nth-child(3),
@@ -2292,18 +2293,18 @@ input::placeholder {
 }
 .data-ranking-value small {
   font-size: 11px;
-  color: #9b9faf;
+  color: var(--muted);
 }
 .data-ranking-sample {
   text-align: right;
   font-size: 12px;
-  color: #858b9f;
+  color: var(--muted);
   line-height: 1.8;
 }
 .data-ranking-sample a {
   display: block;
   font-size: 11px;
-  color: #77728e;
+  color: var(--muted);
 }
 .method-note {
   padding: 22px 24px;
@@ -2316,7 +2317,7 @@ input::placeholder {
   font-size: 14px;
 }
 .method-note p {
-  color: #9096a7;
+  color: var(--muted);
   font-size: 12px;
   line-height: 1.9;
   margin: 10px 0;
@@ -2399,7 +2400,7 @@ input::placeholder {
     display: block;
     content: attr(data-label);
     font-size: 11px;
-    color: #949aaa;
+    color: var(--muted);
     margin-bottom: 7px;
   }
   .stat-value {
@@ -2698,10 +2699,10 @@ input::placeholder {
     font-weight: 700;
   }
   .admissions-table .major-cell > small {
-    font-size: 10px;
+    font-size: 11px;
     line-height: 1.4;
     margin: 0;
-    color: #9a9eac;
+    color: var(--muted);
   }
   .admissions-table .count-cell,
   .admissions-table .competition-cell {
@@ -2741,13 +2742,15 @@ input::placeholder {
   }
   .metrics-cell .table-metric {
     min-width: 0;
-    flex: 1;
+    flex: 1 1 0;
     margin: 0;
     line-height: 1.2;
   }
   .table-metric small {
-    font-size: 9px;
-    line-height: 1.3;
+    font-size: 12px;
+    line-height: 1.4;
+    white-space: normal;
+    overflow-wrap: anywhere;
     margin: 0 0 2px;
   }
   .table-metric b {
@@ -2755,7 +2758,7 @@ input::placeholder {
     line-height: 1.2;
   }
   .table-metric span {
-    font-size: 9px;
+    font-size: 11px;
     margin-left: 3px;
   }
   .metrics-cell > .muted {
@@ -2784,7 +2787,7 @@ input::placeholder {
     min-width: 0;
     flex: 1;
     font-size: 10px;
-    color: #8f93a5;
+    color: var(--muted);
   }
   .mobile-admission-details summary {
     cursor: pointer;
@@ -2796,7 +2799,7 @@ input::placeholder {
     padding: 11px;
     background: #f8f8fc;
     border-radius: 7px;
-    color: #7d8397;
+    color: var(--muted);
   }
   .mobile-admission-details p {
     font-size: 10px;
@@ -2847,7 +2850,7 @@ input::placeholder {
 }
 .comparison-intro p:last-child {
   font-size: 13px;
-  color: #8a90a2;
+  color: var(--muted);
   margin: 0;
 }
 .my-grade-summary {
@@ -2861,7 +2864,7 @@ input::placeholder {
 }
 .my-grade-summary > span {
   font-size: 11px;
-  color: #969bab;
+  color: var(--muted);
 }
 .my-grade-summary strong {
   font-size: 30px;
@@ -2894,7 +2897,7 @@ input::placeholder {
   gap: 8px;
   font-size: 11px;
   font-weight: 650;
-  color: #818899;
+  color: var(--muted);
 }
 .compare-main-fields input,
 .compare-main-fields select {
@@ -2919,13 +2922,13 @@ input::placeholder {
 .compare-extra > summary {
   font-size: 12px;
   line-height: 1.7;
-  color: #6c7287;
+  color: var(--muted);
   font-weight: 600;
   cursor: pointer;
 }
 .compare-extra > summary > span {
   font-size: 11px;
-  color: #a0a4b2;
+  color: var(--muted);
   font-weight: 400;
   margin-left: 15px;
 }
@@ -2962,16 +2965,16 @@ input::placeholder {
 }
 .comparison-result-heading p {
   font-size: 11px;
-  color: #999eac;
+  color: var(--muted);
   margin: 0;
 }
 .comparison-reference {
   font-size: 11px;
-  color: #969bad;
+  color: var(--muted);
 }
 .comparison-disclaimer {
   font-size: 11px;
-  color: #a2a6b2;
+  color: var(--muted);
   margin: 12px 0 18px;
 }
 .compare-result-list {
@@ -3007,7 +3010,7 @@ input::placeholder {
 .compare-university-name {
   display: block;
   font-size: 12px;
-  color: #8b90a2;
+  color: var(--muted);
   margin-bottom: 5px;
   font-weight: 550;
 }
@@ -3020,7 +3023,7 @@ input::placeholder {
 }
 .compare-result-copy > p {
   font-size: 11px;
-  color: #a0a5b2;
+  color: var(--muted);
   margin: 5px 0 0;
   line-height: 1.5;
 }
@@ -3033,7 +3036,7 @@ input::placeholder {
 }
 .compare-result-score > span:first-child {
   font-size: 10px;
-  color: #a2a5b3;
+  color: var(--muted);
 }
 .compare-result-score strong {
   font-size: 23px;
@@ -3045,7 +3048,7 @@ input::placeholder {
   font-size: 10px;
   font-weight: 450;
   margin-left: 4px;
-  color: #a0a5b3;
+  color: var(--muted);
 }
 .compare-position {
   font-size: 10px;
@@ -3068,7 +3071,7 @@ input::placeholder {
   grid-column: 2/-1;
   font-size: 11px;
   line-height: 1.5;
-  color: #9a9dae;
+  color: var(--muted);
 }
 .compare-row-details summary {
   cursor: pointer;
@@ -3094,12 +3097,12 @@ input::placeholder {
 }
 .compare-row-details dt {
   font-size: 10px;
-  color: #a0a5b2;
+  color: var(--muted);
 }
 .compare-row-details dd {
   font-size: 12px;
   margin: 4px 0 0;
-  color: #71788e;
+  color: var(--muted);
 }
 .compare-row-details a {
   font-size: 11px;
@@ -3118,7 +3121,7 @@ input::placeholder {
   justify-content: space-between;
   gap: 12px;
   font-size: 13px;
-  color: #71778b;
+  color: var(--muted);
   font-weight: 650;
   line-height: 1.7;
 }
@@ -3129,11 +3132,11 @@ input::placeholder {
 }
 .compare-universities > summary > span:last-child {
   font-size: 11px;
-  color: #9d99b9;
+  color: var(--muted);
 }
 .compare-universities > p {
   font-size: 11px;
-  color: #a0a4b1;
+  color: var(--muted);
   line-height: 1.8;
   margin-top: 16px;
 }
@@ -3162,7 +3165,7 @@ input::placeholder {
 .compare-university-list a > small {
   display: block;
   font-size: 10px;
-  color: #a1a5b2;
+  color: var(--muted);
   font-weight: 400;
   margin-top: 5px;
 }
@@ -3175,7 +3178,7 @@ input::placeholder {
   font-size: 10px;
   margin-left: 4px;
   font-weight: 400;
-  color: #9da2b1;
+  color: var(--muted);
 }
 @media (max-width: 760px) {
   .comparison-intro {
@@ -3392,7 +3395,7 @@ input::placeholder {
   min-width: 80px;
   padding-top: 10px;
   font-size: 13px;
-  color: #697386;
+  color: var(--muted);
   font-weight: 600;
 }
 .university-admission-search .chip {
@@ -3416,7 +3419,7 @@ input::placeholder {
 }
 .university-admission-search .reset-link {
   font-size: 13px;
-  color: #7a8091;
+  color: var(--muted);
   white-space: nowrap;
 }
 .university-profile .university-detail-hero h1 {
@@ -3440,7 +3443,7 @@ input::placeholder {
 .university-profile .metric-grid dt {
   font-size: 13px;
   font-weight: 500;
-  color: #7a8091;
+  color: var(--muted);
 }
 .university-profile .metric-grid dd {
   font-size: 16px;
@@ -3480,7 +3483,7 @@ input::placeholder {
 }
 .university-profile .unit-grid p {
   font-size: 12px;
-  color: #7a8091;
+  color: var(--muted);
 }
 @media (max-width: 760px) {
   .university-admission-search .explorer-panel {
@@ -3558,7 +3561,7 @@ input::placeholder {
 }
 .overview-heading > span {
   font-size: 12px;
-  color: #7a8091;
+  color: var(--muted);
 }
 .official-indicator-grid {
   display: grid;
@@ -3586,7 +3589,7 @@ input::placeholder {
 }
 .indicator-card-label > span {
   font-size: 11px;
-  color: #7a8091;
+  color: var(--muted);
   white-space: nowrap;
   padding-top: 3px;
 }
@@ -3602,7 +3605,7 @@ input::placeholder {
   font-size: 13px;
   font-weight: 500;
   margin-left: 6px;
-  color: #697386;
+  color: var(--muted);
 }
 .indicator-card-links {
   display: flex;
@@ -3613,7 +3616,7 @@ input::placeholder {
 }
 .indicator-card-links > a:last-child,
 .indicator-card-links > span {
-  color: #7a8091;
+  color: var(--muted);
 }
 .admission-overview-counts {
   display: grid;
@@ -3633,7 +3636,7 @@ input::placeholder {
 .admission-overview-counts span {
   display: block;
   font-size: 13px;
-  color: #697386;
+  color: var(--muted);
   margin-bottom: 9px;
 }
 .admission-overview-counts strong {
@@ -3644,7 +3647,7 @@ input::placeholder {
   font-size: 13px;
   font-weight: 500;
   margin-left: 5px;
-  color: #7a8091;
+  color: var(--muted);
 }
 .overview-range-heading {
   display: flex;
@@ -3660,7 +3663,7 @@ input::placeholder {
 }
 .overview-range-heading > span {
   font-size: 11px;
-  color: #7a8091;
+  color: var(--muted);
 }
 .overview-cut-ranges {
   list-style: none;
@@ -3683,7 +3686,7 @@ input::placeholder {
 }
 .overview-cut-ranges p {
   font-size: 12px;
-  color: #7a8091;
+  color: var(--muted);
   margin: 8px 0 0;
 }
 .overview-cut-ranges strong {
@@ -3695,7 +3698,7 @@ input::placeholder {
 }
 .overview-cut-ranges small {
   font-size: 12px;
-  color: #697386;
+  color: var(--muted);
   font-weight: 500;
   margin-left: 5px;
 }
@@ -3705,12 +3708,12 @@ input::placeholder {
 }
 .overview-footnote {
   font-size: 12px;
-  color: #7a8091;
+  color: var(--muted);
   line-height: 1.7;
   margin: 17px 0;
 }
 .overview-empty {
-  color: #7a8091;
+  color: var(--muted);
   font-size: 14px;
   line-height: 1.7;
   padding: 18px 0;
@@ -3810,11 +3813,11 @@ input::placeholder {
 .comparison-result-heading p,
 .comparison-result-heading > span {
   font-size: 13px;
-  color: #6e7789;
+  color: var(--muted);
 }
 .comparison-disclaimer {
   font-size: 12px;
-  color: #7a8091;
+  color: var(--muted);
   line-height: 1.65;
 }
 .compare-result-list {
@@ -3841,7 +3844,7 @@ input::placeholder {
   flex-basis: 42px;
 }
 .compare-university-name {
-  color: #697386;
+  color: var(--muted);
   font-size: 13px;
   font-weight: 500;
   margin-bottom: 4px;
@@ -3855,7 +3858,7 @@ input::placeholder {
   line-height: 1.45;
 }
 .compare-result-copy > p {
-  color: #747e90;
+  color: var(--muted);
   font-size: 12px;
   line-height: 1.55;
 }
@@ -3879,7 +3882,7 @@ input::placeholder {
 }
 .compare-score-values > div > span {
   display: block;
-  color: #6e7789;
+  color: var(--muted);
   font-size: 11px;
   margin-bottom: 7px;
 }
@@ -3896,7 +3899,7 @@ input::placeholder {
 }
 .compare-result-score strong small {
   font-size: 10px;
-  color: #7a8091;
+  color: var(--muted);
   margin-left: 3px;
 }
 .compare-position {
@@ -3941,7 +3944,7 @@ input::placeholder {
 }
 .compare-row-details dt {
   font-size: 12px;
-  color: #7a8091;
+  color: var(--muted);
 }
 .compare-row-details dd {
   font-size: 16px;
@@ -3973,7 +3976,7 @@ input::placeholder {
   font-weight: 650;
 }
 .voting-entry-banner p {
-  color: #747e90;
+  color: var(--muted);
   font-size: 13px;
   margin: 7px 0 0;
 }
@@ -4089,7 +4092,7 @@ input::placeholder {
 }
 .display-ad > span {
   display: block;
-  color: #8991a1;
+  color: var(--muted);
   font-size: 10px;
   margin-bottom: 8px;
 }
@@ -4120,15 +4123,15 @@ input::placeholder {
 .vote-reference { padding:18px; border:1px solid #dcd9ff; border-radius:20px; background:rgba(255,255,255,.98); box-shadow:0 15px 35px #24263824; color:#34374a; text-align:left; }
 .vote-reference-head { display:flex; align-items:center; justify-content:space-between; gap:8px; padding-bottom:12px; border-bottom:1px solid #eeeef6; font-size:14px; }
 .vote-reference-head strong { color:#6556d9; }
-.vote-reference-head span { color:#767b90; }
+.vote-reference-head span { color: var(--muted); }
 .vote-reference-cut h3 { font-size:14px; margin:12px 0 8px; }
 .vote-reference-cut dl { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:0; }
 .vote-reference-cut dl > div { display:flex; gap:10px; align-items:center; min-width:0; }
-.vote-reference-cut dt { color:#85899c; font-size:12px; }
+.vote-reference-cut dt { color: var(--muted); font-size:12px; }
 .vote-reference-cut dd { display:flex; align-items:baseline; gap:5px; margin:0; }
 .vote-reference-cut dd strong { font-size:22px; font-variant-numeric:tabular-nums; color:#272d46; }
-.vote-reference-cut dd span { font-size:11px; color:#767b90; }
-.vote-reference-note { font-size:10px; color:#85899c; margin:12px 0 0; }
+.vote-reference-cut dd span { font-size:11px; color: var(--muted); }
+.vote-reference-note { font-size:10px; color: var(--muted); margin:12px 0 0; }
 .vote-reference-toggle { display:block; margin:8px auto 0; padding:6px 12px; border:0; border-radius:8px; background:transparent; color:#6556d9; font:inherit; font-size:13px; cursor:pointer; }
 .vote-reference-toggle:focus-visible { outline:2px solid #6556d9; }
 @media(max-width:600px) {
@@ -4174,7 +4177,7 @@ input::placeholder {
 .account-school {display:flex;align-items:center;gap:17px;min-width:0;}
 .account-school strong {font-size:17px;}
 .account-school p {color:var(--muted);font-size:13px;margin:6px 0 0;}
-.account-remove {background:transparent;border:0;color:#737989;cursor:pointer;font:inherit;font-size:12px;text-decoration:underline;white-space:nowrap;}
+.account-remove {background:transparent;border:0;color: var(--muted);cursor:pointer;font:inherit;font-size:12px;text-decoration:underline;white-space:nowrap;}
 .account-empty {padding:35px 15px;text-align:center;background:#fafaff;border-radius:15px;}
 .account-empty h3 {font-size:18px;}
 .account-empty p {color:var(--muted);margin:12px 0 20px;}

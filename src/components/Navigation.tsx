@@ -31,8 +31,8 @@ export function Navigation({ ai, member }: { ai: boolean; member: boolean }) {
     { href: "/admissions/compare/", label: "내 점수" },
     { href: "/universities/", label: "대학" },
     { href: "/rankings/", label: "대학 순위" },
-    { href: "/vs/", label: "대학 투표" },
     ...(ai ? [{ href: "/ai/", label: "AI 입결" }] : []),
+    { href: "/vs/", label: "대학 투표" },
   ];
   return (
     <><nav aria-label="주요 메뉴">
