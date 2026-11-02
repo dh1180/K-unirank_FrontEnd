@@ -19,11 +19,12 @@ export function productionHost(host, mode = "auto") {
   );
 }
 export function privatePath(path) {
-  return /^\/(api|admin|health|accounts|login|favorites|ai|vs|result|support)(\/|$)/.test(
+  return /^\/(api|admin|mypage|health|accounts|login|favorites|ai|vs|result|support)(\/|$)/.test(
     path,
   );
 }
 export function legacyPath(path) {
+  if (/^\/admin\/?$/.test(path) || /^\/accounts\/(login|me)\/?$/.test(path)) return false;
   return (
     /^\/(accounts|support|result|static|admin)(\/|$)/.test(path) ||
     /^\/vs\/[^/]+\/submit\/?$/.test(path) ||
@@ -40,7 +41,7 @@ export function pagePolicy(host, path, hasQuery, mode = "auto") {
     index,
     follow:
       production &&
-      !/^\/(api|accounts|login|favorites|result)(\/|$)/.test(path),
+      !/^\/(api|admin|mypage|accounts|login|favorites|result)(\/|$)/.test(path),
     canonical: SITE_ORIGIN + path,
   };
 }

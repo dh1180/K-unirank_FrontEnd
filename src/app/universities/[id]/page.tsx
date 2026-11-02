@@ -9,6 +9,7 @@ import { UniversityLogo } from "@/components/UniversityLogo";
 import { Icon } from "@/components/Icon";
 import { StructuredData } from "@/components/StructuredData";
 import { SITE_ORIGIN } from "@/lib/site-policy.mjs";
+import {FavoriteButton} from "@/components/FavoriteButton";
 
 type Props = { params: Promise<{ id: string }> };
 function parseId(id: string) {
@@ -82,6 +83,7 @@ export default async function UniversityDetailPage({ params }: Props) {
           입시결과 보기 <Icon name="arrow" size={18} />
         </Link>
       </section>
+      {process.env.MEMBER_FRONTEND_ENABLED==="true"&&<FavoriteButton universityId={id}/>}
       <section className="panel university-facts">
         <h2>대학 정보</h2>
         <dl className="metric-grid">

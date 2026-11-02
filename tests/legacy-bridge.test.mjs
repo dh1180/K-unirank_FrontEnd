@@ -22,8 +22,8 @@ test('legacy bridge preserves CSRF origin, body, Host and independent session co
   const code=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
   const exports={};
   vm.runInNewContext(code,{exports,require:name=>name==='@/lib/site-policy.mjs'?policy:require(name),process:{env:{...process.env,SITE_MODE:'auto',LEGACY_INTERNAL_URL:`http://127.0.0.1:${server.address().port}`}},Buffer,ReadableStream,Headers,URL});
-  const request=new NextRequest('http://localhost/legacy-bridge/accounts/login/',{method:'POST',headers:{host:'k-unirank.com',origin:'https://k-unirank.com',cookie:'sessionid=original','content-type':'application/x-www-form-urlencoded'},body:'username=sample&csrfmiddlewaretoken=token'});
-  const response=await exports.POST(request,{params:Promise.resolve({path:['accounts','login']})});
+  const request=new NextRequest('http://localhost/legacy-bridge/accounts/signup/',{method:'POST',headers:{host:'k-unirank.com',origin:'https://k-unirank.com',cookie:'sessionid=original','content-type':'application/x-www-form-urlencoded'},body:'username=sample&csrfmiddlewaretoken=token'});
+  const response=await exports.POST(request,{params:Promise.resolve({path:['accounts','signup']})});
   assert.equal(response.status,302); assert.equal(response.headers.get('location'),'/accounts/me/');
   assert.equal(response.headers.getSetCookie().length,2);
   assert.ok(response.headers.getSetCookie()[0].includes('HttpOnly; Secure; SameSite=Lax'));
@@ -33,7 +33,7 @@ test('legacy bridge preserves CSRF origin, body, Host and independent session co
   assert.equal(await response.text(),'');
   const asset=await exports.GET(new NextRequest('http://localhost/legacy-bridge/static/css/app.css',{headers:{host:'k-unirank.com'}}),{params:Promise.resolve({path:['static','css','app.css']})});
   assert.equal(asset.status,200); assert.equal(asset.headers.get('cache-control'),'public,max-age=31536000,immutable');assert.equal(await asset.text(),'body{color:black}');
-  const denied=await exports.GET(new NextRequest('http://localhost/legacy-bridge/accounts/login/',{headers:{host:'preview.test'}}),{params:Promise.resolve({path:['accounts','login']})});
+  const denied=await exports.GET(new NextRequest('http://localhost/legacy-bridge/accounts/signup/',{headers:{host:'preview.test'}}),{params:Promise.resolve({path:['accounts','signup']})});
   assert.equal(denied.status,404);assert.equal(received.length,2);
  }finally{server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}
 });

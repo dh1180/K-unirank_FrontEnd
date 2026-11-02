@@ -1,8 +1,18 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {useEffect,useState} from "react";
 export function Navigation({ ai, member }: { ai: boolean; member: boolean }) {
   const pathname = usePathname();
+  const [profile,setProfile]=useState<{username:string;admin:boolean}|null>(null);
+  useEffect(()=>{
+    if(!member)return;
+    let alive=true;
+    const update=()=>{void fetch("/api/member/me/",{credentials:"same-origin",cache:"no-store"})
+      .then(async r=>r.ok?await r.json():null).then(data=>{if(alive)setProfile(data);}).catch(()=>{if(alive)setProfile(null);});};
+    update();window.addEventListener("member-change",update);
+    return()=>{alive=false;window.removeEventListener("member-change",update);};
+  },[member,pathname]);
   const rankingPath = [
     "/rankings/",
     "/ranking/",
@@ -25,7 +35,7 @@ export function Navigation({ ai, member }: { ai: boolean; member: boolean }) {
     ...(ai ? [{ href: "/ai/", label: "AI 입결" }] : []),
   ];
   return (
-    <nav aria-label="주요 메뉴">
+    <><nav aria-label="주요 메뉴">
       {links.map((link) => (
         <Link
           key={link.href}
@@ -36,7 +46,9 @@ export function Navigation({ ai, member }: { ai: boolean; member: boolean }) {
           {link.label}
         </Link>
       ))}
-      {member && <Link href="/login/">로그인</Link>}
-    </nav>
+    </nav>{member&&<div className="header-account" aria-label="내 계정">
+      <Link className={pathname.startsWith("/mypage")?"active":""} href="/mypage/">마이페이지</Link>
+      {profile?.admin?<Link href="/admin/">관리자</Link>:!profile&&<Link href="/login/">로그인</Link>}
+    </div>}</>
   );
 }

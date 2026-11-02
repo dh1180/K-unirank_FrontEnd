@@ -27,39 +27,43 @@ export default function LoginPage() {
       if (!response.ok) {
         const detail = data && typeof data === "object" && "detail" in data
           ? (data as { detail?: unknown }).detail : undefined;
-        throw new Error(typeof detail === "string" ? detail : "로그인이 실패했어.");
+        throw new Error(typeof detail === "string" ? detail : "로그인하지 못했습니다.");
       }
       setPassword("");
-      router.push("/favorites/");
+      window.dispatchEvent(new Event("member-change"));
+      const next = new URLSearchParams(window.location.search).get("next");
+      router.replace(next === "/admin/" ? "/admin/" : "/mypage/");
       router.refresh();
     } catch (ex) {
-      setError(ex instanceof Error ? ex.message : "로그인이 실패했어.");
+      setError(ex instanceof Error ? ex.message : "로그인하지 못했습니다.");
     } finally {
       setPending(false);
     }
   }
   return (
-    <>
-      <section className="page-header">
-        <h1>기존 K-unirank 계정 로그인</h1>
-        <p>기존 Django의 회원 데이터를 유지하면서 Spring Boot로 이전 중인 개발 화면이야.</p>
+    <div className="login-layout">
+      <section className="login-intro">
+        <p className="eyebrow">YOUR NEXT CAMPUS</p><h1>나의 대학 탐색,<br/>이어서 시작하세요.</h1>
+        <p>관심 대학과 학과를 저장하고<br/>공개 입결을 한곳에서 확인하세요.</p>
+        <div className="login-features"><span>관심 대학 모아보기</span><span>학과별 입결 바로가기</span><span>기존 계정 그대로</span></div>
       </section>
-      <section className="panel">
+      <section className="panel login-card">
+        <p className="eyebrow">WELCOME BACK</p><h2>로그인</h2><p>기존 K-unirank 아이디로 로그인하세요.</p>
         <form className="member-form" onSubmit={submit}>
           <label htmlFor="account-id">아이디</label>
           <input id="account-id" type="text" autoComplete="username" maxLength={150}
                  required value={username} onChange={e => setUsername(e.target.value)} />
           <label htmlFor="account-password">비밀번호</label>
           <input id="account-password" type="password" autoComplete="current-password"
-                 required value={password} onChange={e => setPassword(e.target.value)} />
+                 required maxLength={256} value={password} onChange={e => setPassword(e.target.value)} />
           <button className="button primary" disabled={pending} type="submit">
             {pending ? "인증 중..." : "로그인"}
           </button>
         </form>
         {error && <p role="alert" className="notice">{error}</p>}
-        <p className="help">실제 계정 로그인은 개발용 DB·세션 보안 검증 전까지 비활성화되어 있어.</p>
-        <p><Link href="/universities/">대학 목록으로 돌아가기</Link></p>
+        <p className="help">공용 컴퓨터에서는 이용 후 로그아웃해 주세요.</p>
+        <p><Link href="/universities/">로그인 없이 대학 둘러보기 →</Link></p>
       </section>
-    </>
+    </div>
   );
 }

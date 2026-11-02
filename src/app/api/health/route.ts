@@ -23,6 +23,7 @@ async function ready(base: string | undefined) {
 export async function GET() {
   const checks = [ready(process.env.API_INTERNAL_URL)];
   if (process.env.VS_FRONTEND_ENABLED === "true") checks.push(ready(process.env.VS_API_INTERNAL_URL));
+  if (process.env.MEMBER_FRONTEND_ENABLED === "true") checks.push(ready(process.env.MEMBER_API_INTERNAL_URL));
   const up = (await Promise.all(checks)).every(Boolean);
   return NextResponse.json({ status: up ? "UP" : "DOWN" }, {
     status: up ? 200 : 503, headers: { "Cache-Control": "no-store" },
