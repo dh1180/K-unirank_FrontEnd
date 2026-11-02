@@ -188,7 +188,7 @@ export default async function GradeComparisonPage({
               </select>
             </label>
             <label htmlFor="university">대학 이름
-              <input id="university" name="university" defaultValue={university} placeholder="정확한 대학명, 쉼표로 최대 3곳" maxLength={160} />
+              <input id="university" name="university" defaultValue={university} placeholder="정확한 대학명, 쉼표로 최대 10곳" maxLength={160} />
             </label>
             <label htmlFor="chart_min">
               대학 요약 최소 표본
