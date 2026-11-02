@@ -19,7 +19,7 @@ export function productionHost(host, mode = "auto") {
   );
 }
 export function privatePath(path) {
-  return /^\/(api|admin|mypage|health|accounts|login|register|favorites|ai|vs|result|support)(\/|$)/.test(
+  return /^\/(api|api-docs|swagger-ui|swagger-ui.html|admin|mypage|health|accounts|login|register|favorites|ai|vs|result|support)(\/|$)/.test(
     path,
   );
 }
