@@ -24,6 +24,10 @@ test('member BFF isolates cookie, enforces origin and actual size, and forwards 
   assert.equal(calls[0].options.headers.Origin,'https://frontend.test');
   assert.equal(calls[0].options.headers['X-Member-Frontend-Token'],env.MEMBER_FRONTEND_TOKEN);
   assert.match(calls[0].options.headers['X-Member-Network-Key'],/^[a-f0-9]{64}$/);
+  const signup=await exports.proxyMember(request(undefined,JSON.stringify({username:'new-user',password:'test-value',email:'student@example.org',passwordConfirm:'test-value',is_superuser:true})),'/api/v1/member/register','POST');
+  assert.equal(signup.status,200);
+  const sent=JSON.parse(calls.at(-1).options.body);
+  assert.equal(sent.is_superuser,undefined);assert.equal(sent.passwordConfirm,'test-value');
   upstreamStatus=403;
   const admin=await exports.proxyMember(new NextRequest('https://frontend.test/api/admin/overview/'),'/api/v1/admin/overview','GET');
   assert.equal(admin.status,403);assert.match((await admin.json()).detail,/관리자/);

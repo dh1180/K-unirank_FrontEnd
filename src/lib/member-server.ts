@@ -2,7 +2,7 @@ import "server-only";
 import { cookies } from "next/headers";
 export type Member = { id: number; username: string; admin: boolean };
 
-export async function memberRead(path: "/api/v1/member/me" | "/api/v1/member/favorites/universities" | "/api/v1/member/favorites/units" | "/api/v1/admin/overview") {
+export async function memberRead(path: "/api/v1/member/me" | "/api/v1/member/favorites/universities" | "/api/v1/member/favorites/units" | "/api/v1/admin/overview" | `/api/v1/member/history?page=${number}`) {
   const token = process.env.MEMBER_FRONTEND_TOKEN;
   const api = process.env.MEMBER_API_INTERNAL_URL;
   if (process.env.MEMBER_FRONTEND_ENABLED!=="true" || !api || !token || token.length<32) return null;

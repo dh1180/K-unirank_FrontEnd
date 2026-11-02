@@ -4227,3 +4227,5 @@ input::placeholder {
 .ai-evidence>li>strong{font-size:18px}
 .ai-evidence>li>a{font-weight:700}
 @media(max-width:600px){.ai-examples{gap:6px}.ai-examples button{font-size:12px;padding:8px 10px}.ai-filter-summary{padding:12px;font-size:13px}.ai-gap{font-size:13px}}
+
+.favorite-comparison-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}.favorite-comparison-grid .panel{padding:20px;min-width:0}.favorite-comparison-grid .ai-cuts{flex-wrap:wrap}

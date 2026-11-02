@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { pagePolicy, legacyPath } from "@/lib/site-policy.mjs";
+import { pagePolicy } from "@/lib/site-policy.mjs";
 export function proxy(request: NextRequest) {
   const headers = new Headers(request.headers);
   const path = request.nextUrl.pathname;
@@ -11,16 +11,9 @@ export function proxy(request: NextRequest) {
     !!request.nextUrl.search,
     process.env.SITE_MODE,
   );
-  const response =
-    policy.production && legacyPath(path)
-      ? NextResponse.rewrite(
-          new URL(
-            `/legacy-bridge${path}${request.nextUrl.search}`,
-            request.url,
-          ),
-          { request: { headers } },
-        )
-      : NextResponse.next({ request: { headers } });
+  const board = path.match(/^\/api\/v1\/boards\/overall\/(next|vote)\/?$/);
+  const response = board ? NextResponse.rewrite(new URL(`/api/vs/${board[1]}/${request.nextUrl.search}`,request.url),{request:{headers}})
+    : NextResponse.next({request:{headers}});
   if (!policy.index)
     response.headers.set(
       "X-Robots-Tag",
