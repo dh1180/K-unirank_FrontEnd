@@ -16,7 +16,7 @@ async function proxy(request: NextRequest, method: "GET" | "POST", context: Para
     });
   }
   const { action } = await context.params;
-  if ((method === "GET" && action !== "next") || (method === "POST" && action !== "vote")) {
+  if ((method === "GET" && action !== "next") || (method === "POST" && !["vote","result"].includes(action))) {
     return NextResponse.json({ detail: "지원하지 않는 VS 요청입니다." }, { status: 404 });
   }
   const internal = process.env.VS_API_INTERNAL_URL;
@@ -95,6 +95,13 @@ async function proxy(request: NextRequest, method: "GET" | "POST", context: Para
           return { ...school, admissionReference };
         }));
         responseBody = JSON.stringify(match);
+      }
+    }
+    if(method==="GET" && upstream.ok && process.env.MEMBER_API_INTERNAL_URL && process.env.MEMBER_FRONTEND_TOKEN) {
+      const member=request.cookies.get("kunirank_member")?.value;
+      const issued=upstream.headers.getSetCookie().find(c=>c.startsWith("kunirank_vs="))?.split(";")[0].split("=",2)[1] || cookie;
+      if(member && /^[A-Za-z0-9_.-]{1,1024}$/.test(member) && issued && /^[A-Za-z0-9_-]{20,64}$/.test(issued)) {
+        try {await fetch(new URL("/api/v1/member/link-vote-session",process.env.MEMBER_API_INTERNAL_URL),{method:"POST",headers:{"Content-Type":"application/json","X-Member-Frontend-Token":process.env.MEMBER_FRONTEND_TOKEN,Cookie:`kunirank_member=${member}`,Origin:`https://${request.headers.get("host")||request.nextUrl.host}`},body:JSON.stringify({sessionKey:issued}),cache:"no-store",signal:AbortSignal.timeout(3000)});}catch{/* Voting remains available if account association is temporarily unavailable. */}
       }
     }
     const result = new NextResponse(responseBody, {

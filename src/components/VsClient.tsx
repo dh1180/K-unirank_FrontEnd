@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import {PersonalResultButton} from "@/components/PersonalResultButton";
 import { UniversityLogo } from "@/components/UniversityLogo";
 import { regionLabel } from "@/lib/regions.mjs";
 import { publicMetricValid } from "@/lib/admission-metrics.mjs";
@@ -154,6 +155,7 @@ export default function VsPage() {
           >
             {pending ? "불러오는 중..." : "다시 시도"}
           </button>}
+          <PersonalResultButton/>
           <Link className="button" href="/ranking/">
             현재 순위 보기
           </Link>

@@ -62,6 +62,7 @@ export default function LoginPage() {
         </form>
         {error && <p role="alert" className="notice">{error}</p>}
         <p className="help">공용 컴퓨터에서는 이용 후 로그아웃해 주세요.</p>
+        <p><Link className="button" href="/register/">새 계정 만들기 →</Link></p>
         <p><Link href="/universities/">로그인 없이 대학 둘러보기 →</Link></p>
       </section>
     </div>

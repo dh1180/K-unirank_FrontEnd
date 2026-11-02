@@ -32,6 +32,7 @@ export function MyPageClient({profile,universities,units}:{profile:Member;univer
     <section className="account-hero panel"><div><p className="eyebrow">MY SPACE</p><h1>{profile.username}님의 마이페이지</h1><p>모아둔 관심 대학과 학과에서 다음 탐색을 시작하세요.</p></div>
       <div className="actions">{profile.admin&&<Link className="button" href="/admin/">관리자 페이지 →</Link>}<button className="button" disabled={!!pending} onClick={()=>void logout()}>로그아웃</button></div>
     </section>
+    <div className="actions"><Link className="button" href="/mypage/history/">내 투표 기록 →</Link><Link className="button" href="/mypage/compare/">관심 대학 비교 →</Link></div>
     <div className="account-summary"><a href="#my-universities"><span>관심 대학</span><strong>{schools.length}<small>개</small></strong></a><a href="#my-units"><span>관심 학과</span><strong>{majors.length}<small>개</small></strong></a><Link href="/admissions/compare/"><span>나의 다음 탐색</span><strong className="summary-action">내 점수로 학과 찾기 ↗</strong></Link></div>
     {error&&<p className="notice" role="alert">{error} <Link href="/login/">로그인</Link></p>}
     <section className="panel account-list" id="my-universities"><div className="account-section-title"><h2>관심 대학 <span>{schools.length}</span></h2><Link href="/universities/">대학 더 찾아보기 →</Link></div>

@@ -1,0 +1,620 @@
+/* 대학별 입시 상세: 핵심 입결 요약 */
+.core-admission-summary {
+    margin-bottom: 48px;
+}
+
+body.kuni-design .core-admission-summary {
+    position: relative;
+    padding: 26px;
+    overflow: hidden;
+    border: 1px solid #dfe5ef;
+    border-radius: 24px;
+    background:
+        radial-gradient(circle at 100% 0%, rgba(49, 87, 229, .075), transparent 26rem),
+        #fff;
+    box-shadow: 0 10px 30px rgba(22, 38, 65, .035);
+}
+
+.core-admission-summary-head {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.core-admission-summary-head h2 {
+    margin: 5px 0 5px;
+    font-size: clamp(23px, 2vw, 30px);
+    line-height: 1.25;
+    letter-spacing: -.04em;
+}
+
+.core-admission-summary-head p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+.core-summary-method {
+    flex: 0 0 auto;
+    padding: 8px 11px;
+    border: 1px solid #dbe3ff;
+    border-radius: 999px;
+    color: #3157e5;
+    background: #f4f7ff;
+    font-size: 11px;
+    font-weight: 850;
+    white-space: nowrap;
+}
+
+.core-admission-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.core-admission-card {
+    position: relative;
+    min-width: 0;
+    padding: 19px 19px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    overflow: hidden;
+    border: 1px solid #e2e7f0;
+    border-radius: 17px;
+    background: #fff;
+    box-shadow: 0 4px 16px rgba(16, 24, 40, .035);
+    transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+
+.core-admission-card::before {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 3px;
+    content: "";
+    background: linear-gradient(90deg, #3157e5, #8aa2ff);
+}
+
+.core-admission-card:hover {
+    transform: translateY(-3px);
+    border-color: #c5d0f7;
+    box-shadow: 0 13px 30px rgba(31, 60, 150, .09);
+}
+
+.core-admission-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.core-admission-card-head strong {
+    color: #162641;
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: -.03em;
+}
+
+.core-admission-values {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border: 1px solid #e7ebf2;
+    border-radius: 14px;
+    background: #f7f9fc;
+}
+
+.core-admission-value-row {
+    min-width: 0;
+    min-height: 82px;
+    padding: 13px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 7px;
+    border-right: 1px solid #e7ebf2;
+}
+
+.core-admission-value-row:last-child {
+    border-right: 0;
+}
+
+.core-admission-value-row > span {
+    color: #718096;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.core-admission-value {
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: 4px;
+    text-align: left;
+}
+
+.core-admission-value strong {
+    color: #162641;
+    font-size: 25px;
+    font-variant-numeric: tabular-nums;
+    font-weight: 900;
+    letter-spacing: -.04em;
+}
+
+.core-admission-value small {
+    color: #667085;
+    font-size: 10px;
+    font-weight: 750;
+}
+
+.core-admission-value .empty-value {
+    color: #98a2b3;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.core-admission-card-foot {
+    margin-top: auto;
+    padding-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    color: #98a2b3;
+    font-size: 10px;
+}
+
+.core-admission-card-foot b {
+    color: #3157e5;
+    font-size: 11px;
+    font-weight: 850;
+}
+
+.core-summary-note {
+    margin: 15px 2px 0;
+    color: #7c889c;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+/* 입시결과보다 먼저 공개되는 다음 학년도 수능최저 */
+.future-csat-minimum {
+    margin: 0 0 48px;
+}
+
+.future-csat-minimum .section-title {
+    margin-bottom: 16px;
+}
+
+.future-csat-list {
+    overflow: hidden;
+    border: 1px solid #e4e7ec;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 3px 12px rgba(16, 24, 40, .035);
+}
+
+.future-csat-row {
+    padding: 16px 18px;
+    display: grid;
+    grid-template-columns: minmax(180px, .9fr) minmax(0, 2fr) auto;
+    align-items: center;
+    gap: 18px;
+    border-bottom: 1px solid #edf0f5;
+}
+
+.future-csat-row:last-child {
+    border-bottom: 0;
+}
+
+.future-csat-target {
+    min-width: 0;
+}
+
+.future-csat-title-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px;
+}
+
+.future-csat-title-line strong {
+    color: #101828;
+    font-size: 14px;
+    letter-spacing: -.02em;
+}
+
+.future-csat-status {
+    padding: 4px 8px;
+    border: 1px solid #dbe3ff;
+    border-radius: 999px;
+    color: #3157e5;
+    background: #f6f8ff;
+    font-size: 10px;
+    font-weight: 850;
+    line-height: 1;
+}
+
+.future-csat-target small {
+    margin-top: 4px;
+    display: block;
+    color: #667085;
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+.future-csat-row p {
+    min-width: 0;
+    margin: 0;
+    color: #344054;
+    font-size: 12px;
+    line-height: 1.65;
+    word-break: keep-all;
+}
+
+.future-csat-row .source-link {
+    white-space: nowrap;
+}
+
+/* ---------------------------------------------------------
+   모집단위별 상세 결과 컨트롤
+   기준 디자인: 연도/수시·정시 -> 구분선 -> 전형유형 -> 큰 검색창
+   이 영역은 공통 admissions CSS의 여백/레이아웃 규칙에 흔들리지 않게 고정한다.
+   --------------------------------------------------------- */
+#admission-unit-results .admission-control-card {
+    width: 100%;
+    margin: 0 0 22px;
+    padding: 20px 22px 22px;
+    overflow: visible;
+    border: 1px solid #dfe4ec;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 6px 22px rgba(16, 24, 40, .045);
+}
+
+#admission-unit-results .admission-filter-row {
+    width: 100%;
+    margin: 0 0 16px;
+    padding: 0 0 16px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border-bottom: 1px solid #eef0f4;
+}
+
+#admission-unit-results .admission-filter-row .region-chips,
+#admission-unit-results .phase-tabs {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 7px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+#admission-unit-results .admission-filter-row .region-chips::-webkit-scrollbar,
+#admission-unit-results .phase-tabs::-webkit-scrollbar,
+#admission-unit-results .admission-track-row::-webkit-scrollbar {
+    display: none;
+}
+
+#admission-unit-results .admission-track-row {
+    width: 100%;
+    margin: 0 0 20px;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px;
+}
+
+/* 대학 상세에서는 서버 템플릿의 전형유형 필터 한 줄만 사용한다.
+   예전 비동기 필터 로직이 추가 track 그룹을 만들더라도 숨긴다. */
+#admission-unit-results .admission-control-card > .admission-track-filter,
+#admission-unit-results .admission-control-card > .filter-group[data-filter-group="track"],
+#admission-unit-results .admission-control-card > *:has([data-filter="track"]) {
+    display: none !important;
+}
+
+#admission-unit-results .admission-track-row ~ .admission-track-row {
+    display: none !important;
+}
+
+#admission-unit-results .region-chip {
+    flex: 0 0 auto;
+}
+
+/* 검색창: 요청한 기존 디자인처럼 긴 입력창 + 우측 파란 버튼 */
+#admission-unit-results .admission-search-form {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 12px;
+}
+
+#admission-unit-results .metric-availability-form {
+    margin: 2px 0 16px;
+}
+
+#admission-unit-results .section-title-side {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+}
+
+#admission-unit-results .admission-count-context {
+    color: #98a2b3;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+#admission-unit-results .admission-search-input-wrap {
+    min-width: 0;
+    flex: 1 1 auto;
+    display: block;
+}
+
+#admission-unit-results .admission-search-input-wrap .search-input {
+    width: 100%;
+    height: 54px;
+    min-height: 54px;
+    margin: 0;
+    padding: 0 20px;
+    border: 1px solid #d0d5dd;
+    border-radius: 14px;
+    outline: none;
+    color: #101828;
+    background: #fff;
+    box-shadow: none;
+    font-size: 15px;
+    line-height: 1;
+}
+
+#admission-unit-results .admission-search-input-wrap .search-input::placeholder {
+    color: #98a2b3;
+}
+
+#admission-unit-results .admission-search-input-wrap .search-input:focus {
+    border-color: #91a7ff;
+    box-shadow: 0 0 0 4px rgba(49, 87, 229, .08);
+}
+
+#admission-unit-results .admission-search-form .button,
+#admission-unit-results .admission-search-form .button.primary {
+    width: 92px;
+    min-width: 92px;
+    height: 54px;
+    min-height: 54px;
+    margin: 0;
+    padding: 0 18px;
+    flex: 0 0 92px;
+    border-radius: 14px;
+    box-shadow: none;
+    font-size: 15px;
+    font-weight: 850;
+}
+
+/* ---------------------------------------------------------
+   데스크톱 대표 컷: 별도 카드처럼 튀지 않고 표 안에 자연스럽게 녹인다.
+   공통 admissions-shared.css보다 높은 specificity로 이 페이지에서만 덮는다.
+   --------------------------------------------------------- */
+@media (min-width: 721px) {
+    #admission-unit-results .admissions-table-wrap .metrics-cell {
+        min-width: 410px;
+    }
+
+    #admission-unit-results .admissions-table-wrap .metric-stack-highlighted {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 7px 10px;
+    }
+
+    #admission-unit-results .admissions-table-wrap .metric-stack-highlighted > .metric-item:not(.metric-item-featured) {
+        flex: 0 0 100%;
+        grid-column: auto;
+        opacity: .78;
+    }
+
+    #admission-unit-results .admissions-table-wrap .metric-item-featured {
+        min-width: 0;
+        min-height: 0;
+        padding: 7px 10px;
+        display: inline-flex;
+        flex: 0 1 auto;
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: flex-start;
+        gap: 7px;
+        border: 0;
+        border-radius: 10px;
+        background: #f7f9fc;
+        box-shadow: none;
+    }
+
+    #admission-unit-results .admissions-table-wrap .metric-stack-featured-one .metric-item-featured {
+        max-width: none;
+        grid-column: auto;
+    }
+
+    #admission-unit-results .admissions-table-wrap .metric-item-featured .metric-label {
+        color: #667085;
+        font-size: 11px;
+        font-weight: 750;
+        line-height: 1.25;
+        white-space: nowrap;
+    }
+
+    #admission-unit-results .admissions-table-wrap .metric-item-featured .metric-value {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 3px;
+        color: #2456d3;
+        font-size: 17px;
+        font-weight: 850;
+        line-height: 1;
+        letter-spacing: -.02em;
+        white-space: nowrap;
+    }
+
+    #admission-unit-results .admissions-table-wrap .metric-item-featured .metric-value small {
+        color: #667085;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0;
+    }
+
+    #admission-unit-results .admissions-table-wrap .metric-item-featured-grade,
+    #admission-unit-results .admissions-table-wrap .metric-item-featured-percentile {
+        border-color: transparent;
+        background: #f7f9fc;
+    }
+
+    #admission-unit-results .admissions-table-wrap .metric-item-featured-grade .metric-value,
+    #admission-unit-results .admissions-table-wrap .metric-item-featured-percentile .metric-value {
+        color: #2456d3;
+    }
+
+    #admission-unit-results .admissions-table-wrap .metric-stack-highlighted > .metric-item:not(.metric-item-featured) .metric-label {
+        color: #7d8799;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    #admission-unit-results .admissions-table-wrap .metric-stack-highlighted > .metric-item:not(.metric-item-featured) .metric-value {
+        color: #475467;
+        font-size: 12px;
+        font-weight: 700;
+    }
+}
+
+@media (max-width: 900px) {
+    .core-admission-summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .future-csat-row {
+        grid-template-columns: minmax(160px, .8fr) minmax(0, 1.7fr) auto;
+    }
+}
+
+@media (max-width: 720px) {
+    body.kuni-design .core-admission-summary {
+        margin-bottom: 36px;
+        padding: 18px 16px;
+        border-radius: 19px;
+    }
+
+    .core-admission-summary-head {
+        margin-bottom: 15px;
+        align-items: flex-start;
+    }
+
+    .core-summary-method {
+        display: none;
+    }
+
+    .future-csat-minimum {
+        margin-bottom: 36px;
+    }
+
+    .future-csat-list {
+        border-radius: 17px;
+    }
+
+    .future-csat-row {
+        padding: 14px;
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .future-csat-row .source-link {
+        justify-self: start;
+    }
+
+    #admission-unit-results .admission-control-card {
+        padding: 14px;
+        border-radius: 17px;
+    }
+
+    #admission-unit-results .admission-filter-row {
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    #admission-unit-results .admission-filter-row .region-chips,
+    #admission-unit-results .phase-tabs {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    #admission-unit-results .admission-track-row {
+        margin-bottom: 14px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    #admission-unit-results .admission-search-form {
+        gap: 8px;
+    }
+
+    #admission-unit-results .metric-availability-form {
+        margin-bottom: 14px;
+    }
+
+    #admission-unit-results .admission-search-input-wrap .search-input {
+        height: 48px;
+        min-height: 48px;
+        padding: 0 14px;
+        border-radius: 12px;
+        font-size: 13px;
+    }
+
+    #admission-unit-results .admission-search-form .button,
+    #admission-unit-results .admission-search-form .button.primary {
+        width: 72px;
+        min-width: 72px;
+        height: 48px;
+        min-height: 48px;
+        padding: 0 10px;
+        flex-basis: 72px;
+        border-radius: 12px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 620px) {
+    .core-admission-summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .core-admission-card {
+        padding: 16px 16px 14px;
+        gap: 14px;
+        border-radius: 15px;
+    }
+
+    .core-admission-value-row {
+        min-height: 70px;
+    }
+
+    .core-admission-value strong {
+        font-size: 22px;
+    }
+}

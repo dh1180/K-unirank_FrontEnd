@@ -5,6 +5,8 @@ import { createHmac } from "node:crypto";
 /** Trusted internal API endpoint paths only. No user-controlled proxy destination. */
 const permitted = new Set([
   "/api/v1/member/login",
+  "/api/v1/member/register",
+  "/api/v1/member/history",
   "/api/v1/member/logout",
   "/api/v1/member/me",
   "/api/v1/member/favorites/universities",
@@ -35,7 +37,7 @@ export async function proxyMember(request: NextRequest, destination: string,
   const serviceToken = process.env.MEMBER_FRONTEND_TOKEN;
   if (!api || !serviceToken || serviceToken.length < 32) return error("회원 서비스 연결을 준비하고 있습니다.", 503);
   let body: string | undefined;
-  if (destination === "/api/v1/member/login") {
+  if (["/api/v1/member/login","/api/v1/member/register"].includes(destination)) {
     if (method !== "POST" || !(request.headers.get("content-type") ?? "").startsWith("application/json")) {
       return error("로그인은 JSON POST 요청만 허용합니다.", 415);
     }
@@ -58,13 +60,22 @@ export async function proxyMember(request: NextRequest, destination: string,
           || typeof password !== "string" || password.length < 1 || password.length > 256) {
         return error("아이디와 비밀번호를 확인해 주세요.", 422);
       }
-      body = JSON.stringify({ username, password });
+      if(destination.endsWith("/register")) {
+        const {email,passwordConfirm}=input as {email?:unknown;passwordConfirm?:unknown};
+        if(typeof passwordConfirm!=="string" || passwordConfirm.length>256 || typeof email!=="string" || email.length>254)
+          return error("회원가입 입력을 확인해 주세요.",422);
+        body=JSON.stringify({username,password,email,passwordConfirm});
+      } else body = JSON.stringify({ username, password });
     } catch { return error("로그인 JSON 형식이 잘못되었습니다.", 422); }
   }
   try {
     const session = request.cookies.get("kunirank_member")?.value;
     const network = createHmac("sha256", serviceToken).update(request.headers.get("x-real-ip") || "unknown").digest("hex");
     const target = new URL(destination, api);
+    if(destination.endsWith("/history")) {
+      const page=Number(request.nextUrl.searchParams.get("page")||0);
+      target.searchParams.set("page",String(Number.isInteger(page)&&page>=0&&page<=100000?page:0));
+    }
     const upstream = await fetch(target, {
       method,
       headers: {
@@ -79,7 +90,8 @@ export async function proxyMember(request: NextRequest, destination: string,
       cache: "no-store",
       signal: AbortSignal.timeout(10_000),
     });
-    const detail = upstream.status === 401 ? "아이디·비밀번호를 확인하거나 다시 로그인해 주세요."
+    const controlled = [400,409,422].includes(upstream.status) ? await upstream.json().catch(()=>({})) : {};
+    const detail = typeof controlled.detail==="string" && controlled.detail.length<=200 ? controlled.detail : upstream.status === 401 ? "아이디·비밀번호를 확인하거나 다시 로그인해 주세요."
       : upstream.status === 403 ? "관리자 권한이 필요합니다."
       : upstream.status === 429 ? "로그인 시도가 많습니다. 10분 후 다시 시도해 주세요."
       : upstream.status === 404 ? "대학 또는 모집단위를 찾을 수 없습니다."
