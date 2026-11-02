@@ -1361,6 +1361,11 @@ input::placeholder {
   padding: 20px 0;
   border-bottom: 1px solid var(--line);
 }
+.ai-cuts { display: flex; gap: 28px; margin: 16px 0; }
+.ai-cuts p { display: grid; gap: 6px; margin: 0; }
+.ai-cuts span { color: var(--muted); font-size: 13px; }
+.ai-cuts b { color: var(--brand); font-size: 24px; font-variant-numeric: tabular-nums; }
+.ai-cuts small { margin-left: 6px; font-size: 13px; font-weight: 500; }
 @media (min-width: 1400px) {
   .discovery-hero {
     padding: 50px 45px;
