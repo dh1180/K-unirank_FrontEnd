@@ -62,7 +62,7 @@ export default function AiAdmissionsPage() {
       </section>
       <section className="panel">
         <div className="ai-examples" aria-label="질문 예시">
-          {["내신 3.2 수도권 컴공 교과 찾아줘", "내신 2점8 서울 경기 심리학과 학종", "내신 2.5 한국항공대 컴공 교과"].map(example => (
+          {["건동홍 2.3등급으로 갈만한 학과 찾아줘", "내신 3.2 수도권 컴공 교과 찾아줘", "내신 2점8 서울 경기 심리학과 학종", "내신 2.5 한국항공대 컴공 교과"].map(example => (
             <button type="button" key={example} disabled={pending} onClick={() => setQuestion(example)}>{example}</button>
           ))}
         </div>
