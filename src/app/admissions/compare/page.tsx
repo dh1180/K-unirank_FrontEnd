@@ -19,6 +19,7 @@ type Search = {
   chart_min?: string;
   q?: string;
   region?: string;
+  university?: string;
   page?: string;
 };
 const regions = [
@@ -57,7 +58,8 @@ export default async function GradeComparisonPage({
     ? raw.chart_min!
     : "2";
   const q = typeof raw.q === "string" ? raw.q.slice(0, 120) : "",
-    region = typeof raw.region === "string" ? raw.region.slice(0, 30) : "";
+    region = typeof raw.region === "string" ? raw.region.slice(0, 60) : "";
+  const university = typeof raw.university === "string" ? raw.university.slice(0, 160) : "";
   const page = positivePage(raw.page),
     attempted = grade.length > 0,
     valid = gradeIsValid(grade);
@@ -72,6 +74,7 @@ export default async function GradeComparisonPage({
           chart_min: chartMin,
           q,
           region,
+          university,
           page,
           size: 60,
         })
@@ -145,6 +148,7 @@ export default async function GradeComparisonPage({
               {scope === "all" ? "전체 등급" : "내 등급 ±0.5"}
               {q ? ` · ${q}` : ""}
               {region ? ` · ${region}` : ""}
+              {university ? ` · ${university}` : ""}
             </span>
           </summary>
           <div className="compare-extra-fields">
@@ -175,12 +179,16 @@ export default async function GradeComparisonPage({
               지역
               <select id="region" name="region" defaultValue={region}>
                 <option value="">전국</option>
+                {region.includes(",") && <option value={region}>{region.split(",").join(" · ")}</option>}
                 {regions.map((r) => (
                   <option key={r} value={r}>
                     {r}
                   </option>
                 ))}
               </select>
+            </label>
+            <label htmlFor="university">대학 이름
+              <input id="university" name="university" defaultValue={university} placeholder="정확한 대학명, 쉼표로 최대 3곳" maxLength={160} />
             </label>
             <label htmlFor="chart_min">
               대학 요약 최소 표본
@@ -221,6 +229,7 @@ export default async function GradeComparisonPage({
                   {track === "student" ? "학생부교과" : "학생부종합"} ·{" "}
                   {scope === "all" ? "전체 등급" : "내 등급 ±0.5"}
                   {region ? ` · ${region}` : ""}
+              {university ? ` · ${university}` : ""}
                 </p>
               </div>
               <span className="comparison-reference">
@@ -331,6 +340,7 @@ export default async function GradeComparisonPage({
                 chart_min: chartMin,
                 q,
                 region,
+                university,
               }}
             />
           </section>

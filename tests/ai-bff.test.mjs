@@ -11,10 +11,11 @@ const {NextRequest} = require('next/server');
 test('AI BFF bounds actual bodies, throttles calls and keeps credentials and cookies private', async () => {
   const exports = {}, calls = [];
   let upstreamStatus = 200;
+  let upstreamBody = '{"filters":{},"internal":"private detail"}';
   const env = {NODE_ENV:'production',AI_FRONTEND_ENABLED:'true',API_INTERNAL_URL:'http://private',AI_FRONTEND_TOKEN:'test-private-token-at-least-thirty-two-characters'};
   const code = ts.transpileModule(readFileSync(new URL('../src/app/api/ai/questions/route.ts',import.meta.url),'utf8'), {compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
   vm.runInNewContext(code, {exports, require:name=>name==='@/lib/request-origin.mjs'?originPolicy:require(name),process:{env},Buffer,URL,AbortSignal,fetch:async (url,options)=>{
-    calls.push({url,options}); return new Response('{"filters":{},"internal":"private detail"}',{status:upstreamStatus,headers:{'Content-Type':'application/json'}});
+    calls.push({url,options}); return new Response(upstreamBody,{status:upstreamStatus,headers:{'Content-Type':'application/json'}});
   }});
   const request = (body,origin='https://frontend.test') => new NextRequest('http://localhost/api/ai/questions', {method:'POST',headers:{host:'frontend.test',origin,'content-type':'application/json','x-real-ip':'127.0.0.1',cookie:'sessionid=private'},body});
   assert.equal((await exports.POST(request('{}','https://attacker.test'))).status,403);
@@ -26,10 +27,15 @@ test('AI BFF bounds actual bodies, throttles calls and keeps credentials and coo
   const guidance=await exports.POST(request(body));
   assert.equal(guidance.status,422);
   assert.match((await guidance.json()).detail,/내신 평균등급/);
+  upstreamStatus=422;
+  upstreamBody=JSON.stringify({detail:"현재 AI 검색은 9등급제 수시 내신만 지원합니다."});
+  const precise = request(body);
+  precise.headers.set('x-real-ip','127.0.0.2');
+  assert.match((await (await exports.POST(precise)).json()).detail,/9등급제 수시/);
   upstreamStatus=200;
   assert.equal((await exports.POST(request(body))).status,200);
   assert.equal((await exports.POST(request(body))).status,429);
-  assert.equal(calls.length,2);
+  assert.equal(calls.length,3);
   assert.equal(calls[0].options.headers.Cookie,undefined);
   assert.equal(calls[0].options.headers['X-Frontend-Service-Token'],env.AI_FRONTEND_TOKEN);
   assert.equal(JSON.parse(calls[0].options.body).limit,5);
