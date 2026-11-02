@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sameOrigin } from "@/lib/request-origin.mjs";
+import { createHmac } from "node:crypto";
 
 /** Trusted internal API endpoint paths only. No user-controlled proxy destination. */
 const permitted = new Set([
@@ -8,6 +9,7 @@ const permitted = new Set([
   "/api/v1/member/me",
   "/api/v1/member/favorites/universities",
   "/api/v1/member/favorites/units",
+  "/api/v1/admin/overview",
 ]);
 
 function error(detail: string, status: number) {
@@ -29,8 +31,9 @@ export async function proxyMember(request: NextRequest, destination: string,
       return error("요청 출처를 확인할 수 없습니다.", 403);
     }
   }
-  const api = process.env.API_INTERNAL_URL;
-  if (!api) return error("Spring Boot 연결 설정이 없습니다.", 503);
+  const api = process.env.MEMBER_API_INTERNAL_URL;
+  const serviceToken = process.env.MEMBER_FRONTEND_TOKEN;
+  if (!api || !serviceToken || serviceToken.length < 32) return error("회원 서비스 연결을 준비하고 있습니다.", 503);
   let body: string | undefined;
   if (destination === "/api/v1/member/login") {
     if (method !== "POST" || !(request.headers.get("content-type") ?? "").startsWith("application/json")) {
@@ -38,8 +41,16 @@ export async function proxyMember(request: NextRequest, destination: string,
     }
     if (Number(request.headers.get("content-length") ?? 0) > 2048) return error("요청이 너무 큽니다.", 413);
     try {
-      const payload = await request.text();
-      if (new TextEncoder().encode(payload).length > 2048) return error("요청이 너무 큽니다.", 413);
+      const reader = request.body?.getReader();
+      if (!reader) return error("로그인 입력이 필요합니다.",422);
+      const chunks: Uint8Array[] = []; let bytes = 0;
+      while (true) {
+        const {value,done}=await reader.read(); if (done) break;
+        bytes+=value.byteLength;
+        if (bytes>2048) {await reader.cancel();return error("요청이 너무 큽니다.",413);}
+        chunks.push(value);
+      }
+      const payload = Buffer.concat(chunks).toString("utf8");
       const input: unknown = JSON.parse(payload);
       if (!input || typeof input !== "object") return error("로그인 입력이 잘못되었습니다.", 422);
       const { username, password } = input as { username?: unknown; password?: unknown };
@@ -52,19 +63,28 @@ export async function proxyMember(request: NextRequest, destination: string,
   }
   try {
     const session = request.cookies.get("kunirank_member")?.value;
+    const network = createHmac("sha256", serviceToken).update(request.headers.get("x-real-ip") || "unknown").digest("hex");
     const target = new URL(destination, api);
     const upstream = await fetch(target, {
       method,
       headers: {
         Accept: "application/json",
+        "X-Member-Frontend-Token": serviceToken,
+        "X-Member-Network-Key": network,
+        ...(method !== "GET" ? { Origin: request.headers.get("origin")! } : {}),
         ...(body ? { "Content-Type": "application/json" } : {}),
-        ...(session ? { Cookie: `kunirank_member=${session}` } : {}),
+        ...(session && /^[A-Za-z0-9_.-]{1,1024}$/.test(session) ? { Cookie: `kunirank_member=${session}` } : {}),
       },
       ...(body ? { body } : {}),
       cache: "no-store",
       signal: AbortSignal.timeout(10_000),
     });
-    const response = new NextResponse(await upstream.text(), {
+    const detail = upstream.status === 401 ? "아이디·비밀번호를 확인하거나 다시 로그인해 주세요."
+      : upstream.status === 403 ? "관리자 권한이 필요합니다."
+      : upstream.status === 429 ? "로그인 시도가 많습니다. 10분 후 다시 시도해 주세요."
+      : upstream.status === 404 ? "대학 또는 모집단위를 찾을 수 없습니다."
+      : "요청을 처리하지 못했습니다. 잠시 후 다시 시도해 주세요.";
+    const response = new NextResponse(upstream.ok ? (upstream.status===204 ? null : await upstream.text()) : JSON.stringify({detail}), {
       status: upstream.status,
       headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" },
     });

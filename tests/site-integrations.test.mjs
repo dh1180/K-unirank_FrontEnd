@@ -49,7 +49,7 @@ test("preview and spoofed hosts cannot pollute production ads or metrics", () =>
     false,
   );
   assert.equal(
-    pagePolicy("k-unirank.com", "/accounts/me/", false).index,
+    pagePolicy("k-unirank.com", "/accounts/signup/", false).index,
     false,
   );
   assert.equal(pagePolicy("preview.test", "/", false).follow, false);
@@ -57,7 +57,7 @@ test("preview and spoofed hosts cannot pollute production ads or metrics", () =>
 test("legacy URL compatibility covers existing accounts, votes, results and assets", () => {
   for (const path of [
     "/vs/overall/submit/",
-    "/accounts/me/",
+    "/accounts/signup/",
     "/support/",
     "/result/123/",
     "/static/css/app.css",
@@ -67,6 +67,10 @@ test("legacy URL compatibility covers existing accounts, votes, results and asse
     assert.equal(legacyPath(path), true);
   for (const path of [
     "/universities/367/",
+    "/accounts/me/",
+    "/accounts/login/",
+    "/admin/",
+    "/mypage/",
     "/api/vs/vote/",
     "/unknown/",
     "//attacker.test/",

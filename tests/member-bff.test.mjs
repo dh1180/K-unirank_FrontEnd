@@ -1,0 +1,33 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import vm from 'node:vm';
+import {readFileSync} from 'node:fs';
+import {createRequire} from 'node:module';
+import ts from 'typescript';
+import * as policy from '../src/lib/request-origin.mjs';
+const require=createRequire(import.meta.url);
+const {NextRequest}=require('next/server');
+test('member BFF isolates cookie, enforces origin and actual size, and forwards current admin denial',async()=>{
+  const exports={},calls=[];let upstreamStatus=200;
+  const code=ts.transpileModule(readFileSync(new URL('../src/lib/member-proxy.ts',import.meta.url),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
+  const env={NODE_ENV:'production',MEMBER_FRONTEND_ENABLED:'true',MEMBER_API_INTERNAL_URL:'http://member-private',MEMBER_FRONTEND_TOKEN:'private-member-service-token-more-than-thirty-two-characters'};
+  vm.runInNewContext(code,{exports,require:name=>name==='@/lib/request-origin.mjs'?policy:require(name),process:{env},Buffer,URL,AbortSignal,fetch:async(url,options)=>{
+    calls.push({url,options});return new Response(upstreamStatus===204?null:'{"username":"sample"}',{status:upstreamStatus,headers:{'Set-Cookie':'kunirank_member=signed.token; Secure; HttpOnly; SameSite=Strict'}});
+  }});
+  const request=(origin='https://frontend.test',body='{"username":"sample","password":"test-value"}')=>new NextRequest('http://localhost/api/member/login/',{method:'POST',headers:{host:'frontend.test',origin,'content-type':'application/json',cookie:'sessionid=legacy-secret; kunirank_member=signed.token; kunirank_vs=vote-secret','x-real-ip':'127.0.0.1'},body});
+  assert.equal((await exports.proxyMember(request('https://attacker.test'),'/api/v1/member/login','POST')).status,403);
+  assert.equal((await exports.proxyMember(request(undefined,'x'.repeat(2049)),'/api/v1/member/login','POST')).status,413);
+  assert.equal((await exports.proxyMember(request(),'/api/v1/member/unknown','POST')).status,404);
+  const login=await exports.proxyMember(request(),'/api/v1/member/login','POST');
+  assert.equal(login.status,200);assert.match(login.headers.get('set-cookie'),/HttpOnly/);
+  assert.equal(calls[0].url.hostname,'member-private');assert.equal(calls[0].options.headers.Cookie,'kunirank_member=signed.token');
+  assert.equal(calls[0].options.headers.Origin,'https://frontend.test');
+  assert.equal(calls[0].options.headers['X-Member-Frontend-Token'],env.MEMBER_FRONTEND_TOKEN);
+  assert.match(calls[0].options.headers['X-Member-Network-Key'],/^[a-f0-9]{64}$/);
+  upstreamStatus=403;
+  const admin=await exports.proxyMember(new NextRequest('https://frontend.test/api/admin/overview/'),'/api/v1/admin/overview','GET');
+  assert.equal(admin.status,403);assert.match((await admin.json()).detail,/관리자/);
+  upstreamStatus=204;
+  assert.equal((await exports.proxyMember(request(),'/api/v1/member/favorites/units/123','DELETE')).status,204);
+  env.MEMBER_FRONTEND_ENABLED='false';assert.equal((await exports.proxyMember(request(),'/api/v1/member/login','POST')).status,503);
+});

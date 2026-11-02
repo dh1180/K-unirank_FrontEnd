@@ -132,6 +132,7 @@ export default async function RootLayout({
             </div>
             <div>
               <div className="footer-links">
+                {process.env.MEMBER_FRONTEND_ENABLED==="true"&&<Link href="/mypage/">마이페이지</Link>}
                 <Link href="/">입결 찾기</Link>
                 <Link href="/universities/">대학 정보</Link>
                 <Link href="/rankings/">대학 순위</Link>

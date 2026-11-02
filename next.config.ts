@@ -20,8 +20,9 @@ const nextConfig: NextConfig = {
       { source: "/admissions", destination: "/", permanent: true },
       { source: "/ranking/overall", destination: "/ranking/", permanent: true },
       { source: "/vs/overall", destination: "/vs/", permanent: true },
-      { source: "/login", destination: "/accounts/login/", permanent: false },
-      { source: "/favorites", destination: "/accounts/me/", permanent: false },
+      { source: "/favorites", destination: "/mypage/", permanent: false },
+      { source: "/accounts/login", destination: "/login/", permanent: false },
+      { source: "/accounts/me", destination: "/mypage/", permanent: false },
     ];
   },
 };
