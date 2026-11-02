@@ -8,6 +8,8 @@ type Parsed = {
   grade: number;
   year: number | null;
   track: "student" | "holistic";
+  special: "exclude" | "all";
+  scope: "near" | "all";
   region: string | null;
   major: string | null;
 };
@@ -75,6 +77,9 @@ export default function AiAdmissionsPage() {
           <h2>입결 검색 결과</h2>
           <p>내신 {response.filters.grade}등급 · {response.admissions.selectedYear ?? "학년도 미확인"}학년도 ·
             검색 결과 {response.admissions.totalCount.toLocaleString("ko-KR")}건</p>
+          <p className="help">{response.filters.track === "holistic" ? "학생부종합" : "학생부교과"}
+            {response.filters.region ? ` · ${response.filters.region}` : " · 전체 지역"}
+            {response.filters.major ? ` · ${response.filters.major}` : " · 전체 학과"}</p>
           {!response.admissions.items.length ? (
             <p>조건에 맞는 공개 입결이 없습니다. <Link href="/admissions/compare/">검색 조건을 조정해 보세요.</Link></p>
           ) : (
@@ -83,13 +88,18 @@ export default function AiAdmissionsPage() {
                 <li key={row.resultId}>
                   <strong>{row.universityName} · {row.recruitmentUnitName}</strong>
                   <p className="muted">{row.selectionCategory} · {row.selectionName} · {row.sourceName}</p>
-                  <p>{row.referenceBasis} <b>{row.referenceCut}등급</b></p>
+                  <div className="ai-cuts">
+                    {row.cut50 != null && <p><span>50% 컷</span><b>{Number(row.cut50).toFixed(2)}<small>등급</small></b></p>}
+                    {row.cut70 != null && <p><span>70% 컷</span><b>{Number(row.cut70).toFixed(2)}<small>등급</small></b></p>}
+                    {row.cut50 == null && row.cut70 == null && <p><span>{row.referenceBasis}</span><b>{row.referenceCut}<small>등급</small></b></p>}
+                  </div>
                   <Link href={`/admissions/unit/${row.recruitmentUnitId}/`}>입결 근거 확인</Link>
                 </li>
               ))}
             </ul>
           )}
-          <p className="help">{response.evidencePolicy}</p>
+          <Link className="button" href={`/admissions/compare/?${new URLSearchParams({grade:String(response.filters.grade),track:response.filters.track,special:response.filters.special,scope:response.filters.scope,...(response.filters.region ? {region:response.filters.region} : {}),...(response.filters.major ? {q:response.filters.major} : {})}).toString()}`}>같은 조건으로 전체 결과 보기 →</Link>
+          <p className="help">공개 입결 원문 출처를 각 결과에서 확인할 수 있습니다.</p>
           <p className="help">과거 입결과 내 등급을 비교한 참고 자료이며, 합격이나 지원 자격을 보장하지 않습니다.</p>
         </section>
       )}
