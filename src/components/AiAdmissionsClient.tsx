@@ -98,7 +98,7 @@ export default function AiAdmissionsPage() {
               ))}
             </ul>
           )}
-          <Link className="button" href={`/admissions/compare/?${new URLSearchParams({grade:String(response.filters.grade),track:response.filters.track,special:response.filters.special,scope:response.filters.scope,...(response.filters.region ? {region:response.filters.region} : {}),...(response.filters.major ? {q:response.filters.major} : {})}).toString()}`}>같은 조건으로 전체 결과 보기 →</Link>
+          <Link className="button" href={`/admissions/compare/?${new URLSearchParams({grade:String(response.filters.grade),track:response.filters.track,special:response.filters.special,scope:response.filters.scope,...(response.admissions.selectedYear ? {year:String(response.admissions.selectedYear)} : {}),...(response.filters.region ? {region:response.filters.region} : {}),...(response.filters.major ? {q:response.filters.major} : {})}).toString()}`}>같은 조건으로 전체 결과 보기 →</Link>
           <p className="help">공개 입결 원문 출처를 각 결과에서 확인할 수 있습니다.</p>
           <p className="help">과거 입결과 내 등급을 비교한 참고 자료이며, 합격이나 지원 자격을 보장하지 않습니다.</p>
         </section>

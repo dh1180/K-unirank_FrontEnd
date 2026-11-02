@@ -12,6 +12,7 @@ import { Icon } from "@/components/Icon";
 export const metadata: Metadata = { title: "내 점수로 학과 찾기" };
 type Search = {
   grade?: string;
+  year?: string;
   track?: string;
   special?: string;
   scope?: string;
@@ -46,6 +47,9 @@ export default async function GradeComparisonPage({
 }) {
   const raw = await searchParams;
   const grade = typeof raw.grade === "string" ? raw.grade.trim() : "";
+  const requestedYear = Number(raw.year);
+  const year = Number.isInteger(requestedYear) && requestedYear >= 2000 && requestedYear <= 2100
+    ? requestedYear : undefined;
   const track = raw.track === "holistic" ? "holistic" : "student";
   const special = raw.special === "all" ? "all" : "exclude",
     scope = raw.scope === "all" ? "all" : "near";
@@ -61,6 +65,7 @@ export default async function GradeComparisonPage({
     attempted && valid
       ? await compareGrades({
           grade,
+          year,
           track,
           special,
           scope,
@@ -105,6 +110,7 @@ export default async function GradeComparisonPage({
         data-ga-search-field="q"
         className="comparison-builder"
       >
+        {year && <input type="hidden" name="year" value={year} />}
         <div className="compare-main-fields">
           <label htmlFor="grade">
             내신 평균등급
@@ -318,6 +324,7 @@ export default async function GradeComparisonPage({
               hasNext={data.hasNext}
               params={{
                 grade,
+                year,
                 track,
                 special,
                 scope,
