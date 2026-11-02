@@ -12,7 +12,7 @@ test('AI BFF bounds actual bodies, throttles calls and keeps credentials and coo
   const exports = {}, calls = [];
   const env = {NODE_ENV:'production',AI_FRONTEND_ENABLED:'true',API_INTERNAL_URL:'http://private',AI_FRONTEND_TOKEN:'test-private-token-at-least-thirty-two-characters'};
   const code = ts.transpileModule(readFileSync(new URL('../src/app/api/ai/questions/route.ts',import.meta.url),'utf8'), {compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
-  vm.runInNewContext(code, {exports, require:name=>name==='@/lib/request-origin.mjs'?originPolicy:require(name),process:{env},Buffer,URL,AbortSignal,SyntaxError,fetch:async (url,options)=>{
+  vm.runInNewContext(code, {exports, require:name=>name==='@/lib/request-origin.mjs'?originPolicy:require(name),process:{env},Buffer,URL,AbortSignal,fetch:async (url,options)=>{
     calls.push({url,options}); return new Response('{"filters":{}}',{headers:{'Content-Type':'application/json'}});
   }});
   const request = (body,origin='https://frontend.test') => new NextRequest('http://localhost/api/ai/questions', {method:'POST',headers:{host:'frontend.test',origin,'content-type':'application/json','x-real-ip':'127.0.0.1',cookie:'sessionid=private'},body});
@@ -31,3 +31,4 @@ test('AI BFF bounds actual bodies, throttles calls and keeps credentials and coo
   env.AI_FRONTEND_ENABLED='false';
   assert.equal((await exports.POST(request(body))).status,503);
 });
+
