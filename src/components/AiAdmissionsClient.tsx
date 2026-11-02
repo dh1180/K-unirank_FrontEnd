@@ -40,11 +40,11 @@ export default function AiAdmissionsPage() {
       if (!result.ok) {
         const detail = data && typeof data === "object" && "detail" in data
           ? (data as { detail?: unknown }).detail : undefined;
-        throw new Error(typeof detail === "string" ? detail : "입결 검색이 실패했어.");
+        throw new Error(typeof detail === "string" ? detail : "입결을 검색하지 못했습니다.");
       }
       setResponse(data as AiReply);
     } catch (ex) {
-      setError(ex instanceof Error ? ex.message : "질문을 처리하지 못했어.");
+      setError(ex instanceof Error ? ex.message : "질문을 처리하지 못했습니다.");
     } finally {
       setPending(false);
     }
@@ -54,7 +54,7 @@ export default function AiAdmissionsPage() {
     <>
       <section className="page-header">
         <h1>AI 입결 검색</h1>
-        <p>자연어로 질문해 줘. AI는 조건만 해석하고 실제 입결 수치는 Spring Boot에서 조회해.</p>
+        <p>내신 등급과 관심 학과를 알려주세요. 공개된 입시결과를 바탕으로 가까운 학과를 찾아드립니다.</p>
       </section>
       <section className="panel">
         <form className="ai-form" onSubmit={submit}>
@@ -67,7 +67,8 @@ export default function AiAdmissionsPage() {
             {pending ? "검색 중..." : "입결 찾아보기"}
           </button>
         </form>
-        {error && <p role="alert" className="notice">{error}</p>}
+        <p className="help">질문은 OpenRouter의 무료 AI 모델로 전달됩니다. 이름·연락처 등 개인정보는 입력하지 마세요. 무료 서비스 상황에 따라 응답이 지연될 수 있습니다.</p>
+        {error && <p role="alert" className="notice">{error} <Link href="/admissions/compare/">내 점수로 직접 찾기 →</Link></p>}
       </section>
       {response && (
         <section className="panel results">
@@ -75,7 +76,7 @@ export default function AiAdmissionsPage() {
           <p>내신 {response.filters.grade}등급 · {response.admissions.selectedYear ?? "학년도 미확인"}학년도 ·
             검색 결과 {response.admissions.totalCount.toLocaleString("ko-KR")}건</p>
           {!response.admissions.items.length ? (
-            <p>해당 조건의 공개 입결이 없어. <Link href="/admissions/compare/">일반 검색</Link>을 이용해 줘.</p>
+            <p>조건에 맞는 공개 입결이 없습니다. <Link href="/admissions/compare/">검색 조건을 조정해 보세요.</Link></p>
           ) : (
             <ul className="ai-evidence">
               {response.admissions.items.map(row => (
@@ -89,7 +90,7 @@ export default function AiAdmissionsPage() {
             </ul>
           )}
           <p className="help">{response.evidencePolicy}</p>
-          <p className="help">과거 컷과 내 등급만으로 합격이나 지원 자격을 확정할 수 없어.</p>
+          <p className="help">과거 입결과 내 등급을 비교한 참고 자료이며, 합격이나 지원 자격을 보장하지 않습니다.</p>
         </section>
       )}
     </>
