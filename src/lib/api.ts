@@ -1,4 +1,5 @@
 import "server-only";
+import { notFound } from "next/navigation";
 import type {
   AdmissionPage,
   GradeComparison,
@@ -14,20 +15,24 @@ import { toQuery } from "@/lib/query.mjs";
  * In an unconfigured preview, return null and show an explicit error.
  * We deliberately do NOT point an unconfigured preview at production Django.
  */
-export async function apiGet<T>(path: string): Promise<T | null> {
+export async function apiGet<T>(path: string, missingIs404 = false): Promise<T | null> {
   const base = process.env.API_INTERNAL_URL;
   if (!base) return null;
+  let response: Response;
   try {
     const url = new URL(path, base);
-    const response = await fetch(url, {
+    response = await fetch(url, {
       cache: "no-store",
       headers: { Accept: "application/json" },
       signal: AbortSignal.timeout(10_000),
     });
-    return response.ok ? ((await response.json()) as T) : null;
   } catch {
     return null;
   }
+  // An upstream 404 is different from a network outage or invalid JSON.
+  if (missingIs404 && response.status === 404) notFound();
+  if (!response.ok) return null;
+  try { return (await response.json()) as T; } catch { return null; }
 }
 
 export function searchAdmissions(
@@ -37,7 +42,7 @@ export function searchAdmissions(
 }
 
 export function getUniversity(id: number): Promise<UniversityDetail | null> {
-  return apiGet<UniversityDetail>(`/api/v1/universities/${id}`);
+  return apiGet<UniversityDetail>(`/api/v1/universities/${id}`, true);
 }
 export function universityRegions():Promise<string[]|null> { return apiGet<string[]>("/api/v1/universities/regions"); }
 
@@ -74,6 +79,7 @@ export function universityAdmissions(
 ): Promise<AdmissionPage | null> {
   return apiGet<AdmissionPage>(
     `/api/v1/admissions/universities/${id}?${toQuery({ ...filters, page, size: 20, year, metrics })}`,
+    true,
   );
 }
 
@@ -85,6 +91,7 @@ export function unitAdmissions(
 ): Promise<AdmissionPage | null> {
   return apiGet<AdmissionPage>(
     `/api/v1/admissions/units/${id}?${toQuery({ page, size: 20, year, metrics })}`,
+    true,
   );
 }
 

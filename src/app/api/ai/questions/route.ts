@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
+import { sameOrigin } from "@/lib/request-origin.mjs";
 
 export const dynamic = "force-dynamic";
 
 // The browser never receives the Railway private hostname or service token.
 export async function POST(request: NextRequest) {
   const origin = request.headers.get("origin");
-  if (!origin || origin !== request.nextUrl.origin
+  if (!sameOrigin(origin, request.headers.get("host") || request.nextUrl.host, process.env.NODE_ENV !== "production")
       || request.headers.get("sec-fetch-site") === "cross-site") {
     return NextResponse.json({ detail: "요청 출처가 올바르지 않습니다." }, { status: 403 });
   }
