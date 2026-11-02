@@ -4,7 +4,7 @@ import vm from 'node:vm';
 import {readFileSync} from 'node:fs';
 import {createRequire} from 'node:module';
 import ts from 'typescript';
-import {legacyTarget} from '../src/lib/legacy-target.mjs';
+import {legacyTarget,legacyOrigin} from '../src/lib/legacy-target.mjs';
 const require=createRequire(import.meta.url);
 test('retired Django bridge performs no network requests and native targets never loop',async()=>{
  const exports={};
@@ -17,4 +17,13 @@ test('retired Django bridge performs no network requests and native targets neve
  }
  assert.equal(legacyTarget('//attacker.test/'),null);
  assert.equal(legacyTarget('/support/'),null);
+});
+
+test('legacy redirects use the public host behind Railway and cannot expose an internal host',()=>{
+ assert.equal(legacyOrigin('k-unirank.com','http:'),'https://k-unirank.com');
+ assert.equal(new URL('/register/',legacyOrigin('k-unirank.com','http:')).href,'https://k-unirank.com/register/');
+ assert.equal(legacyOrigin('frontend-production-86dd.up.railway.app','http:'),'https://frontend-production-86dd.up.railway.app');
+ assert.equal(legacyOrigin('0.0.0.0:3000','http:'),'https://k-unirank.com');
+ assert.equal(legacyOrigin('k-unirank.com.attacker.test'),'https://k-unirank.com');
+ assert.equal(legacyOrigin('localhost:3000','http:'),'http://localhost:3000');
 });
