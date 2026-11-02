@@ -64,6 +64,14 @@ export async function POST(request: NextRequest) {
       cache: "no-store",
       signal: AbortSignal.timeout(45_000),
     });
+    if (!result.ok) {
+      const detail = result.status === 422
+        ? "내신 평균등급을 포함하여 질문해 주세요. 예: 내신 3.0등급 서울 간호학과"
+        : result.status === 429
+          ? "무료 AI 검색 한도에 도달했습니다. 잠시 후 다시 시도하거나 일반 입결 검색을 이용해 주세요."
+          : "AI 검색을 처리하지 못했습니다. 잠시 후 다시 시도하거나 일반 입결 검색을 이용해 주세요.";
+      return NextResponse.json({ detail }, { status: result.status, headers: { "Cache-Control": "no-store" } });
+    }
     return new NextResponse(await result.text(), {
       status: result.status,
       headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
