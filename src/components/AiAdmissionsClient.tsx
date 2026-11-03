@@ -26,12 +26,14 @@ export default function AiAdmissionsPage() {
   const [response, setResponse] = useState<AiReply | null>(null);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState("");
+  const [needsLogin,setNeedsLogin]=useState(false);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (pending) return;
     setPending(true);
     setError("");
+    setNeedsLogin(false);
     setResponse(null);
     try {
       const result = await fetch("/api/ai/questions", {
@@ -42,6 +44,7 @@ export default function AiAdmissionsPage() {
       });
       const data: unknown = await result.json().catch(() => ({}));
       if (!result.ok) {
+        if(result.status===401)setNeedsLogin(true);
         const detail = data && typeof data === "object" && "detail" in data
           ? (data as { detail?: unknown }).detail : undefined;
         throw new Error(typeof detail === "string" ? detail : "입결을 검색하지 못했습니다.");
@@ -76,7 +79,7 @@ export default function AiAdmissionsPage() {
             {pending ? "검색 중..." : "입결 찾아보기"}
           </button>
         </form>
-        {error && <p role="alert" className="notice">{error} <Link href="/admissions/compare/">내 점수로 직접 찾기 →</Link></p>}
+        {error && <p role="alert" className="notice">{error} <Link href={needsLogin?"/login/?next=%2Fai%2F":"/admissions/compare/"}>{needsLogin?"다시 로그인 →":"내 점수로 직접 찾기 →"}</Link></p>}
       </section>
       {response && (
         <section className="panel results">

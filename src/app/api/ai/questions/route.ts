@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sameOrigin } from "@/lib/request-origin.mjs";
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
+import { authenticateAiMember, recordAiUsage } from "@/lib/ai-member";
 
 export const dynamic = "force-dynamic";
 const windows = new Map<string, { until: number; count: number }>();
@@ -19,6 +20,7 @@ function allowRequest(request: NextRequest) {
 
 // The browser never receives the Railway private hostname or service token.
 export async function POST(request: NextRequest) {
+  let audit:{id:string;started:number;status:number}|undefined;
   const origin = request.headers.get("origin");
   if (!sameOrigin(origin, request.headers.get("host") || request.nextUrl.host, process.env.NODE_ENV !== "production")
       || request.headers.get("sec-fetch-site") === "cross-site") {
@@ -35,6 +37,8 @@ export async function POST(request: NextRequest) {
   if (process.env.AI_FRONTEND_ENABLED !== "true" || !api || !token || token.length < 32) {
     return NextResponse.json({ detail: "AI 입결 기능은 연결 준비 중입니다." }, { status: 503 });
   }
+  const member=await authenticateAiMember(request);
+  if(!member.ok) return new NextResponse(await member.text(),{status:member.status,headers:{"Content-Type":"application/json","Cache-Control":"no-store"}});
   try {
     const reader = request.body?.getReader();
     if (!reader) return NextResponse.json({ detail: "질문을 입력해 주세요." }, { status: 422 });
@@ -57,6 +61,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ detail: "8~500자로 질문을 입력해 주세요." }, { status: 422 });
     }
     if (!allowRequest(request)) return NextResponse.json({ detail: "잠시 후 다시 검색해 주세요. 1분에 두 번 검색할 수 있습니다." }, { status: 429, headers: { "Retry-After": "60" } });
+    audit={id:randomUUID(),started:Date.now(),status:502};
     const result = await fetch(new URL("/api/v1/ai/questions", api), {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Frontend-Service-Token": token },
@@ -64,6 +69,7 @@ export async function POST(request: NextRequest) {
       cache: "no-store",
       signal: AbortSignal.timeout(45_000),
     });
+    audit.status=result.status;
     if (!result.ok) {
       const upstream = result.status === 422 ? await result.json().catch(() => ({})) : {};
       const clarification = typeof upstream.detail === "string" && upstream.detail.length <= 200 ? upstream.detail : "";
@@ -81,5 +87,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     if (error instanceof SyntaxError) return NextResponse.json({ detail: "JSON 형식을 확인해 주세요." }, { status: 400 });
     return NextResponse.json({ detail: "AI 입결 API 서버에 연결하지 못했습니다." }, { status: 502 });
+  } finally {
+    if(audit) await recordAiUsage(request,audit.id,audit.status,Date.now()-audit.started);
   }
 }

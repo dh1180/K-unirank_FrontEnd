@@ -12,6 +12,8 @@ const permitted = new Set([
   "/api/v1/member/favorites/universities",
   "/api/v1/member/favorites/units",
   "/api/v1/admin/overview",
+  "/api/v1/admin/members",
+  "/api/v1/admin/quality",
 ]);
 
 function error(detail: string, status: number) {
@@ -72,6 +74,12 @@ export async function proxyMember(request: NextRequest, destination: string,
     const session = request.cookies.get("kunirank_member")?.value;
     const network = createHmac("sha256", serviceToken).update(request.headers.get("x-real-ip") || "unknown").digest("hex");
     const target = new URL(destination, api);
+    if(destination.startsWith("/api/v1/admin/") && method==="GET") {
+      for(const key of ["q","page","kind","state"]) {
+        const value=request.nextUrl.searchParams.get(key);
+        if(value!==null && value.length<=80) target.searchParams.set(key,value);
+      }
+    }
     if(destination.endsWith("/history")) {
       const page=Number(request.nextUrl.searchParams.get("page")||0);
       target.searchParams.set("page",String(Number.isInteger(page)&&page>=0&&page<=100000?page:0));
