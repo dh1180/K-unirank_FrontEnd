@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import {memberReturnPath} from "@/lib/member-return.mjs";
 import {useState,type FormEvent} from "react";
 import {useRouter} from "next/navigation";
 export default function Register(){
@@ -8,7 +9,7 @@ export default function Register(){
   const form=new FormData(event.currentTarget);const values=Object.fromEntries(form);
   try{const response=await fetch("/api/member/register/",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify(values)});
    const data=await response.json();if(!response.ok)throw new Error(data.detail||"회원가입 입력을 확인해 주세요.");
-   window.dispatchEvent(new Event("member-change"));router.replace("/mypage/");router.refresh();
+   window.dispatchEvent(new Event("member-change"));router.replace(memberReturnPath(new URLSearchParams(window.location.search).get("next")));router.refresh();
   }catch(e){setError(e instanceof Error?e.message:"회원가입하지 못했습니다.");}finally{setBusy(false);}
  }
  return <section className="panel login-card" style={{maxWidth:560,margin:"32px auto"}}><p className="eyebrow">JOIN K-UNIRANK</p><h1>회원가입</h1><p>관심 대학을 저장하고 나의 탐색 기록을 이어가세요.</p>

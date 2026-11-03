@@ -1,0 +1,30 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import vm from 'node:vm';
+import {readFileSync} from 'node:fs';
+import ts from 'typescript';
+import {memberReturnPath} from '../src/lib/member-return.mjs';
+
+test('AI membership validates live sessions, fails closed and stores only bounded request metrics',async()=>{
+  const exports={},calls=[];
+  let status=200;
+  const env={MEMBER_FRONTEND_ENABLED:'true',MEMBER_API_INTERNAL_URL:'http://member.private',MEMBER_FRONTEND_TOKEN:'test-member-token-at-least-thirty-two-characters'};
+  vm.runInNewContext(ts.transpileModule(readFileSync(new URL('../src/lib/ai-member.ts',import.meta.url),'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText,{exports,Response,URL,AbortSignal,process:{env},fetch:async(url,options)=>{calls.push({url:String(url),options});return new Response(null,{status});}});
+  const request=(session)=>({cookies:{get:()=>session?{value:session}:undefined},headers:new Headers({origin:'https://frontend.test'})});
+  assert.equal((await exports.authenticateAiMember(request())).status,401);
+  assert.equal((await exports.authenticateAiMember(request('bad;injection'))).status,401);
+  assert.equal(calls.length,0);
+  assert.equal((await exports.authenticateAiMember(request('valid.signed'))).status,200);
+  assert.equal(calls[0].options.headers.Cookie,'kunirank_member=valid.signed');
+  status=401;
+  assert.equal((await exports.authenticateAiMember(request('revoked.signed'))).status,401);
+  status=500;
+  assert.equal((await exports.authenticateAiMember(request('valid.signed'))).status,503);
+  await exports.recordAiUsage(request('valid.signed'),'request-id',200,999999);
+  const stored=JSON.parse(calls.at(-1).options.body);
+  assert.deepEqual(Object.keys(stored).sort(),['elapsedMs','requestId','statusCode']);
+  assert.equal(stored.elapsedMs,120000);
+  assert.equal(memberReturnPath('/ai/'),'/ai/');
+  assert.equal(memberReturnPath('https://attacker.test'),'/mypage/');
+  assert.equal(memberReturnPath('//attacker.test'),'/mypage/');
+});

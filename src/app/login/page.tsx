@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import {memberReturnPath} from "@/lib/member-return.mjs";
 import { type FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -32,7 +33,7 @@ export default function LoginPage() {
       setPassword("");
       window.dispatchEvent(new Event("member-change"));
       const next = new URLSearchParams(window.location.search).get("next");
-      router.replace(next === "/admin/" ? "/admin/" : "/mypage/");
+      router.replace(memberReturnPath(next));
       router.refresh();
     } catch (ex) {
       setError(ex instanceof Error ? ex.message : "로그인하지 못했습니다.");

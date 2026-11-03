@@ -11,10 +11,11 @@ const {NextRequest} = require('next/server');
 test('AI BFF bounds actual bodies, throttles calls and keeps credentials and cookies private', async () => {
   const exports = {}, calls = [];
   let upstreamStatus = 200;
+  let authStatus=200; const audits=[];
   let upstreamBody = '{"filters":{},"internal":"private detail"}';
   const env = {NODE_ENV:'production',AI_FRONTEND_ENABLED:'true',API_INTERNAL_URL:'http://private',AI_FRONTEND_TOKEN:'test-private-token-at-least-thirty-two-characters'};
   const code = ts.transpileModule(readFileSync(new URL('../src/app/api/ai/questions/route.ts',import.meta.url),'utf8'), {compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
-  vm.runInNewContext(code, {exports, require:name=>name==='@/lib/request-origin.mjs'?originPolicy:require(name),process:{env},Buffer,URL,AbortSignal,fetch:async (url,options)=>{
+  vm.runInNewContext(code, {exports, require:name=>name==='@/lib/request-origin.mjs'?originPolicy:name==='@/lib/ai-member'?{authenticateAiMember:async()=>new Response(null,{status:authStatus}),recordAiUsage:async(_r,id,status,ms)=>audits.push({id,status,ms})}:require(name),process:{env},Buffer,URL,AbortSignal,fetch:async (url,options)=>{
     calls.push({url,options}); return new Response(upstreamBody,{status:upstreamStatus,headers:{'Content-Type':'application/json'}});
   }});
   const request = (body,origin='https://frontend.test') => new NextRequest('http://localhost/api/ai/questions', {method:'POST',headers:{host:'frontend.test',origin,'content-type':'application/json','x-real-ip':'127.0.0.1',cookie:'sessionid=private'},body});
@@ -23,6 +24,13 @@ test('AI BFF bounds actual bodies, throttles calls and keeps credentials and coo
   assert.equal((await exports.POST(request('{invalid'))).status,400);
   assert.equal((await exports.POST(request('{"question":"짧음"}'))).status,422);
   const body=JSON.stringify({question:'내신 3등급 서울 간호학과 찾아줘'});
+  authStatus=401;
+  assert.equal((await exports.POST(request(body))).status,401);
+  assert.equal(calls.length,0);
+  authStatus=503;
+  assert.equal((await exports.POST(request(body))).status,503);
+  assert.equal(calls.length,0);
+  authStatus=200;
   upstreamStatus=422;
   const guidance=await exports.POST(request(body));
   assert.equal(guidance.status,422);
@@ -36,6 +44,8 @@ test('AI BFF bounds actual bodies, throttles calls and keeps credentials and coo
   assert.equal((await exports.POST(request(body))).status,200);
   assert.equal((await exports.POST(request(body))).status,429);
   assert.equal(calls.length,3);
+  assert.equal(audits.length,3);
+  assert.equal(audits[0].status,422);
   assert.equal(calls[0].options.headers.Cookie,undefined);
   assert.equal(calls[0].options.headers['X-Frontend-Service-Token'],env.AI_FRONTEND_TOKEN);
   assert.equal(JSON.parse(calls[0].options.body).limit,5);
