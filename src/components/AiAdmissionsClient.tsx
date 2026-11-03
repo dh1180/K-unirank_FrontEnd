@@ -62,7 +62,7 @@ export default function AiAdmissionsPage() {
       </section>
       <section className="panel">
         <div className="ai-examples" aria-label="질문 예시">
-          {["건동홍 2.3등급으로 갈만한 학과 찾아줘", "내신 3.2 수도권 컴공 교과 찾아줘", "내신 2점8 서울 경기 심리학과 학종", "내신 2.5 한국항공대 컴공 교과"].map(example => (
+          {["지거국 3.0등급 컴공 교과 찾아줘", "건동홍 2.3등급으로 갈만한 학과 찾아줘", "내신 3.2 수도권 컴공 교과 찾아줘", "내신 2점8 서울 경기 심리학과 학종"].map(example => (
             <button type="button" key={example} disabled={pending} onClick={() => setQuestion(example)}>{example}</button>
           ))}
         </div>
@@ -76,7 +76,6 @@ export default function AiAdmissionsPage() {
             {pending ? "검색 중..." : "입결 찾아보기"}
           </button>
         </form>
-        <p className="help">질문은 OpenRouter의 무료 AI 모델로 전달됩니다. 이름·연락처 등 개인정보는 입력하지 마세요. 무료 서비스 상황에 따라 응답이 지연될 수 있습니다.</p>
         {error && <p role="alert" className="notice">{error} <Link href="/admissions/compare/">내 점수로 직접 찾기 →</Link></p>}
       </section>
       {response && (
