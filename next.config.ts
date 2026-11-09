@@ -4,6 +4,12 @@ const nextConfig: NextConfig = {
   output: "standalone",
   trailingSlash: true,
   poweredByHeader: false,
+  async headers() {
+    return ["/brand/k-unirank.png", "/university/logos/:file", "/static/university/logos/:file"].map((source) => ({
+      source,
+      headers: [{ key: "Cache-Control", value: "public, max-age=86400" }],
+    }));
+  },
   async redirects() {
     return [
       {
