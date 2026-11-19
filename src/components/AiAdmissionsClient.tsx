@@ -80,7 +80,7 @@ export default function AiAdmissionsPage() {
       ].map(example=><button type="button" key={example} disabled={pending} onClick={()=>{reset();setQuestion(example);}}>{example}</button>)}</div>
       {response && <div className="ai-conversation-context"><p>이전 조건을 이어서 검색합니다. 대학·학과·학년도 등을 바꾸거나 새 질문을 시작할 수 있어요.</p><button type="button" className="button" disabled={pending} onClick={reset}>새 질문</button></div>}
       {history.length>0 && <ol className="ai-question-history" aria-label="이번 대화의 질문">{history.map((text,i)=><li key={i}>{text}</li>)}</ol>}
-      {f && <p className="ai-filter-summary">{f.university??"전체 대학"} · {f.major??"전체 학과"} · {f.track==="holistic"?"학생부종합":"학생부교과"}{f.region?` · ${f.region}`:""}{f.grade!=null?` · 내신 ${f.grade}등급`:" · 등급 없이 조회"}{response.context?.year?` · ${response.context.year}학년도`:""}</p>}
+      {f && <p className="ai-filter-summary">{f.university??"전체 대학"} · {f.major??"전체 학과"} · {response.mode==="documents"?"공식 모집요강":f.track==="holistic"?"학생부종합":"학생부교과"}{f.region?` · ${f.region}`:""}{f.grade!=null?` · 내신 ${f.grade}등급`:" · 등급 없이 조회"}{response.context?.year?` · ${response.context.year}학년도`:""}</p>}
       <form className="ai-form" onSubmit={submit}>
         <label htmlFor="ai-question">{response?"이어서 질문하기":"입결 질문"}</label>
         <textarea id="ai-question" required minLength={2} maxLength={500} value={question} onChange={event=>setQuestion(event.target.value)}
@@ -112,7 +112,7 @@ export default function AiAdmissionsPage() {
       </>}
       {response.admissions && <Link className="button" href={response.filters.grade!=null?`/admissions/compare/?${new URLSearchParams({grade:String(response.filters.grade),track:response.filters.track,special:response.filters.special,scope:response.filters.scope,...(response.context.year?{year:String(response.context.year)}:{}),...(response.filters.region?{region:response.filters.region}:{}),...(response.filters.major?{q:response.filters.major}:{}),...(response.filters.university?{university:response.filters.university}:{})})}`:`/?${new URLSearchParams({q:response.filters.university?.split(",")[0]??response.filters.major?.split(",")[0]??"",phase:"SUSI",track:response.filters.track})}#explore`}>{response.filters.grade!=null?"같은 조건으로 전체 결과 보기 →":"입결 찾기에서 검색 →"}</Link>}
       <p className="help">{response.evidencePolicy}</p>
-      <p className="help">70% 컷을 우선 비교하고, 없으면 50% 컷을 사용합니다. 수시 9등급제 내신 기준의 참고 자료이며, 합격·지원 자격을 보장하지 않습니다.</p>
+      {response.mode!=="documents" && <p className="help">70% 컷을 우선 비교하고, 없으면 50% 컷을 사용합니다. 수시 9등급제 내신 기준의 참고 자료이며, 합격·지원 자격을 보장하지 않습니다.</p>}
     </section>}
   </>;
 }
