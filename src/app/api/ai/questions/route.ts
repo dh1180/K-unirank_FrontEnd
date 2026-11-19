@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
   if (!(request.headers.get("content-type") ?? "").startsWith("application/json")) {
     return NextResponse.json({ detail: "JSON 요청만 허용합니다." }, { status: 415 });
   }
-  if (Number(request.headers.get("content-length") ?? 0) > 2048) {
+  if (Number(request.headers.get("content-length") ?? 0) > 4096) {
     return NextResponse.json({ detail: "요청이 너무 큽니다." }, { status: 413 });
   }
   const api = process.env.API_INTERNAL_URL;
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
       const { value, done } = await reader.read();
       if (done) break;
       bytes += value.byteLength;
-      if (bytes > 2048) {
+      if (bytes > 4096) {
         await reader.cancel();
         return NextResponse.json({ detail: "요청이 너무 큽니다." }, { status: 413 });
       }
@@ -57,15 +57,30 @@ export async function POST(request: NextRequest) {
     const payload: unknown = JSON.parse(Buffer.concat(chunks).toString("utf8"));
     const question = payload && typeof payload === "object"
       ? (payload as { question?: unknown }).question : undefined;
-    if (typeof question !== "string" || question.trim().length < 8 || question.length > 500) {
-      return NextResponse.json({ detail: "8~500자로 질문을 입력해 주세요." }, { status: 422 });
+    if (typeof question !== "string" || question.trim().length < 2 || question.length > 500) {
+      return NextResponse.json({ detail: "2~500자로 질문을 입력해 주세요." }, { status: 422 });
+    }
+    const context = (payload as {context?: unknown}).context;
+    if (context != null) {
+      if (typeof context !== "object" || Array.isArray(context))
+        return NextResponse.json({detail:"이전 검색 조건을 확인해 주세요."},{status:422});
+      const fields: Record<string, unknown> = context as Record<string, unknown>;
+      const lengths: Record<string, number> = {region:60,major:100,university:160};
+      const enums: Record<string, string[]> = {track:["student","holistic"],special:["exclude","all"],scope:["near","all"]};
+      for (const [key,value] of Object.entries(fields)) {
+        if (!["grade","year",...Object.keys(lengths),...Object.keys(enums)].includes(key)
+          || value != null && (key in lengths ? typeof value!=="string" || value.length>lengths[key]
+            : key in enums ? typeof value!=="string" || !enums[key].includes(value)
+            : typeof value!=="number" || !Number.isFinite(value) || (key==="year" ? !Number.isInteger(value)||value<2000||value>2100 : value<1||value>9||Math.abs(value*100-Math.round(value*100))>1e-8)))
+          return NextResponse.json({detail:"이전 검색 조건을 확인하거나 새 질문을 시작해 주세요."},{status:422});
+      }
     }
     if (!allowRequest(request)) return NextResponse.json({ detail: "잠시 후 다시 검색해 주세요. 1분에 두 번 검색할 수 있습니다." }, { status: 429, headers: { "Retry-After": "60" } });
     audit={id:randomUUID(),started:Date.now(),status:502};
     const result = await fetch(new URL("/api/v1/ai/questions", api), {
       method: "POST",
       headers: { "Content-Type": "application/json", "X-Frontend-Service-Token": token },
-      body: JSON.stringify({ question, limit: 5 }),
+      body: JSON.stringify({ question, limit: 5, ...(context ? {context} : {}) }),
       cache: "no-store",
       signal: AbortSignal.timeout(45_000),
     });
